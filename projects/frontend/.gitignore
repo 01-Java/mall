@@ -26,3 +26,9 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+# 生成的包依赖锁文件 不提交
+package-lock.json
+pnpm-lock.yaml
+stats.html
+

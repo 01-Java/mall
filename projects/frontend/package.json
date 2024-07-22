@@ -1,0 +1,13 @@
+{
+  "name": "@zo-java-resail/frontend-root",
+  "version": "0.0.1",
+  "private": true,
+  "description": "01星球-Java再起航小组-前端根项目",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
