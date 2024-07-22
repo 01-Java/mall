@@ -1,13 +1,16 @@
 {
-  "name": "@zo-java-resail/frontend-root",
-  "version": "0.0.1",
-  "private": true,
-  "description": "01星球-Java再起航小组-前端根项目",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+	"name": "@zo-java-resail/frontend-root",
+	"author": "01星球-Java再起航小组 阮喵喵",
+	"version": "0.0.1",
+	"private": true,
+	"description": "01星球-Java再起航小组-前端根项目",
+	"main": "index.js",
+	"scripts": {
+		"preinstall": "npx only-allow pnpm"
+	},
+	"keywords": [],
+	"license": "ISC",
+	"engines": {
+		"node": ">=18.0.0"
+	}
 }
