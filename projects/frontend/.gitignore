@@ -30,3 +30,7 @@ package-lock.json
 pnpm-lock.yaml
 stats.html
 
+
+# 不提供自动生成的类型文件
+auto-imports.d.ts
+components.d.ts

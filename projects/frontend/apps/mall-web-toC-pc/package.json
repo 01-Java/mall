@@ -1,6 +1,6 @@
 {
-	"name": "vue3_shopping",
-	"version": "0.0.0",
+	"name": "@zo-java-resail/mall",
+	"version": "0.0.1",
 	"private": true,
 	"scripts": {
 		"dev": "vite",

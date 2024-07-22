@@ -1,8 +1,13 @@
 {
-  "name": "mall-admin",
-  "version": "3.2.0",
+  "name": "@zo-java-resail/mall-admin",
+  "version": "0.0.1",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=18",
+    "vscode": "^1.22.0",
+    "pnpm": ">=8"
+  },
   "scripts": {
     "dev": "vite serve --mode development",
     "build:prod": "vite build --mode production && vue-tsc --noEmit",
