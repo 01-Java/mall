@@ -7,6 +7,7 @@ import Components from "unplugin-vue-components/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import Icons from "unplugin-icons/vite";
 import IconsResolver from "unplugin-icons/resolver";
+import vueDevTools from "vite-plugin-vue-devtools";
 
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import mockDevServerPlugin from "vite-plugin-mock-dev-server";
@@ -70,15 +71,20 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         },
       },
     },
+
     plugins: [
       vue(),
+
       // jsx、tsx语法支持
       vueJsx(),
+
       // MOCK 服务
       env.VITE_MOCK_DEV_SERVER === "true" ? mockDevServerPlugin() : null,
+
       UnoCSS({
         hmrTopLevelAwait: false,
       }),
+
       // 自动导入参考： https://github.com/sxzz/element-plus-best-practices/blob/main/vite.config.ts
       AutoImport({
         // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
@@ -92,8 +98,8 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         },
         vueTemplate: true,
         // 配置文件生成位置(false:关闭自动生成)
-        dts: false,
-        // dts: "src/typings/auto-imports.d.ts",
+        // dts: false,
+        dts: "src/typings/auto-imports.d.ts",
       }),
 
       Components({
@@ -113,13 +119,17 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       Icons({
         autoInstall: true,
       }),
+
       createSvgIconsPlugin({
         // 指定需要缓存的图标文件夹
         iconDirs: [resolve(pathSrc, "assets/icons")],
         // 指定symbolId格式
         symbolId: "icon-[dir]-[name]",
       }),
+
+      vueDevTools(),
     ],
+
     // 预加载项目必需的组件
     optimizeDeps: {
       include: [

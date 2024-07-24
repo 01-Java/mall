@@ -171,7 +171,8 @@ const loginRules = computed(() => {
     ],
     captchaCode: [
       {
-        required: true,
+        // required: true,
+        required: false,
         trigger: "blur",
         message: `${prefix}${t("login.captchaCode")}`,
       },
