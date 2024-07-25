@@ -1,10 +1,10 @@
 <script setup>
-import GoodsItem from '@/components/GoodsItem.vue'
-import { useBanner } from './composables/useBanner'
-import { useCategory } from './composables/useCategory'
+import GoodsItem from "@/components/GoodsItem.vue";
+import { useBanner } from "./composables/useBanner";
+import { useCategory } from "./composables/useCategory";
 
-const { categoryData } = useCategory()
-const { bannerList } = useBanner()
+const { categoryData } = useCategory();
+const { bannerList } = useBanner();
 </script>
 
 <template>
@@ -36,11 +36,7 @@ const { bannerList } = useBanner()
 					</li>
 				</ul>
 			</div>
-			<div
-				class="ref-goods"
-				v-for="item in categoryData.children"
-				:key="item.id"
-			>
+			<div class="ref-goods" v-for="item in categoryData.children" :key="item.id">
 				<div class="head">
 					<h3>- {{ item.name }}-</h3>
 				</div>

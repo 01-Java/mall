@@ -1,63 +1,59 @@
 <script setup>
-import { getUserOrderAPI } from '@/apis/order'
-import { onMounted, ref } from 'vue'
+import { getUserOrderAPI } from "@/apis/order";
+import { onMounted, ref } from "vue";
 // tab列表
 const tabTypes = [
-	{ name: 'all', label: '全部订单' },
-	{ name: 'unpay', label: '待付款' },
-	{ name: 'deliver', label: '待发货' },
-	{ name: 'receive', label: '待收货' },
-	{ name: 'comment', label: '待评价' },
-	{ name: 'complete', label: '已完成' },
-	{ name: 'cancel', label: '已取消' }
-]
+	{ name: "all", label: "全部订单" },
+	{ name: "unpay", label: "待付款" },
+	{ name: "deliver", label: "待发货" },
+	{ name: "receive", label: "待收货" },
+	{ name: "comment", label: "待评价" },
+	{ name: "complete", label: "已完成" },
+	{ name: "cancel", label: "已取消" },
+];
 // 创建格式化函数
 const fomartPayState = (payState) => {
 	const stateMap = {
-		1: '待付款',
-		2: '待发货',
-		3: '待收货',
-		4: '待评价',
-		5: '已完成',
-		6: '已取消'
-	}
-	return stateMap[payState]
-}
+		1: "待付款",
+		2: "待发货",
+		3: "待收货",
+		4: "待评价",
+		5: "已完成",
+		6: "已取消",
+	};
+	return stateMap[payState];
+};
 // 订单列表
-const orderList = ref([])
-const total = ref(0)
+const orderList = ref([]);
+const total = ref(0);
 const params = ref({
 	orderState: 0,
 	page: 1,
-	pageSize: 2
-})
+	pageSize: 2,
+});
 const getUserOrder = async () => {
-	const res = await getUserOrderAPI(params.value)
-	orderList.value = res.result.items
-	total.value = res.result.counts
-}
-onMounted(() => getUserOrder())
+	const res = await getUserOrderAPI(params.value);
+	orderList.value = res.result.items;
+	total.value = res.result.counts;
+};
+onMounted(() => getUserOrder());
 // 导航栏切换
 const tabChange = (type) => {
-	params.value.orderState = type
-	getUserOrder()
-}
+	params.value.orderState = type;
+	getUserOrder();
+};
 // 页面切换
 const pageChange = (page) => {
-	params.value.page = page
-	getUserOrder()
-}
+	params.value.page = page;
+	getUserOrder();
+};
 </script>
 
 <template>
 	<div class="order-container">
 		<el-tabs @tab-change="tabChange">
 			<!-- tab切换 -->
-			<el-tab-pane
-				v-for="item in tabTypes"
-				:key="item.name"
-				:label="item.label"
-			/>
+			<el-tab-pane v-for="item in tabTypes" :key="item.name" :label="item.label" />
 			<div class="main-container">
 				<div class="holder-container" v-if="orderList.length === 0">
 					<el-empty description="暂无订单数据" />
@@ -112,20 +108,8 @@ const pageChange = (page) => {
 								<p>在线支付</p>
 							</div>
 							<div class="column action">
-								<el-button
-									v-if="order.orderState === 1"
-									type="primary"
-									size="small"
-								>
-									立即付款
-								</el-button>
-								<el-button
-									v-if="order.orderState === 3"
-									type="primary"
-									size="small"
-								>
-									确认收货
-								</el-button>
+								<el-button v-if="order.orderState === 1" type="primary" size="small"> 立即付款 </el-button>
+								<el-button v-if="order.orderState === 3" type="primary" size="small"> 确认收货 </el-button>
 								<p><a href="javascript:;">查看详情</a></p>
 								<p v-if="[2, 3, 4, 5].includes(order.orderState)">
 									<a href="javascript:;">再次购买</a>

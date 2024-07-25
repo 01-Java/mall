@@ -1,66 +1,64 @@
 <script setup>
-import { getCheckInfoAPI } from '@/apis/checkout.js'
-import { ref, onMounted } from 'vue'
-import { createOrderAPI } from '@/apis/order'
-import { useRouter } from 'vue-router'
-import { useCartStore } from '@/stores'
+import { getCheckInfoAPI } from "@/apis/checkout.js";
+import { ref, onMounted } from "vue";
+import { createOrderAPI } from "@/apis/order";
+import { useRouter } from "vue-router";
+import { useCartStore } from "@/stores";
 // 定义变量
-const cartStore = useCartStore()
-const router = useRouter()
-const checkInfo = ref({})
-const curAddress = ref({})
+const cartStore = useCartStore();
+const router = useRouter();
+const checkInfo = ref({});
+const curAddress = ref({});
 const getCheckInfo = async () => {
-	const res = await getCheckInfoAPI()
-	checkInfo.value = res.result
+	const res = await getCheckInfoAPI();
+	checkInfo.value = res.result;
 	// 获取默认地址
-	const item = checkInfo.value.userAddresses.find(
-		(item) => item.isDefault === 0
-	)
-	curAddress.value = item
-}
-onMounted(() => getCheckInfo())
+	const item = checkInfo.value.userAddresses.find((item) => item.isDefault === 0);
+	curAddress.value = item;
+};
+onMounted(() => getCheckInfo());
 // 控制地址切换
-const showDialog = ref(false)
+const showDialog = ref(false);
 // 地址切换高亮
-const activeAddress = ref({})
+const activeAddress = ref({});
 // 初始高亮位置
 const showDialogFn = () => {
-	showDialog.value = true
-	activeAddress.value = curAddress.value
-}
+	showDialog.value = true;
+	activeAddress.value = curAddress.value;
+};
 const switchAddress = (item) => {
-	activeAddress.value = item
-}
+	activeAddress.value = item;
+};
 // 改变地址
 const changeAddress = () => {
-	curAddress.value = activeAddress.value
-	showDialog.value = false
-}
+	curAddress.value = activeAddress.value;
+	showDialog.value = false;
+};
 // 创建订单逻辑
 const createOrder = async () => {
 	const res = await createOrderAPI({
 		deliveryTimeType: 1,
 		payType: 1,
 		payChannel: 1,
-		buyerMessage: '',
+		buyerMessage: "",
 		goods: checkInfo.value.goods.map((item) => {
 			return {
 				skuId: item.skuId,
-				count: item.count
-			}
+				count: item.count,
+			};
 		}),
-		addressId: curAddress.value.id
-	})
-	const orderId = res.result.id
+		addressId: curAddress.value.id,
+	});
+	const orderId = res.result.id;
 	router.push({
-		path: '/pay',
+		path: "/pay",
 		query: {
-			id: orderId
-		}
-	})
+			id: orderId,
+		},
+	});
 	// 更新购物车
-	cartStore.updateCartList()
-}
+	cartStore.updateCartList();
+};
 </script>
 
 <template>
@@ -72,9 +70,7 @@ const createOrder = async () => {
 				<div class="box-body">
 					<div class="address">
 						<div class="text">
-							<div class="none" v-if="!curAddress">
-								您需要先添加收货地址才可提交订单。
-							</div>
+							<div class="none" v-if="!curAddress">您需要先添加收货地址才可提交订单。</div>
 							<ul v-else>
 								<li>
 									<span>收<i />货<i />人：</span>{{ curAddress.receiver }}
@@ -88,9 +84,7 @@ const createOrder = async () => {
 						</div>
 						<div class="action">
 							<el-button size="large" @click="showDialogFn">切换地址</el-button>
-							<el-button size="large" @click="addFlag = true"
-								>添加地址</el-button
-							>
+							<el-button size="large" @click="addFlag = true">添加地址</el-button>
 						</div>
 					</div>
 				</div>
@@ -129,9 +123,7 @@ const createOrder = async () => {
 				<!-- 配送时间 -->
 				<h3 class="box-title">配送时间</h3>
 				<div class="box-body">
-					<a class="my-btn active" href="javascript:;"
-						>不限送货时间：周一至周日</a
-					>
+					<a class="my-btn active" href="javascript:;">不限送货时间：周一至周日</a>
 					<a class="my-btn" href="javascript:;">工作日送货：周一至周五</a>
 					<a class="my-btn" href="javascript:;">双休日、假日送货：周六至周日</a>
 				</div>
@@ -168,9 +160,7 @@ const createOrder = async () => {
 				</div>
 				<!-- 提交订单 -->
 				<div class="submit">
-					<el-button type="primary" size="large" @click="createOrder"
-						>提交订单</el-button
-					>
+					<el-button type="primary" size="large" @click="createOrder">提交订单</el-button>
 				</div>
 			</div>
 		</div>

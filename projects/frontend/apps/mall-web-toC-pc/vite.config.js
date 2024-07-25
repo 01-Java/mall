@@ -1,35 +1,35 @@
-import { fileURLToPath, URL } from 'node:url'
+import { fileURLToPath, URL } from "node:url";
 
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
 // 引入插件
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import ElementPlus from 'unplugin-element-plus/vite'
+import AutoImport from "unplugin-auto-import/vite";
+import Components from "unplugin-vue-components/vite";
+import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
+import ElementPlus from "unplugin-element-plus/vite";
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [
 		vue(),
 		// 配置插件
 		AutoImport({
-			resolvers: [ElementPlusResolver()]
+			resolvers: [ElementPlusResolver()],
 		}),
 		Components({
 			resolvers: [
 				// 配置额，elementPlus采取sass样式配色系统
-				ElementPlusResolver({ importStyle: 'sass' })
-			]
+				ElementPlusResolver({ importStyle: "sass" }),
+			],
 		}),
 		// 按需定制主题配置
 		ElementPlus({
-			useSource: true
-		})
+			useSource: true,
+		}),
 	],
 	resolve: {
 		alias: {
-			'@': fileURLToPath(new URL('./src', import.meta.url))
-		}
+			"@": fileURLToPath(new URL("./src", import.meta.url)),
+		},
 	},
 	css: {
 		preprocessorOptions: {
@@ -38,8 +38,8 @@ export default defineConfig({
 				additionalData: `
           @use "@/styles/element/index.scss" as *;
           @use "@/styles/var.scss" as *;
-        `
-			}
-		}
-	}
-})
+        `,
+			},
+		},
+	},
+});

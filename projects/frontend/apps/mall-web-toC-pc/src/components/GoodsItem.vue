@@ -2,9 +2,9 @@
 defineProps({
 	good: {
 		type: Object,
-		define: () => {}
-	}
-})
+		define: () => {},
+	},
+});
 </script>
 <template>
 	<RouterLink :to="`/detail/${good.id}`" class="goods-item">

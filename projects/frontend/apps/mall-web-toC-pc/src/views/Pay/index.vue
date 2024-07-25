@@ -1,24 +1,24 @@
 <script setup>
-import { getOrderAPI } from '@/apis/order'
-import { useRoute } from 'vue-router'
-import { ref, onMounted } from 'vue'
-import { useCountDown } from '@/composables/formatTime'
+import { getOrderAPI } from "@/apis/order";
+import { useRoute } from "vue-router";
+import { ref, onMounted } from "vue";
+import { useCountDown } from "@/composables/formatTime";
 
-const { formatTime, start } = useCountDown()
-const payInfo = ref({})
-const route = useRoute()
+const { formatTime, start } = useCountDown();
+const payInfo = ref({});
+const route = useRoute();
 const getPayInfo = async () => {
-	const res = await getOrderAPI(route.query.id)
-	payInfo.value = res.result
+	const res = await getOrderAPI(route.query.id);
+	payInfo.value = res.result;
 	// 初始化倒计时
-	start(res.result.countdown)
-}
-onMounted(() => getPayInfo())
+	start(res.result.countdown);
+};
+onMounted(() => getPayInfo());
 // 跳转支付地址
-const baseURL = 'http://pcapi-xiaotuxian-front-devtest.itheima.net/'
-const backURL = 'http://localhost:5173/paycallback'
-const redirectUrl = encodeURIComponent(backURL)
-const payUrl = `${baseURL}pay/aliPay?orderId=${route.query.id}&redirect=${redirectUrl}`
+const baseURL = "http://pcapi-xiaotuxian-front-devtest.itheima.net/";
+const backURL = "http://localhost:5173/paycallback";
+const redirectUrl = encodeURIComponent(backURL);
+const payUrl = `${baseURL}pay/aliPay?orderId=${route.query.id}&redirect=${redirectUrl}`;
 </script>
 
 <template>
@@ -141,13 +141,13 @@ const payUrl = `${baseURL}pay/aliPay?orderId=${route.query.id}&redirect=${redire
 		}
 
 		&.alipay {
-			background: url(https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/7b6b02396368c9314528c0bbd85a2e06.png)
-				no-repeat center / contain;
+			background: url(https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/7b6b02396368c9314528c0bbd85a2e06.png) no-repeat
+				center / contain;
 		}
 
 		&.wx {
-			background: url(https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c66f98cff8649bd5ba722c2e8067c6ca.jpg)
-				no-repeat center / contain;
+			background: url(https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c66f98cff8649bd5ba722c2e8067c6ca.jpg) no-repeat
+				center / contain;
 		}
 	}
 }

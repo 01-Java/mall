@@ -1,16 +1,16 @@
 <script setup>
-import { useUserStore } from '@/stores'
-import { getLikeListAPI } from '@/apis/user'
-import { onMounted, ref } from 'vue'
+import { useUserStore } from "@/stores";
+import { getLikeListAPI } from "@/apis/user";
+import { onMounted, ref } from "vue";
 // 定义变量
-const likeList = ref([])
-const userStore = useUserStore()
+const likeList = ref([]);
+const userStore = useUserStore();
 // 获取猜你喜欢商品数据
 const getLikeList = async () => {
-	const res = await getLikeListAPI({ limit: 4 })
-	likeList.value = res.result
-}
-onMounted(() => getLikeList())
+	const res = await getLikeListAPI({ limit: 4 });
+	likeList.value = res.result;
+};
+onMounted(() => getLikeList());
 </script>
 
 <template>

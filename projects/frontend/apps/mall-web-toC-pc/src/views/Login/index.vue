@@ -1,48 +1,48 @@
 <script setup>
-import { ElMessage } from 'element-plus'
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { useUserStore } from '@/stores/index'
+import { ElMessage } from "element-plus";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useUserStore } from "@/stores/index";
 // 表单校验对象
 const userInfo = ref({
-	account: '12056258283',
-	password: 'hm#qd@23!',
-	agree: true
-})
+	account: "12056258283",
+	password: "hm#qd@23!",
+	agree: true,
+});
 // 规则数据对象
 const rules = {
-	account: [{ required: true, message: '请输入手机号', trigger: 'blur' }],
+	account: [{ required: true, message: "请输入手机号", trigger: "blur" }],
 	password: [
-		{ required: true, message: '请输入密码', trigger: 'blur' },
-		{ min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' }
+		{ required: true, message: "请输入密码", trigger: "blur" },
+		{ min: 6, max: 16, message: "长度在 6 到 16 个字符", trigger: "blur" },
 	],
 	agree: [
 		{
 			validator: (rule, val, callback) => {
-				return val ? callback() : new Error('请先同意协议')
-			}
-		}
-	]
-}
+				return val ? callback() : new Error("请先同意协议");
+			},
+		},
+	],
+};
 // 登录逻辑
-const formRef = ref()
-const router = useRouter()
-const userStore = useUserStore()
+const formRef = ref();
+const router = useRouter();
+const userStore = useUserStore();
 const doLogin = () => {
 	// 提交表单进行预校验
 	formRef.value.validate(async (valid) => {
 		// console.log(valid) // true
 		if (valid) {
 			// 通过校验
-			const { account, password } = userInfo.value
-			await userStore.getUserInfo({ account, password })
+			const { account, password } = userInfo.value;
+			await userStore.getUserInfo({ account, password });
 			// 提示用户
-			ElMessage.success('登录成功')
+			ElMessage.success("登录成功");
 			// 跳转首页
-			router.replace({ path: '/' })
+			router.replace({ path: "/" });
 		}
-	})
-}
+	});
+};
 </script>
 
 <template>
@@ -81,13 +81,9 @@ const doLogin = () => {
 								<el-input v-model="userInfo.password" />
 							</el-form-item>
 							<el-form-item label-width="22px">
-								<el-checkbox size="large" v-model="userInfo.agree">
-									我已同意隐私条款和服务条款
-								</el-checkbox>
+								<el-checkbox size="large" v-model="userInfo.agree"> 我已同意隐私条款和服务条款 </el-checkbox>
 							</el-form-item>
-							<el-button size="large" class="subBtn" @click="doLogin"
-								>点击登录</el-button
-							>
+							<el-button size="large" class="subBtn" @click="doLogin">点击登录</el-button>
 						</el-form>
 					</div>
 				</div>
@@ -130,8 +126,7 @@ const doLogin = () => {
 			height: 132px;
 			width: 100%;
 			text-indent: -9999px;
-			background: url('@/assets/images/logo.png') no-repeat center 18px /
-				contain;
+			background: url("@/assets/images/logo.png") no-repeat center 18px / contain;
 		}
 	}
 
@@ -158,7 +153,7 @@ const doLogin = () => {
 }
 
 .login-section {
-	background: url('@/assets/images/login-bg.png') no-repeat center / cover;
+	background: url("@/assets/images/login-bg.png") no-repeat center / cover;
 	height: 488px;
 	position: relative;
 

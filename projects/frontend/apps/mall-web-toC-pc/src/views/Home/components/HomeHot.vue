@@ -1,14 +1,14 @@
 <script setup>
-import HomePanel from './HomePanel.vue'
-import { getHotGoodsAPI } from '@/apis/home'
-import { ref } from 'vue'
+import HomePanel from "./HomePanel.vue";
+import { getHotGoodsAPI } from "@/apis/home";
+import { ref } from "vue";
 
-const hotGoodsList = ref([])
+const hotGoodsList = ref([]);
 const getHotGoods = async () => {
-	const res = await getHotGoodsAPI()
-	hotGoodsList.value = res.result
-}
-getHotGoods()
+	const res = await getHotGoodsAPI();
+	hotGoodsList.value = res.result;
+};
+getHotGoods();
 </script>
 
 <template>

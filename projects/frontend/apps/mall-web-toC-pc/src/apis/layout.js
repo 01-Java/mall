@@ -1,8 +1,8 @@
-import request from '@/utils/request'
+import request from "@/utils/request";
 
 // 获取商品分类信息
 export const getCategoryAPI = () => {
 	return request({
-		url: '/home/category/head'
-	})
-}
+		url: "/home/category/head",
+	});
+};

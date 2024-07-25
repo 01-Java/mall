@@ -1,12 +1,12 @@
 <script setup>
 // import { ref } from 'vue'
-import { useScroll } from '@vueuse/core'
-import { useCategoryStore } from '@/stores'
+import { useScroll } from "@vueuse/core";
+import { useCategoryStore } from "@/stores";
 // 置顶导航
-const { y } = useScroll(window)
+const { y } = useScroll(window);
 
 // 获取pinia中的数据
-const categoryStore = useCategoryStore()
+const categoryStore = useCategoryStore();
 </script>
 
 <template>
@@ -19,9 +19,7 @@ const categoryStore = useCategoryStore()
 					<RouterLink to="/">首页</RouterLink>
 				</li>
 				<li v-for="item in categoryStore.categoryList" :key="item.id">
-					<RouterLink active-class="active" :to="`/category/${item.id}`">{{
-						item.name
-					}}</RouterLink>
+					<RouterLink active-class="active" :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
 				</li>
 			</ul>
 
@@ -63,7 +61,7 @@ const categoryStore = useCategoryStore()
 	.logo {
 		width: 200px;
 		height: 80px;
-		background: url('@/assets/images/logo.png') no-repeat right 2px;
+		background: url("@/assets/images/logo.png") no-repeat right 2px;
 		background-size: 160px auto;
 	}
 

@@ -1,14 +1,14 @@
 <script setup>
-import { useUserStore } from '@/stores'
-import { useRouter } from 'vue-router'
-const userStroe = useUserStore()
-const router = useRouter()
+import { useUserStore } from "@/stores";
+import { useRouter } from "vue-router";
+const userStroe = useUserStore();
+const router = useRouter();
 const confirm = () => {
 	// 1。清除用户数据
-	userStroe.clearUserInfo()
+	userStroe.clearUserInfo();
 	// 跳转到登录页
-	router.push('/login')
-}
+	router.push("/login");
+};
 </script>
 
 <template>
@@ -17,18 +17,10 @@ const confirm = () => {
 			<ul>
 				<template v-if="userStroe.userInfo.token">
 					<li>
-						<a href="javascript:;"
-							><i class="iconfont icon-user"></i
-							>{{ userStroe.userInfo.nickname }}</a
-						>
+						<a href="javascript:;"><i class="iconfont icon-user"></i>{{ userStroe.userInfo.nickname }}</a>
 					</li>
 					<li>
-						<el-popconfirm
-							title="确认退出吗?"
-							confirm-button-text="确认"
-							cancel-button-text="取消"
-							@confirm="confirm"
-						>
+						<el-popconfirm title="确认退出吗?" confirm-button-text="确认" cancel-button-text="取消" @confirm="confirm">
 							<template #reference>
 								<a href="javascript:;">退出登录</a>
 							</template>

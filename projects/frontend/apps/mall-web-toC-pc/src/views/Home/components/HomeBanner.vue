@@ -1,14 +1,14 @@
 <script setup>
-import { getBannerAPI } from '@/apis/home'
-import { ref } from 'vue'
+import { getBannerAPI } from "@/apis/home";
+import { ref } from "vue";
 
 // 获取轮播图数据
-const bannerList = ref([])
+const bannerList = ref([]);
 const getBanner = async () => {
-	const res = await getBannerAPI()
-	bannerList.value = res.result
-}
-getBanner()
+	const res = await getBannerAPI();
+	bannerList.value = res.result;
+};
+getBanner();
 </script>
 
 <template>

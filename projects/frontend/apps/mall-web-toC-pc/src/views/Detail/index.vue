@@ -1,31 +1,31 @@
 <script setup>
-import { getDetailAPI } from '@/apis/detail'
-import { ref } from 'vue'
-import { useRoute } from 'vue-router'
-import GoodsSku from '@/components/GoodsSku.vue'
-import { useCartStore } from '@/stores/index'
-import { ElMessage } from 'element-plus'
+import { getDetailAPI } from "@/apis/detail";
+import { ref } from "vue";
+import { useRoute } from "vue-router";
+import GoodsSku from "@/components/GoodsSku.vue";
+import { useCartStore } from "@/stores/index";
+import { ElMessage } from "element-plus";
 // 获取商品详情
-const good = ref({})
-const route = useRoute()
+const good = ref({});
+const route = useRoute();
 const getGoods = async () => {
-	const res = await getDetailAPI(route.params.id)
-	good.value = res.result
-}
-getGoods()
+	const res = await getDetailAPI(route.params.id);
+	good.value = res.result;
+};
+getGoods();
 // 加入购物车逻辑
 // 1.选择商品规格
-const skuObj = ref({})
+const skuObj = ref({});
 const skuChange = (sku) => {
-	skuObj.value = sku
-}
+	skuObj.value = sku;
+};
 // 2.输入数量
-const num = ref(1)
+const num = ref(1);
 const countChange = (count) => {
-	num.value = count
-}
+	num.value = count;
+};
 // 3.点击加入购物车
-const cartStore = useCartStore()
+const cartStore = useCartStore();
 const add = () => {
 	if (skuObj.value.skuId) {
 		// 规格选择完成，触发cartStore的action
@@ -37,14 +37,14 @@ const add = () => {
 			count: num.value,
 			skuId: skuObj.value.skuId,
 			attrsText: skuObj.value.specsText,
-			selected: true
-		})
-		ElMessage.success('加入购物车成功')
+			selected: true,
+		});
+		ElMessage.success("加入购物车成功");
 	} else {
 		// 规格没有选择，提示用户
-		ElMessage.warning('请选择完规格')
+		ElMessage.warning("请选择完规格");
 	}
-}
+};
 </script>
 <!-- 错误原因：goods一开始{}  {}.categories -> undefined  -> undefined[1]
 1. 可选链的语法?. 
@@ -55,12 +55,10 @@ const add = () => {
 			<div class="bread-container">
 				<el-breadcrumb separator=">">
 					<el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-					<el-breadcrumb-item
-						:to="{ path: `/category/${good.categories?.[1].id}` }"
+					<el-breadcrumb-item :to="{ path: `/category/${good.categories?.[1].id}` }"
 						>{{ good.categories?.[1].name }}
 					</el-breadcrumb-item>
-					<el-breadcrumb-item
-						:to="{ path: `/category/sub/${good.categories?.[0].id}` }"
+					<el-breadcrumb-item :to="{ path: `/category/sub/${good.categories?.[0].id}` }"
 						>{{ good.categories?.[0].name }}
 					</el-breadcrumb-item>
 					<el-breadcrumb-item>抓绒保暖，毛毛虫子儿童运动鞋</el-breadcrumb-item>
@@ -126,9 +124,7 @@ const add = () => {
 							<el-input-number v-model="num" :min="1" @change="countChange" />
 							<!-- 按钮组件 -->
 							<div>
-								<el-button size="large" class="btn" @click="add">
-									加入购物车
-								</el-button>
+								<el-button size="large" class="btn" @click="add"> 加入购物车 </el-button>
 							</div>
 						</div>
 					</div>
@@ -142,10 +138,7 @@ const add = () => {
 								<div class="goods-detail">
 									<!-- 属性 -->
 									<ul class="attrs">
-										<li
-											v-for="item in good.details.properties"
-											:key="item.value"
-										>
+										<li v-for="item in good.details.properties" :key="item.value">
 											<span class="dt">{{ item.name }}</span>
 											<span class="dd">{{ item.value }}</span>
 										</li>
@@ -237,7 +230,7 @@ const add = () => {
 
 		span {
 			&::before {
-				content: '¥';
+				content: "¥";
 				font-size: 14px;
 			}
 
@@ -279,7 +272,7 @@ const add = () => {
 						margin-right: 10px;
 
 						&::before {
-							content: '•';
+							content: "•";
 							color: $xtxColor;
 							margin-right: 2px;
 						}
@@ -310,7 +303,7 @@ const add = () => {
 				left: 0;
 				height: 60px;
 				border-left: 1px solid #e4e4e4;
-				content: '';
+				content: "";
 			}
 
 			p {

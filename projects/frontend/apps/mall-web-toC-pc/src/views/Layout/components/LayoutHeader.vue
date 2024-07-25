@@ -1,9 +1,9 @@
 <script setup>
-import { RouterLink } from 'vue-router'
-import { useCategoryStore } from '@/stores'
-import LayoutCart from '@/views/Layout/components/LayoutCart.vue'
+import { RouterLink } from "vue-router";
+import { useCategoryStore } from "@/stores";
+import LayoutCart from "@/views/Layout/components/LayoutCart.vue";
 // 获取pinia中的数据
-const categoryStore = useCategoryStore()
+const categoryStore = useCategoryStore();
 </script>
 
 <template>
@@ -16,14 +16,8 @@ const categoryStore = useCategoryStore()
 				<li>
 					<RouterLink to="/">首页</RouterLink>
 				</li>
-				<li
-					class="home"
-					v-for="item in categoryStore.categoryList"
-					:key="item.id"
-				>
-					<RouterLink active-class="active" :to="`/category/${item.id}`">{{
-						item.name
-					}}</RouterLink>
+				<li class="home" v-for="item in categoryStore.categoryList" :key="item.id">
+					<RouterLink active-class="active" :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
 				</li>
 			</ul>
 			<div class="search">
@@ -53,8 +47,7 @@ const categoryStore = useCategoryStore()
 			height: 132px;
 			width: 100%;
 			text-indent: -9999px;
-			background: url('@/assets/images/logo.png') no-repeat center 18px /
-				contain;
+			background: url("@/assets/images/logo.png") no-repeat center 18px / contain;
 		}
 	}
 

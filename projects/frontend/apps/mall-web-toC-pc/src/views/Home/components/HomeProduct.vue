@@ -1,25 +1,21 @@
 <script setup>
-import HomePanel from './HomePanel.vue'
-import { ref, onMounted } from 'vue'
-import { getGoodsProductAPI } from '@/apis/home'
-import GoodsItem from '@/components/GoodsItem.vue'
+import HomePanel from "./HomePanel.vue";
+import { ref, onMounted } from "vue";
+import { getGoodsProductAPI } from "@/apis/home";
+import GoodsItem from "@/components/GoodsItem.vue";
 // 获取热门品牌数据
-const goodsProductList = ref([])
+const goodsProductList = ref([]);
 const getGoodsProduct = async () => {
-	const res = await getGoodsProductAPI()
-	goodsProductList.value = res.result
-}
+	const res = await getGoodsProductAPI();
+	goodsProductList.value = res.result;
+};
 
-onMounted(() => getGoodsProduct())
+onMounted(() => getGoodsProduct());
 </script>
 
 <template>
 	<div class="home-product">
-		<HomePanel
-			:title="cate.name"
-			v-for="cate in goodsProductList"
-			:key="cate.id"
-		>
+		<HomePanel :title="cate.name" v-for="cate in goodsProductList" :key="cate.id">
 			<template #main>
 				<div class="box">
 					<RouterLink class="cover" to="/">
