@@ -15,7 +15,7 @@
 	"keywords": [],
 	"scripts": {
 		"preinstall": "npm run corepack:pnpm && npx only-allow pnpm",
-		"corepack:pnpm": "corepack enable && corepack install",
+		"corepack:pnpm": "corepack install",
 		"git:fetch": "git fetch -p",
 		"rm:node_modules": "pnpm -r rm:node_modules && rimraf node_modules",
 		"lint": "eslint .",
