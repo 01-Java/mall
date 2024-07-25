@@ -88,3 +88,7 @@ npm run dev
 ```sh
 npm run build
 ```
+
+## 尝试触发部署
+
+projects/frontend/apps/mall-web-toC-pc/\*
