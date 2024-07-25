@@ -1,7 +1,14 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 
 const router = createRouter({
-	history: createWebHistory(import.meta.env.BASE_URL),
+	/**
+	 * @see https://blog.csdn.net/KimBing/article/details/130085256
+	 */
+	history: createWebHashHistory(),
+
+	// 刷新时，滚动条位置还原
+	scrollBehavior: () => ({ left: 0, top: 0 }),
+
 	routes: [
 		{
 			path: "/",
