@@ -1,68 +1,55 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Login from "@/views/Login/index.vue";
-import Layout from "@/views/Layout/index.vue";
-import Home from "@/views/Home/index.vue";
-import Category from "@/views/Category/index.vue";
-import SubCategory from "@/views/SubCategory/index.vue";
-import Detail from "@/views/Detail/index.vue";
-import CartList from "@/views/CartList/index.vue";
-import Checkout from "@/views/Checkout/index.vue";
-import Pay from "@/views/Pay/index.vue";
-import PayBack from "@/views/Pay/PayBack.vue";
-import Member from "@/views/Member/index.vue";
-import UserInfo from "@/views/Member/components/UserInfo.vue";
-import UserOrder from "@/views/Member/components/UserOrder.vue";
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
 	routes: [
 		{
 			path: "/",
-			component: Layout,
+			component: () => import("@/views/Layout/index.vue"),
 			children: [
 				{
 					path: "",
-					component: Home,
+					component: () => import("@/views/Home/index.vue"),
 				},
 				{
 					path: "category/:id",
-					component: Category,
+					component: () => import("@/views/Category/index.vue"),
 				},
 				{
 					path: "category/sub/:id",
-					component: SubCategory,
+					component: () => import("@/views/SubCategory/index.vue"),
 				},
 				{
 					path: "detail/:id",
-					component: Detail,
+					component: () => import("@/views/Detail/index.vue"),
 				},
 				{
 					path: "cartlist",
-					component: CartList,
+					component: () => import("@/views/CartList/index.vue"),
 				},
 				{
 					path: "checkout",
-					component: Checkout,
+					component: () => import("@/views/Checkout/index.vue"),
 				},
 				{
 					path: "pay",
-					component: Pay,
+					component: () => import("@/views/Pay/index.vue"),
 				},
 				{
 					path: "paycallback", // 注意路径，必须是paycallback
-					component: PayBack,
+					component: () => import("@/views/Pay/PayBack.vue"),
 				},
 				{
 					path: "member",
-					component: Member,
+					component: () => import("@/views/Member/index.vue"),
 					children: [
 						{
 							path: "",
-							component: UserInfo,
+							component: () => import("@/views/Member/components/UserInfo.vue"),
 						},
 						{
 							path: "order",
-							component: UserOrder,
+							component: () => import("@/views/Member/components/UserOrder.vue"),
 						},
 					],
 				},
@@ -70,15 +57,9 @@ const router = createRouter({
 		},
 		{
 			path: "/login",
-			component: Login,
+			component: () => import("@/views/Login/index.vue"),
 		},
 	],
-	// 路由切换时，页面回到顶部
-	scrollBehavior() {
-		return {
-			top: 0,
-		};
-	},
 });
 
 export default router;
