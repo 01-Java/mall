@@ -20,7 +20,9 @@
 		"rm:node_modules": "pnpm -r rm:node_modules && rimraf node_modules",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
-		"prettier": "prettier --write ."
+		"prettier": "prettier --write .",
+		"b:@zo-java-resail/mall": "pnpm -F @zo-java-resail/mall run build:prod",
+		"b:@zo-java-resail/mall-admin": "pnpm -F @zo-java-resail/mall-admin run build:prod"
 	},
 	"dependencies": {
 		"lodash-es": "^4.17.21",
