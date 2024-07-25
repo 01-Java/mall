@@ -9,8 +9,8 @@
 		// "baseUrl": "./"
 	},
 	"references": [
-		{
-			"path": "./tsconfig.path.json"
-		}
+		// {
+		// 	"path": "./tsconfig.path.json"
+		// }
 	]
 }

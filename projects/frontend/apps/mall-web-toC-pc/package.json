@@ -1,6 +1,7 @@
 {
 	"name": "@zo-java-resail/mall",
 	"version": "0.0.1",
+	"type": "module",
 	"private": true,
 	"scripts": {
 		"dev": "vite",
@@ -15,6 +16,7 @@
 		"dayjs": "^1.11.10",
 		"element-plus": "^2.3.14",
 		"pinia": "^2.1.6",
+		"pinia-plugin-persistedstate": "^3.2.1",
 		"vue": "^3.3.4",
 		"vue-router": "^4.2.4"
 	},
@@ -24,12 +26,10 @@
 		"@vue/eslint-config-prettier": "^8.0.0",
 		"eslint": "^8.49.0",
 		"eslint-plugin-vue": "^9.17.0",
-		"pinia-plugin-persistedstate": "^3.2.0",
 		"prettier": "^3.0.3",
 		"sass": "^1.68.0",
 		"unplugin-auto-import": "^0.16.6",
 		"unplugin-element-plus": "^0.8.0",
-		"unplugin-vue-components": "^0.25.2",
-		"vite": "^4.4.9"
+		"unplugin-vue-components": "^0.25.2"
 	}
 }
