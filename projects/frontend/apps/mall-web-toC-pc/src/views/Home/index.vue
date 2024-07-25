@@ -6,11 +6,11 @@ import HomeHot from '@/views/Home/components/HomeHot.vue'
 import HomeProduct from '@/views/Home/components/HomeProduct.vue'
 </script>
 <template>
-  <div class="container">
-    <HomeCategory></HomeCategory>
-    <HomeBanner></HomeBanner>
-  </div>
-  <HomeNew></HomeNew>
-  <HomeHot></HomeHot>
-  <HomeProduct></HomeProduct>
+	<div class="container">
+		<HomeCategory></HomeCategory>
+		<HomeBanner></HomeBanner>
+	</div>
+	<HomeNew></HomeNew>
+	<HomeHot></HomeHot>
+	<HomeProduct></HomeProduct>
 </template>

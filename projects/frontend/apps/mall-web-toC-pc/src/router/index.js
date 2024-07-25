@@ -14,71 +14,71 @@ import UserInfo from '@/views/Member/components/UserInfo.vue'
 import UserOrder from '@/views/Member/components/UserOrder.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      component: Layout,
-      children: [
-        {
-          path: '',
-          component: Home
-        },
-        {
-          path: 'category/:id',
-          component: Category
-        },
-        {
-          path: 'category/sub/:id',
-          component: SubCategory
-        },
-        {
-          path: 'detail/:id',
-          component: Detail
-        },
-        {
-          path: 'cartlist',
-          component: CartList
-        },
-        {
-          path: 'checkout',
-          component: Checkout
-        },
-        {
-          path: 'pay',
-          component: Pay
-        },
-        {
-          path: 'paycallback', // 注意路径，必须是paycallback
-          component: PayBack
-        },
-        {
-          path: 'member',
-          component: Member,
-          children: [
-            {
-              path: '',
-              component: UserInfo
-            },
-            {
-              path: 'order',
-              component: UserOrder
-            }
-          ]
-        }
-      ]
-    },
-    {
-      path: '/login',
-      component: Login
-    }
-  ],
-  // 路由切换时，页面回到顶部
-  scrollBehavior() {
-    return {
-      top: 0
-    }
-  }
+	history: createWebHistory(import.meta.env.BASE_URL),
+	routes: [
+		{
+			path: '/',
+			component: Layout,
+			children: [
+				{
+					path: '',
+					component: Home
+				},
+				{
+					path: 'category/:id',
+					component: Category
+				},
+				{
+					path: 'category/sub/:id',
+					component: SubCategory
+				},
+				{
+					path: 'detail/:id',
+					component: Detail
+				},
+				{
+					path: 'cartlist',
+					component: CartList
+				},
+				{
+					path: 'checkout',
+					component: Checkout
+				},
+				{
+					path: 'pay',
+					component: Pay
+				},
+				{
+					path: 'paycallback', // 注意路径，必须是paycallback
+					component: PayBack
+				},
+				{
+					path: 'member',
+					component: Member,
+					children: [
+						{
+							path: '',
+							component: UserInfo
+						},
+						{
+							path: 'order',
+							component: UserOrder
+						}
+					]
+				}
+			]
+		},
+		{
+			path: '/login',
+			component: Login
+		}
+	],
+	// 路由切换时，页面回到顶部
+	scrollBehavior() {
+		return {
+			top: 0
+		}
+	}
 })
 
 export default router

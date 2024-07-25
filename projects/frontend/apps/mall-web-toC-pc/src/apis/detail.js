@@ -2,10 +2,10 @@ import request from '@/utils/request'
 
 // 获取商品详情
 export const getDetailAPI = (id) => {
-  return request({
-    url: '/goods',
-    params: { id }
-  })
+	return request({
+		url: '/goods',
+		params: { id }
+	})
 }
 // 获取热榜商品
 /**
@@ -15,12 +15,12 @@ export const getDetailAPI = (id) => {
  * @param {Number} limit - 获取个数
  */
 export const fetchHotGoodsAPI = ({ id, type, limit = 3 }) => {
-  return request({
-    url: '/goods/hot',
-    params: {
-      id,
-      type,
-      limit
-    }
-  })
+	return request({
+		url: '/goods/hot',
+		params: {
+			id,
+			type,
+			limit
+		}
+	})
 }
