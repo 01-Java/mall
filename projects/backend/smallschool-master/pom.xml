@@ -50,6 +50,20 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+
+
+        <!--TODO 添加必要的依赖坐标-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.1.16</version>
+        </dependency>
+
         <!--
         <dependency>
 

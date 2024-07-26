@@ -1,4 +1,8 @@
 package com.smallschool.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 /*
 * 订单详情页面
 * 实现
@@ -7,7 +11,9 @@ package com.smallschool.controller;
 * 3、更改订单
 *
 * */
-public class orderDetailsController {
+@Controller
+@RequestMapping("/orderDetail")
+public class OrderDetailsController {
     public String getOrder(){
 
         return "example";

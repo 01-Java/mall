@@ -1,5 +1,10 @@
 package com.smallschool.controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/cart")
 public class CartController {
     /*
     * 1、获取购物车信息
@@ -8,7 +13,6 @@ public class CartController {
     * 4、购物车下单
     * */
     public void getCart(){
-
 
     }
     public void addCart(){
