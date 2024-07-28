@@ -1,6 +1,7 @@
 package com.smallschool.controller;
 
 import com.smallschool.service.CartService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,9 +22,12 @@ public class CartController {
     * 3、购物车移除
     * 4、购物车下单
     * */
+    @Autowired
+    private CartService cartService;
+
     @GetMapping("/info")
     public ResponseEntity<String> getCart(@RequestParam String user_id){
-        String cartInfo = cartService.getCartInfo(userId);
+        String cartInfo = cartService.getCartInfo(user_id);
         return ResponseEntity.ok(cartInfo);
     }
     @PostMapping("/add")

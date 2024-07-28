@@ -1,6 +1,8 @@
 package com.smallschool.service;
 
 
+import org.springframework.stereotype.Service;
+
 @Service
 public class CartService {
     public String getCartInfo(String userId) {

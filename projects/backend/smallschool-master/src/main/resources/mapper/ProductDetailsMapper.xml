@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smallschool.mapper.ProductDetailsMapper">
+    
+    <resultMap id="CommentsMap" type="com.smallschool.entity.Comment">
+        <id property="comment_id" column="comment_id"/>
+        <result property="content" column="content"/>
+        <result property="product_id" column="product_id"/>
+        <result property="user_id" column="user_id"/>
+        <result property="time" column="time"/>
+        <association property="personalInfo" javaType="com.smallschool.entity.PersonalInfo">
+            <id property="user_id" column="user_id"/>
+            <result property="phone" column="phone"/>
+            <result property="password" column="password"/>
+            <result property="name" column="name"/>
+            <result property="sex" column="sex"/>
+            <result property="address1" column="address1"/>
+            <result property="address2" column="address2"/>
+            <result property="address3" column="address3"/>
+            <result property="email" column="email"/>
+            <result property="description" column="description"/>
+        </association>
+    </resultMap>
+
+    <select id="getCommentsByProductId" resultMap="CommentsMap">
+        SELECT `comment`.content,user_info.name
+        FROM `comment`,user_info
+        WHERE product_id = #{product_id}
+    </select>
+    
+</mapper>
