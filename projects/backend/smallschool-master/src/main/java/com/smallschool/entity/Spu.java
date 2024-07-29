@@ -6,21 +6,71 @@ public class Spu {
     private Integer details_id;
     private Integer sloper_id;
     private Integer is_active;
-    private String name;
+    private String product_name;
     private String description;
+    private Brand brand;
+    private ProductDetails productDetails;
+    private Sloper sloper;
 
     public Spu() {
     }
 
-    public Spu(Integer spu_id, Integer brand_id, Integer details_id, Integer sloper_id, Integer is_active, String name,
-               String description) {
+    @Override
+    public String toString() {
+        return "Spu{" +
+                "spu_id=" + spu_id +
+                ", brand_id=" + brand_id +
+                ", details_id=" + details_id +
+                ", sloper_id=" + sloper_id +
+                ", is_active=" + is_active +
+                ", name='" + product_name + '\'' +
+                ", description='" + description + '\'' +
+                ", brand=" + brand +
+                ", productDetails=" + productDetails +
+                ", sloper=" + sloper +
+
+                '}';
+    }
+
+
+
+    public Spu(Integer spu_id, Integer brand_id, Integer details_id, Integer sloper_id, Integer is_active, String product_name,
+               String description, Brand brand, ProductDetails productDetails, Sloper sloper) {
         this.spu_id = spu_id;
         this.brand_id = brand_id;
         this.details_id = details_id;
         this.sloper_id = sloper_id;
         this.is_active = is_active;
-        this.name = name;
+        this.product_name = product_name;
         this.description = description;
+        this.brand = brand;
+        this.productDetails = productDetails;
+        this.sloper = sloper;
+
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    public ProductDetails getProductDetails() {
+        return productDetails;
+    }
+
+    public void setProductDetails(ProductDetails productDetails) {
+        this.productDetails = productDetails;
+    }
+
+    public Sloper getSloper() {
+        return sloper;
+    }
+
+    public void setSloper(Sloper sloper) {
+        this.sloper = sloper;
     }
 
     public Integer getSpu_id() {
@@ -63,12 +113,12 @@ public class Spu {
         this.is_active = is_active;
     }
 
-    public String getName() {
-        return name;
+    public String getProduct_name() {
+        return product_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
     }
 
     public String getDescription() {
@@ -79,16 +129,4 @@ public class Spu {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "Spu{" +
-                "spu_id=" + spu_id +
-                ", brand_id=" + brand_id +
-                ", details_id=" + details_id +
-                ", sloper_id=" + sloper_id +
-                ", is_active=" + is_active +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }

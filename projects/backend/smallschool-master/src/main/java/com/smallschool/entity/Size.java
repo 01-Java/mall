@@ -2,14 +2,14 @@ package com.smallschool.entity;
 
 public class Size {
     private Integer size_id;
-    private String value;
+    private String size_value;
 
     public Size() {
     }
 
-    public Size(Integer size_id, String value) {
+    public Size(Integer size_id, String size_value) {
         this.size_id = size_id;
-        this.value = value;
+        this.size_value = size_value;
     }
 
     public Integer getSize_id() {
@@ -20,19 +20,19 @@ public class Size {
         this.size_id = size_id;
     }
 
-    public String getValue() {
-        return value;
+    public String getSize_value() {
+        return size_value;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setSize_value(String size_value) {
+        this.size_value = size_value;
     }
 
     @Override
     public String toString() {
         return "Size{" +
                 "size_id=" + size_id +
-                ", value='" + value + '\'' +
+                ", value='" + size_value + '\'' +
                 '}';
     }
 }

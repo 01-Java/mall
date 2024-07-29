@@ -1,5 +1,7 @@
 package com.smallschool.entity;
 
+import java.awt.*;
+
 public class Sku {
     private Integer sku_id;
     private Integer spu_id;
@@ -7,16 +9,40 @@ public class Sku {
     private Integer size_id;
     private Integer respository;
 
+    private Color color;
+    private Size size;
+
     public Sku() {
     }
 
-    public Sku(Integer sku_id, Integer spu_id, Integer color_id, Integer size_id, Integer respository) {
+    public Sku(Integer sku_id, Integer spu_id, Integer color_id, Integer size_id, Integer respository, Color color,
+               Size size) {
         this.sku_id = sku_id;
         this.spu_id = spu_id;
         this.color_id = color_id;
         this.size_id = size_id;
         this.respository = respository;
+        this.color = color;
+        this.size = size;
     }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public Size getSize() {
+        return size;
+    }
+
+    public void setSize(Size size) {
+        this.size = size;
+    }
+
+
 
     public Integer getSku_id() {
         return sku_id;
@@ -66,6 +92,8 @@ public class Sku {
                 ", color_id=" + color_id +
                 ", size_id=" + size_id +
                 ", respository=" + respository +
+                ", color=" + color +
+                ", size=" + size +
                 '}';
     }
 }

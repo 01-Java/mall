@@ -1,14 +1,14 @@
 package com.smallschool.entity;
 
-public class picture {
+public class Picture {
     private Integer picture_id;
     private Integer product_id;
     private String url;
 
-    public picture() {
+    public Picture() {
     }
 
-    public picture(Integer picture_id, Integer product_id, String url) {
+    public Picture(Integer picture_id, Integer product_id, String url) {
         this.picture_id = picture_id;
         this.product_id = product_id;
         this.url = url;

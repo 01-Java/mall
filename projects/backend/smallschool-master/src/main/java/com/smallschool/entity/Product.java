@@ -1,21 +1,28 @@
 package com.smallschool.entity;
 
+import java.util.List;
+
 public class Product {
     private Integer product_id;
     private Integer sales;
     private Integer sku_id;
     private Integer spu_id;
     private Double price;
+    private Spu spu;
+    private Sku sku;
 
-    public Product() {
-    }
-
-    public Product(Integer product_id, Integer sales, Integer sku_id, Integer spu_id, Double price) {
+    public Product(Integer product_id, Integer sales, Integer sku_id, Integer spu_id, Double price, Spu spu,
+                   Sku sku) {
         this.product_id = product_id;
         this.sales = sales;
         this.sku_id = sku_id;
         this.spu_id = spu_id;
         this.price = price;
+        this.spu = spu;
+        this.sku = sku;
+    }
+
+    public Product() {
     }
 
     public Integer getProduct_id() {
@@ -58,6 +65,22 @@ public class Product {
         this.price = price;
     }
 
+    public Spu getSpu() {
+        return spu;
+    }
+
+    public void setSpu(Spu spu) {
+        this.spu = spu;
+    }
+
+    public Sku getSku() {
+        return sku;
+    }
+
+    public void setSku(Sku sku) {
+        this.sku = sku;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -66,6 +89,8 @@ public class Product {
                 ", sku_id=" + sku_id +
                 ", spu_id=" + spu_id +
                 ", price=" + price +
+                ", spu=" + spu +
+                ", sku=" + sku +
                 '}';
     }
 }

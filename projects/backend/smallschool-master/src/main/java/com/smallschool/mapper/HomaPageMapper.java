@@ -6,8 +6,9 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
+@Mapper
 public interface HomaPageMapper {
-    @Mapper
+
     @Select("SELECT * FROM products WHERE sales>50")
     List<ProductDetails> homeRecommend();
 
