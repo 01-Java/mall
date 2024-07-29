@@ -79,12 +79,9 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       vueJsx(),
 
       // MOCK 服务
-      env.VITE_MOCK_DEV_SERVER === "true"
-        ? mockDevServerPlugin()
-          // {
-          //   include: ["src/api/**/*.mock.{js,ts,cjs,mjs,json,json5}"],
-          // }
-        : null,
+      // env.VITE_MOCK_DEV_SERVER === "true" ? mockDevServerPlugin() : null,
+      // 改成无条件开启mock接口。 生产环境也启用mock接口
+      mockDevServerPlugin(),
 
       UnoCSS({
         hmrTopLevelAwait: false,
