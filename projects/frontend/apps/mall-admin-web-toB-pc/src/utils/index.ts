@@ -1,5 +1,3 @@
-export * from "./defineMock";
-
 /**
  * Check if an element has a class
  * @param {HTMLElement} ele
