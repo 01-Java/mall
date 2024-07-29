@@ -80,9 +80,10 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 
       // MOCK 服务
       env.VITE_MOCK_DEV_SERVER === "true"
-        ? mockDevServerPlugin({
-            include: ["src/api/**/*.mock.{js,ts,cjs,mjs,json,json5}"],
-          })
+        ? mockDevServerPlugin()
+          // {
+          //   include: ["src/api/**/*.mock.{js,ts,cjs,mjs,json,json5}"],
+          // }
         : null,
 
       UnoCSS({
