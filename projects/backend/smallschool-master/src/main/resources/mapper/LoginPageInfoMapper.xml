@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smallschool.mapper.LoginPageInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.smallschool.entity.LoginPageInfo">
+            <id property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="sex" column="sex" jdbcType="VARCHAR"/>
+            <result property="address1" column="address1" jdbcType="VARCHAR"/>
+            <result property="address2" column="address2" jdbcType="VARCHAR"/>
+            <result property="address3" column="address3" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_id,phone,password,
+        name,sex,address1,
+        address2,address3,email,
+        description
+    </sql>
+    <insert id="InputUserInfo">
+        INSERT INTO user_info (user_id, phone, password, name, sex, address1, address2, address3, email, description)
+        VALUES (#{userId}, #{phone}, #{password}, #{name}, #{sex}, #{address1}, #{address2}, #{address3}, #{email}, #{description})
+    </insert>
+    <delete id="DeleteUserInfoById">
+        DELETE FROM user_info WHERE user_id = #{userId}
+    </delete>
+
+    <select id="FindUserById" resultType="com.smallschool.entity.LoginPageInfo">
+        SELECT * FROM user_info WHERE user_id = #{userId}
+    </select>
+
+    <select id="FindPasswordById" resultType="com.smallschool.entity.LoginPageInfo">
+        SELECT password FROM user_info WHERE user_id = #{userId}
+    </select>
+    <select id="FindUserByIdAndPhone" resultType="com.smallschool.entity.LoginPageInfo">
+        SELECT * FROM user_info WHERE user_id= #{userId} and phone=#{phone}
+    </select>
+</mapper>
