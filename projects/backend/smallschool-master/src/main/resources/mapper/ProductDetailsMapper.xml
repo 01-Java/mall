@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smallschool.mapper.ProductDetailsMapper">
+
+<!--    <resultMap id="SpuMap" type="com.smallschool.entity.Spu">-->
+<!--        <association property="brand" javaType="com.smallschool.entity.Brand" />-->
+<!--        <association property="sloper" javaType="com.smallschool.entity.Sloper"/>-->
+<!--        <association property="productDetails" javaType="com.smallschool.entity.ProductDetails"/>-->
+<!--    </resultMap>-->
+
+<!--    <resultMap id="SkuMap" type="com.smallschool.entity.Sku">-->
+<!--        <collection property="color" javaType="com.smallschool.entity.Color" />-->
+<!--        <collection property="size" javaType="com.smallschool.entity.Size" />-->
+<!--    </resultMap>-->
+
+    <resultMap id="ProductMap" type="com.smallschool.entity.Product">
+        <id property="product_id" column="product_id"/>
+        <result property="sku_id" column="sku_id"/>
+        <result property="spu_id" column="spu_id"/>
+        <result property="sales" column="sales"/>
+        <result property="price" column="price"/>
+        <association property="spu" javaType="com.smallschool.entity.Spu" >
+            <id property="spu_id" column="spu_id"/>
+            <result property="brand_id" column="brand_id"/>
+            <result property="details_id" column="details_id"/>
+            <result property="sloper_id" column="sloper_id"/>
+            <result property="is_active" column="is_active"/>
+            <result property="product_name" column="product_name"/>
+            <result property="description" column="description"/>
+
+            <association property="brand" javaType="com.smallschool.entity.Brand">
+                <id property="brand_id" column="brand_id"/>
+                <result property="brand_name" column="brand_name"/>
+            </association>
+
+            <association property="productDetails" javaType="com.smallschool.entity.ProductDetails">
+                <id property="details_id" column="details_id"/>
+                <result property="style" column="style"/>
+                <result property="suitable_people" column="suitable_people"/>
+                <result property="suitable_scene" column="suitable_scene"/>
+                <result property="suitable_season" column="suitable_season"/>
+            </association>
+
+            <association property="sloper" javaType="com.smallschool.entity.Sloper">
+                <id property="sloper_id" column="sloper_id"/>
+                <result property="type" column="type"/>
+            </association>
+
+        </association>
+
+        <association property="sku" javaType="com.smallschool.entity.Sku">
+            <id property="sku_id" column="sku_id"/>
+            <result property="spu_id" column="spu_id"/>
+            <result property="color_id" column="color_id"/>
+            <result property="size_id" column="size_id"/>
+            <result property="respository" column="respository"/>
+
+            <association property="color" javaType="com.smallschool.entity.Color">
+                <id property="color_id" column="color_id"/>
+                <result property="color_value" column="color_value"/>
+            </association>
+
+            <association property="size" javaType="com.smallschool.entity.Size">
+                <id property="size_id" column="size_id"/>
+                <result property="size_value" column="size_value"/>
+            </association>
+
+        </association>
+    </resultMap>
+
+
+    <resultMap id="CommentsMap" type="com.smallschool.entity.Comment">
+        <id property="comment_id" column="comment_id"/>
+        <result property="content" column="content"/>
+        <result property="product_id" column="product_id"/>
+        <result property="user_id" column="user_id"/>
+        <result property="time" column="time"/>
+        <association property="personalInfo" javaType="com.smallschool.entity.PersonalInfo">
+            <id property="user_id" column="user_id"/>
+            <result property="phone" column="phone"/>
+            <result property="password" column="password"/>
+            <result property="name" column="name"/>
+            <result property="sex" column="sex"/>
+            <result property="address1" column="address1"/>
+            <result property="address2" column="address2"/>
+            <result property="address3" column="address3"/>
+            <result property="email" column="email"/>
+            <result property="description" column="description"/>
+        </association>
+    </resultMap>
+
+    <insert id="addComment" useGeneratedKeys="true" keyProperty="comment_id">
+        insert into `comment`(content,product_id,time,user_id)
+        values(#{content},#{product_id},now(),#{user_id})
+    </insert>
+
+    <insert id="addCartRecord">
+        insert into `cart`(user_id,product_id,sku_id,product_number,add_time)
+        values(#{user_id},#{product_id},#{sku_id},#{product_number},now())
+    </insert>
+
+    <select id="getCommentsByProductId" resultMap="CommentsMap">
+        SELECT `comment`.content,user_info.name
+        FROM `comment`,user_info
+        WHERE product_id = #{product_id}
+    </select>
+
+    <select id="getPicturesUrlByProductId" resultType="com.smallschool.entity.Picture">
+        SELECT url
+        FROM `picture`
+        WHERE product_id = #{product_id}
+    </select>
+
+    <select id="getProductInfoExcludeSku" resultMap="ProductMap">
+        SELECT DISTINCT
+            `product_id`,
+             spu.`name` product_name,
+             brand.`name` brand_name,
+            `style`,
+            `suitable_people`,
+            `suitable_scene`,
+            `suitable_season`,
+            `type`,
+            `description`,
+            `price`,
+            `sales`
+        FROM
+            products,
+            spu,
+            sloper,
+            details,
+            brand
+        WHERE
+            products.product_id = #{product_id} AND
+            products.`spu_id` = spu.`spu_id` AND
+            spu.`brand_id` = brand.`brand_id` AND
+            spu.`details_id` = details.`details_id` AND
+            spu.`sloper_id` = sloper.`sloper_id`
+    </select>
+
+    <select id="getProductInfoIncludeSku" resultMap="ProductMap">
+        SELECT
+            `product_id`,
+             spu.`name` product_name,
+             brand.`name` brand_name,
+            `style`,
+            `suitable_people`,
+            `suitable_scene`,
+            `suitable_season`,
+            `type`,
+            `description`,
+            `price`,
+            `sales`,
+             color.`value` color_value,
+             size.`value` size_value,
+            `respository`
+        FROM
+            products,
+            spu,
+            sku,
+            color,
+            size,
+            sloper,
+            details,
+            brand
+        WHERE
+            products.product_id = #{product_id} AND
+            products.sku_id = #{sku_id} AND
+            products.`spu_id` = spu.`spu_id` AND
+            products.`sku_id` = sku.`sku_id` AND
+            spu.`brand_id` = brand.`brand_id` AND
+            spu.`details_id` = details.`details_id` AND
+            spu.`sloper_id` = sloper.`sloper_id` AND
+            sku.`color_id` = color.`color_id` AND
+            sku.`size_id` = size.`size_id`
+    </select>
+
+    <select id="getSku" resultType="com.smallschool.entity.Sku">
+        select *
+        from sku
+        where
+            spu_id = #{spu_id} AND
+            color_id = #{color_id} AND
+            size_id = #{size_id}
+    </select>
+
+</mapper>
