@@ -25,11 +25,15 @@ coverage
 *.sln
 *.sw?
 
+# vuepress项目的缓存文件和生成产物
+.vuepress/.cache/
+.vuepress/.temp/
+.vuepress/dist/
+
 # 生成的包依赖锁文件 不提交
 package-lock.json
 pnpm-lock.yaml
 stats.html
-
 
 # 不提供自动生成的类型文件
 auto-imports.d.ts

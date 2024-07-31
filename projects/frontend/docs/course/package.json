@@ -1,6 +1,6 @@
 {
-	"name": "course",
-	"description": "A project of vuepress-theme-hope",
+	"name": "@zo-java-resail/course-docs",
+	"description": "01星球-Java再起航小组-课程文档",
 	"version": "0.0.1",
 	"license": "MIT",
 	"type": "module",
