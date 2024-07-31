@@ -1,7 +1,5 @@
 package com.smallschool.entity;
 
-import java.time.LocalDateTime;
-
 public class Cart {
     private Integer cart_id;
 
@@ -13,13 +11,12 @@ public class Cart {
 
     private Integer product_number;
 
-    private LocalDateTime add_time;
+    private DATETIME add_time;
 
     public Cart() {
     }
 
-    public Cart(Integer cart_id, Integer user_id, Integer product_id, Integer sku_id, Integer product_number,
-                LocalDateTime add_time) {
+    public Cart(Integer cart_id, Integer user_id, Integer product_id, Integer sku_id, Integer product_number, DATETIME add_time) {
         this.cart_id = cart_id;
         this.user_id = user_id;
         this.product_id = product_id;
@@ -68,23 +65,11 @@ public class Cart {
         this.product_number = product_number;
     }
 
-    public LocalDateTime getAdd_time() {
+    public DATETIME getAdd_time() {
         return add_time;
     }
 
-    public void setAdd_time(LocalDateTime add_time) {
+    public void setAdd_time(DATETIME add_time) {
         this.add_time = add_time;
-    }
-
-    @Override
-    public String toString() {
-        return "Cart{" +
-                "cart_id=" + cart_id +
-                ", user_id=" + user_id +
-                ", product_id=" + product_id +
-                ", sku_id=" + sku_id +
-                ", product_number=" + product_number +
-                ", add_time=" + add_time +
-                '}';
     }
 }

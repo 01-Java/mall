@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smallschool.mapper.CartMapper">
+
+    <resultMap id="CartEntityMap" type="Cart">
+        <id column="user_id" property="user_id"/>
+        <result column="cart_id" property="cart_id"/>
+        <result column="product_id" property="product_id"/>
+        <result column="sku_id" property="sku_id"/>
+        <result column="product_number" property="product_number"/>
+        <result column="add_time" property="add_time"/>
+    </resultMap>
+
+    <select id="findCartByUid" resultMap="CartEntityMap">
+        select * from Cart where user_id=#{user_id}
+    </select>
+
+    <!-- 查询某用户的购物车数据：List<Cart> findCartByUid(Integer user_id) -->
+    <select id="findCartByUid" resultType="com.smallschool.entity.Cart">
+        select
+            cart_id,
+            user_id,
+            Cart.product_id,
+            product.price,
+            Cart.product_number,
+<!--            title,-->
+            Product.price as realPrice,
+<!--            image-->
+        from Cart left join Product on Cart.product_id = Product.product_id
+        where
+            user_id = #{user_id}
+        order by
+            Cart.add_time desc
+    </select>
+
+    <!-- 查询某购物车数据：List<Cart> findCartByCid(Integer cart_id) -->
+    <select id="findCartByCid" resultType="com.smallschool.entity.Cart">
+        select
+        cart_id,
+        user_id,
+        Cart.product_id,
+        product.price,
+        Cart.product_number,
+        <!--            title,-->
+        Product.price as realPrice,
+        <!--            image-->
+        from Cart left join Product on Cart.product_id = Product.product_id
+        where
+        cart_id = #{cart_id}
+        order by
+        Cart.add_time desc
+    </select>
+
+    <!-- 插入购物车数据-->
+    <insert id="addCart" useGeneratedKeys="true" keyProperty="cart_id">
+        insert into Cart (user_id, product_id, product_number, add_time,)
+        values (#{user_id}, #{product_id},  #{product_number}, #{add_time})
+    </insert>
+
+    <!-- 删除购物车数据 -->
+    <delete id="deleteCart">
+        delete *
+        from Cart
+        where product_id = #{product_id}
+    </delete>
+
+    <!-- 修改购物车数据中商品的数量-->
+    <update id="updateNumByCid">
+        update Cart set
+        product_number=#{product_number},
+        add_time=#{add_time}
+        where cart_id=#{cart_id}
+    </update>
+
+    <select id="payCart" resultType="java.math.BigDecimal">
+        SELECT SUM(Cart.product_number * Product.price) AS total_amount
+        FROM Cart JOIN Product ON Cart.product_id=Product_id
+        WHERE cart_id = #{cart_id}
+    </select>
+</mapper>

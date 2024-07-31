@@ -6,14 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping("/cart")
 public class CartController {
     /*
@@ -25,27 +23,22 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    @GetMapping("/info")
-    public ResponseEntity<String> getCart(@RequestParam String user_id){
-        String cartInfo = cartService.getCartInfo(user_id);
-        return ResponseEntity.ok(cartInfo);
+    @GetMapping("/cartinfo")
+    public List<Cart> getCart(@RequestParam Integer user_id){
+        return cartService.getCartByUid(user_id);
     }
-    @PostMapping("/add")
-    public ResponseEntity<String> addCart(@RequestBody String product_id){
-
-
-        return ResponseEntity.status(HttpStatus.CREATED).body("Item added to cart successfully");
+    @RequestMapping("{cid}/num/add")
+    public JsonResult<Integer> addNum(@PathVariable("cid") Integer cart_id) {
+        Integer data = cartService.addCart(cart_id);
+        return new JsonResult<Integer>(OK, data);
     }
-    @DeleteMapping("/remove")
-    public ResponseEntity<String> deleteCart(@RequestBody String product_id){
-
-
-        return ResponseEntity.ok("Item removed from cart successfully");
+    @DeleteMapping("{cid}/num/delete")
+    public JsonResult<Integer> deleteNum(@PathVariable("cid") Integer cart_id) {
+        Integer data = cartService.deleteCart(cart_id);
+        return new JsonResult<Integer>(OK, data);
     }
-    @PostMapping("/checkout")
-    public ResponseEntity<String> payCart(@RequestBody String orderInfo){
-
-
-        return ResponseEntity.ok("Checkout and payment successful");
+    @PostMapping("/cartcheckout")
+    public List<Cart> payCart(@RequestBody Integer cart_id){
+        return cartService.payCart(cart_id);
     }
 }
