@@ -27,12 +27,12 @@ public class CartController {
     public List<Cart> getCart(@RequestParam Integer user_id){
         return cartService.getCartByUid(user_id);
     }
-    @RequestMapping("{cid}/num/add")
+    @RequestMapping("{cart_id}/num/add")
     public JsonResult<Integer> addNum(@PathVariable("cid") Integer cart_id) {
         Integer data = cartService.addCart(cart_id);
         return new JsonResult<Integer>(OK, data);
     }
-    @DeleteMapping("{cid}/num/delete")
+    @DeleteMapping("{cart_id}/num/delete")
     public JsonResult<Integer> deleteNum(@PathVariable("cid") Integer cart_id) {
         Integer data = cartService.deleteCart(cart_id);
         return new JsonResult<Integer>(OK, data);

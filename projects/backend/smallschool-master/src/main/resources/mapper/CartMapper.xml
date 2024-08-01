@@ -76,7 +76,7 @@
 
     <select id="payCart" resultType="java.math.BigDecimal">
         SELECT SUM(Cart.product_number * Product.price) AS total_amount
-        FROM Cart JOIN Product ON Cart.product_id=Product_id
+        FROM Cart JOIN Product ON Cart.product_id=Product.product_id
         WHERE cart_id = #{cart_id}
     </select>
 </mapper>
