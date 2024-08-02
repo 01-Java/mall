@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { getNewGoodsAPI } from "@/apis/home";
 import { ref, onMounted } from "vue";
 import HomePanel from "./HomePanel.vue";

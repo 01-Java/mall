@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { getBannerAPI } from "@/apis/home";
 import { ref } from "vue";
 
