@@ -77,10 +77,11 @@
 		"src/**/*.vue",
 		// 测试文件集
 		"tests/**/*.ts",
+		"vite.config.ts",
 		// 导入自动生成的类型声明文件
-		"auto-imports.d.ts",
-		"components.d.ts",
-		"eslint.config.js"
+		// "auto-imports.d.ts",
+		// "components.d.ts",
+		// "eslint.config.js"
 	],
 	"exclude": [
 		"node_modules",
@@ -88,9 +89,4 @@
 		"public",
 		"src/assets"
 	],
-	"references": [
-		{
-			"path": "./tsconfig.node.json"
-		}
-	]
 }

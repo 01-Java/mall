@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import HomeCategory from "@/views/Home/components/HomeCategory.vue";
 import HomeBanner from "@/views/Home/components/HomeBanner.vue";
 import HomeNew from "@/views/Home/components/HomeNew.vue";
