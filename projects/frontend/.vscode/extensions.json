@@ -7,6 +7,7 @@
 		"dbaeumer.vscode-eslint",
 		"esbenp.prettier-vscode",
 		"stylelint.vscode-stylelint",
-		"editorconfig.editorconfig"
+		"editorconfig.editorconfig",
+		"spades.vs-picgo",
 	]
 }

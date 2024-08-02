@@ -1,40 +1,37 @@
 import { hopeTheme } from "vuepress-theme-hope";
 
-import navbar from "./navbar.js";
-import sidebar from "./sidebar.js";
-
 export default hopeTheme({
-	hostname: "https://vuepress-theme-hope-docs-demo.netlify.app",
+	// hostname: "https://vuepress-theme-hope-docs-demo.netlify.app",
 
 	author: {
-		name: "Mr.Hope",
-		url: "https://mister-hope.com",
+		name: "01星球-Java再启航小组",
+		url: "https://github.com/01-Java",
 	},
 
 	iconAssets: "fontawesome-with-brands",
 
 	logo: "https://theme-hope-assets.vuejs.press/logo.svg",
 
-	repo: "vuepress-theme-hope/vuepress-theme-hope",
+	repo: "01-Java/springboot-Mall",
 
 	docsDir: "src",
 
 	// 导航栏
-	navbar,
+	// navbar,
 
 	// 侧边栏
-	sidebar,
+	sidebar: "structure",
 
 	// 页脚
-	footer: "默认页脚",
-	displayFooter: true,
+	// footer: "默认页脚",
+	// displayFooter: true,
 
 	// 加密配置
-	encrypt: {
-		config: {
-			"/demo/encrypt.html": ["1234"],
-		},
-	},
+	// encrypt: {
+	// 	config: {
+	// 		"/demo/encrypt.html": ["1234"],
+	// 	},
+	// },
 
 	// 多语言配置
 	metaLocales: {
