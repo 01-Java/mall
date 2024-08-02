@@ -23,12 +23,14 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 			// 配置插件
 			AutoImport({
 				resolvers: [ElementPlusResolver()],
+				dts: "./types/auto-imports.d.ts",
 			}),
 			Components({
 				resolvers: [
 					// 配置额，elementPlus采取sass样式配色系统
 					ElementPlusResolver({ importStyle: "sass" }),
 				],
+				dts: "./types/components.d.ts",
 			}),
 			// 按需定制主题配置
 			ElementPlus({
