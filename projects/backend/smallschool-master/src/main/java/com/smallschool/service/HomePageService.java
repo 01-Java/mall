@@ -1,6 +1,7 @@
 package com.smallschool.service;
 
 import com.smallschool.entity.ProductDetails;
+import com.smallschool.entity.ProductRecommend;
 import com.smallschool.mapper.HomaPageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,15 +18,15 @@ public class HomePageService {
 @Autowired
     private HomaPageMapper homePageMapper;
 
-    public List<ProductDetails> getRecommend(){
+    public List<ProductRecommend> getRecommend(){
        return  homePageMapper.homeRecommend();
     }
 
-    public List<ProductDetails> getCategory(String category){
+    public List<ProductRecommend> getCategory(String category){
         return homePageMapper.homeByCategory(category);
     }
 
-    public List<ProductDetails> getSearch(String search){
+    public List<ProductRecommend> getSearch(String search){
         return homePageMapper.homeSearch(search);
     }
 }

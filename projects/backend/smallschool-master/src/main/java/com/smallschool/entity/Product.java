@@ -4,10 +4,10 @@ import java.util.List;
 
 public class Product {
     private Integer product_id;
-    private Integer sales;
     private Integer sku_id;
     private Integer spu_id;
     private Double price;
+    private Integer sales;
     private Spu spu;
     private Sku sku;
 
