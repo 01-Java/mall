@@ -23,6 +23,18 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 			// https://uvr.esm.is/introduction.html#installation
 			VueRouter({
 				dts: "./types/typed-router.d.ts",
+				routesFolder: [
+					{
+						// src: "src/pages",
+						// 在我们项目中，页面放在 views 文件夹下。
+						src: "src/views",
+						// 下面的配置暂时不使用
+						// override globals
+						// exclude: (excluded) => excluded,
+						// filePatterns: (filePatterns) => filePatterns,
+						// extensions: (extensions) => extensions,
+					},
+				],
 			}),
 
 			vue(),

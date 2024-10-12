@@ -21,6 +21,8 @@
 			"element-plus/global",
 			"vite/client",
 			"unplugin-auto-import",
+			/** https://uvr.esm.is/introduction.html#setup */
+			"unplugin-vue-router/client"
 		],
 		// Web 应用需要 DOM 环境
 		"lib": [
