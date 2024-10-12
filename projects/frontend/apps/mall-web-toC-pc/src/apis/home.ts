@@ -23,7 +23,7 @@ export const getHotGoodsAPI = () => {
 
 // 获取商品数据
 export const getGoodsProductAPI = () => {
-	return request<GoodsProductAPI>({
+	return request<any, GoodsProductAPI>({
 		url: "/home/goods",
 	});
 };
