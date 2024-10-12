@@ -19,8 +19,6 @@
 		"types": [
 			/** https://juejin.cn/post/7262322846252613693 */
 			"element-plus/global",
-			"./auto-imports.d.ts",
-			"./components.d.ts",
 			"vite/client",
 			"unplugin-auto-import",
 		],
@@ -63,7 +61,12 @@
 	/** https://www.typescriptlang.org/tsconfig#include */
 	"include": [
 		"src",
-		"typings",
+		// 导入全部的类型文件包括：
+		/** 
+			auto-imports.d.ts
+			components.d.ts
+			typed-router.d.ts
+		*/
 		"types",
 		"src/**/*.ts",
 		"src/**/*.d.ts",

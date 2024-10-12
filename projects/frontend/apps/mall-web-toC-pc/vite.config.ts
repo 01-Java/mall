@@ -6,6 +6,7 @@ import vue from "@vitejs/plugin-vue";
 // 引入插件
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
+import VueRouter from "unplugin-vue-router/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import ElementPlus from "unplugin-element-plus/vite";
 
@@ -19,12 +20,19 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 		},
 
 		plugins: [
+			// https://uvr.esm.is/introduction.html#installation
+			VueRouter({
+				dts: "./types/typed-router.d.ts",
+			}),
+
 			vue(),
+
 			// 配置插件
 			AutoImport({
 				resolvers: [ElementPlusResolver()],
 				dts: "./types/auto-imports.d.ts",
 			}),
+
 			Components({
 				resolvers: [
 					// 配置额，elementPlus采取sass样式配色系统

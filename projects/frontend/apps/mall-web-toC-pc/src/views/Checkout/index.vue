@@ -1,5 +1,5 @@
 <script setup>
-import { getCheckInfoAPI } from "@/apis/checkout.js";
+import { getCheckInfoAPI } from "@/apis/checkout";
 import { ref, onMounted } from "vue";
 import { createOrderAPI } from "@/apis/order";
 import { useRouter } from "vue-router";
