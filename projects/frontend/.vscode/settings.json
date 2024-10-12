@@ -1,5 +1,9 @@
 {
 	// "typescript.tsdk": "./node_modules/typescript/lib",
+	// https://uvr.esm.is/introduction.html#setup
+	"typescript.preferences.autoImportFileExcludePatterns": [
+		"vue-router/auto$"
+	],
 	"npm.packageManager": "pnpm",
 	// "editor.tabSize": 2,
 	"editor.formatOnSave": true,

@@ -7,6 +7,7 @@ import vue from "@vitejs/plugin-vue";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import VueRouter from "unplugin-vue-router/vite";
+import { VueRouterAutoImports } from "unplugin-vue-router";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import ElementPlus from "unplugin-element-plus/vite";
 
@@ -41,6 +42,7 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 
 			// 配置插件
 			AutoImport({
+				imports: [VueRouterAutoImports],
 				resolvers: [ElementPlusResolver()],
 				dts: "./types/auto-imports.d.ts",
 			}),
