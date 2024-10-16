@@ -3,11 +3,6 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
-  "engines": {
-    "node": ">=18",
-    "vscode": "^1.22.0",
-    "pnpm": ">=8"
-  },
   "scripts": {
     "dev": "vite",
     "build:prod": "vite build",
@@ -93,6 +88,5 @@
     "vite-plugin-vue-devtools": "^7.3.7",
     "vue-tsc": "^1.8.27"
   },
-  "repository": "https://gitee.com/youlaiorg/vue3-element-admin.git",
-  "packageManager": "pnpm@9.6.0+sha512.38dc6fba8dba35b39340b9700112c2fe1e12f10b17134715a4aa98ccf7bb035e76fd981cf0bb384dfa98f8d6af5481c2bef2f4266a24bfa20c34eb7147ce0b5e"
+  "repository": "https://gitee.com/youlaiorg/vue3-element-admin.git"
 }
