@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import { routes, handleHotUpdate } from "vue-router/auto-routes";
 
+console.log(" 看看自动路由生成了什么？ ", routes);
+
 const router = createRouter({
 	/**
 	 * @see https://blog.csdn.net/KimBing/article/details/130085256

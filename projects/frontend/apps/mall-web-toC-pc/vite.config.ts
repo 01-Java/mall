@@ -43,6 +43,7 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 			// 配置插件
 			AutoImport({
 				imports: [VueRouterAutoImports],
+				ignore: ["vue-router"],
 				resolvers: [ElementPlusResolver()],
 				dts: "./types/auto-imports.d.ts",
 			}),

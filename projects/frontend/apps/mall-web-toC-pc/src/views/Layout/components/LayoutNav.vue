@@ -1,8 +1,19 @@
 <script setup>
 import { useUserStore } from "@/stores";
-import { useRouter } from "vue-router";
+
 const userStroe = useUserStore();
 const router = useRouter();
+
+function toLayoutHome() {
+	router.push({
+		// FIXME: 具名路由的名称不够语义化
+		// name: "/Layout/",
+		// name: "/",
+		// 确实可以跳转到用户信息页面
+		path: "/Member/components/UserInfo",
+	});
+}
+
 const confirm = () => {
 	// 1。清除用户数据
 	userStroe.clearUserInfo();
@@ -35,6 +46,7 @@ const confirm = () => {
 				<template v-else>
 					<li>
 						<RouterLink :to="'/login'">请先登录</RouterLink>
+						<ElButton @click="toLayoutHome()"> 跳转到别的地方 </ElButton>
 					</li>
 					<li><a href="javascript:;">帮助中心</a></li>
 					<li><a href="javascript:;">关于我们</a></li>
