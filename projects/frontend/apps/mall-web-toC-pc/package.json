@@ -3,6 +3,7 @@
 	"version": "0.0.1",
 	"type": "module",
 	"private": true,
+	"description": "01星球-Java再起航小组-商城前台",
 	"scripts": {
 		"dev": "vite",
 		"build:prod": "vite build --mode production",
