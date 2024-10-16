@@ -7,10 +7,10 @@ const router = useRouter();
 function toLayoutHome() {
 	router.push({
 		// FIXME: 具名路由的名称不够语义化
-		// name: "/Layout/",
+		name: "",
 		// name: "/",
 		// 确实可以跳转到用户信息页面
-		path: "/Member/components/UserInfo",
+		// path: "",
 	});
 }
 

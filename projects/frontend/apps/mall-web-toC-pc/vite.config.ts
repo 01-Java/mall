@@ -7,9 +7,76 @@ import vue from "@vitejs/plugin-vue";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import VueRouter from "unplugin-vue-router/vite";
+import { type Options } from "unplugin-vue-router";
 import { VueRouterAutoImports } from "unplugin-vue-router";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import ElementPlus from "unplugin-element-plus/vite";
+
+type GetRouteName = NonNullable<Options["getRouteName"]>;
+
+/**
+ * 自主生成路由名称
+ * @description
+ * 对自动生成的路由名称，很不满意，不好看，打算自定义
+ */
+const getRouteName_2: GetRouteName = function _getRouteName_1(node): ReturnType<GetRouteName> {
+	const routeNames: string[] = [];
+
+	const innerGetRouteName: GetRouteName = function _innerGetRouteName(_node): ReturnType<GetRouteName> {
+		let result = "";
+
+		console.log(" 在递归函数内，看看 node ", node.value);
+		// if (!node.parent) return "RouteName";
+
+		if (!node.parent) {
+			result = "";
+			routeNames.push(result);
+			return result;
+		}
+
+		if (_node.value.rawSegment === "index") {
+			routeNames.push("");
+		} else {
+			routeNames.push(node.value.rawSegment);
+		}
+
+		return _getRouteName(node.parent) + (node.value.rawSegment === "index" ? "" : `-${node.value.rawSegment}`);
+	};
+
+	const getRouteNameRes = innerGetRouteName(node);
+
+	// console.log(" 看看自己自定义函数的 routeNames： ", routeNames);
+	// console.log(" 看看自己自定义函数的 getRouteNameRes： ", getRouteNameRes);
+
+	return "";
+};
+
+/**
+ * 自主生成路由名称
+ * @description
+ * 对自动生成的路由名称，很不满意，不好看，打算自定义
+ */
+const getRouteName: GetRouteName = function _getRouteName_2(node): ReturnType<GetRouteName> {
+	// 如果是根节点 那么没有对应的文件夹名称 返回空字符串
+	if (!node.parent) {
+		return "";
+	}
+
+	/** 上一次递归产生的字符串 */
+	const last = _getRouteName_2(node.parent);
+
+	/**
+	 * 路由名称链接符
+	 * @description
+	 * 如果上一次递归产生的字符串为空，则不需要链接符
+	 */
+	const connector = last === "" ? "" : "-";
+
+	/** 当前节点的路由名称 */
+	const current = node.value.rawSegment === "index" ? "" : `${connector}${node.value.rawSegment}`;
+
+	return last + current;
+};
 
 // https://vitejs.dev/config/
 export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
@@ -36,6 +103,7 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 						// extensions: (extensions) => extensions,
 					},
 				],
+				getRouteName,
 			}),
 
 			vue(),
