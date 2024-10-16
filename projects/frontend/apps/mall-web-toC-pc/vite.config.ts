@@ -17,53 +17,20 @@ type GetRouteName = NonNullable<Options["getRouteName"]>;
 /**
  * 自主生成路由名称
  * @description
- * 对自动生成的路由名称，很不满意，不好看，打算自定义
+ * 对插件自动生成的路由名称，很不满意，不好看，容易引起阅读歧义。
+ *
+ * 故自定义。
+ *
+ * unplugin-vue-router 插件的 getRouteName 配置项
  */
-const getRouteName_2: GetRouteName = function _getRouteName_1(node): ReturnType<GetRouteName> {
-	const routeNames: string[] = [];
-
-	const innerGetRouteName: GetRouteName = function _innerGetRouteName(_node): ReturnType<GetRouteName> {
-		let result = "";
-
-		console.log(" 在递归函数内，看看 node ", node.value);
-		// if (!node.parent) return "RouteName";
-
-		if (!node.parent) {
-			result = "";
-			routeNames.push(result);
-			return result;
-		}
-
-		if (_node.value.rawSegment === "index") {
-			routeNames.push("");
-		} else {
-			routeNames.push(node.value.rawSegment);
-		}
-
-		return _getRouteName(node.parent) + (node.value.rawSegment === "index" ? "" : `-${node.value.rawSegment}`);
-	};
-
-	const getRouteNameRes = innerGetRouteName(node);
-
-	// console.log(" 看看自己自定义函数的 routeNames： ", routeNames);
-	// console.log(" 看看自己自定义函数的 getRouteNameRes： ", getRouteNameRes);
-
-	return "";
-};
-
-/**
- * 自主生成路由名称
- * @description
- * 对自动生成的路由名称，很不满意，不好看，打算自定义
- */
-const getRouteName: GetRouteName = function _getRouteName_2(node): ReturnType<GetRouteName> {
+const getRouteName: GetRouteName = function _getRouteName(node): ReturnType<GetRouteName> {
 	// 如果是根节点 那么没有对应的文件夹名称 返回空字符串
 	if (!node.parent) {
 		return "";
 	}
 
 	/** 上一次递归产生的字符串 */
-	const last = _getRouteName_2(node.parent);
+	const last = _getRouteName(node.parent);
 
 	/**
 	 * 路由名称链接符
@@ -75,6 +42,8 @@ const getRouteName: GetRouteName = function _getRouteName_2(node): ReturnType<Ge
 	/** 当前节点的路由名称 */
 	const current = node.value.rawSegment === "index" ? "" : `${connector}${node.value.rawSegment}`;
 
+	// 返回上一次递归产生的字符串和当前节点的路由名称的拼接
+	// 从后面逐步拼接
 	return last + current;
 };
 
