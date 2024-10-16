@@ -3,6 +3,9 @@ import { fileURLToPath, URL } from "node:url";
 import { type UserConfig, type ConfigEnv, loadEnv, defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
+// FIXME: https://github.com/vitejs/vite/issues/5370
+import { getRouteName } from "@ruan-cat/utils/src/unplugin-vue-router/index.ts";
+
 // 引入插件
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
