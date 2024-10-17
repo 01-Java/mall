@@ -92,3 +92,24 @@ npm run build
 ## 尝试触发部署
 
 projects/frontend/apps/mall-web-toC-pc/\*
+
+## 历史笔记记录
+
+## 处理 vite 配置不能以符号链接的形式导入 ts 包的问题
+
+### --import tsx 方案
+
+`NODE_OPTIONS=\"--import tsx\"`，这个方案来修改 vite 的运行命令。
+
+```json
+{
+	"scripts": {
+		"dev": "vite",
+		"dev:with-import-tsx": "cross-env NODE_OPTIONS=\"--import tsx\" pnpm exec vite"
+	}
+}
+```
+
+这个方案运行速度很慢，要 6 秒。记录该方案，但是不敢使用。
+
+效率太低了，冷启动很慢。

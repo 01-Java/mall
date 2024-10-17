@@ -6,6 +6,7 @@
 	"description": "01星球-Java再起航小组-商城前台",
 	"scripts": {
 		"dev": "vite",
+		"dev:with-import-tsx": "cross-env NODE_OPTIONS=\"--import tsx\" pnpm exec vite",
 		"build:prod": "vite build --mode production",
 		"preview": "vite preview",
 		"lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
