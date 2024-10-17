@@ -5,7 +5,13 @@ import vue from "@vitejs/plugin-vue";
 
 // FIXME: https://github.com/vitejs/vite/issues/5370
 // import { getRouteName } from "@ruan-cat/utils";
-import { getRouteName } from "./src/plugins/unplugin-vue-router";
+
+// 用tsx实现动态导入依赖包的方案 https://github.com/vitejs/vite/issues/5370#issuecomment-2417686698
+// 缺点就是项目启动慢了很多
+import { tsImport } from "tsx/esm/api";
+const { getRouteName } = await tsImport("@ruan-cat/utils", import.meta.url);
+
+// import { getRouteName } from "./src/plugins/unplugin-vue-router";
 
 // 引入插件
 import AutoImport from "unplugin-auto-import/vite";
