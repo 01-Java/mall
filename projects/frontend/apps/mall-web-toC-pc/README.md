@@ -101,6 +101,8 @@ projects/frontend/apps/mall-web-toC-pc/\*
 
 `NODE_OPTIONS=\"--import tsx\"`，这个方案来修改 vite 的运行命令。
 
+- https://github.com/vitejs/vite/issues/5370#issuecomment-2111746632
+
 ```json
 {
 	"scripts": {
@@ -113,3 +115,16 @@ projects/frontend/apps/mall-web-toC-pc/\*
 这个方案运行速度很慢，要 6 秒。记录该方案，但是不敢使用。
 
 效率太低了，冷启动很慢。
+
+### tsx 方案
+
+用 tsx 实现动态导入依赖包的方案
+
+- https://github.com/vitejs/vite/issues/5370#issuecomment-2417686698
+
+缺点就是项目启动慢了很多，大约在 4 秒以内。
+
+```ts
+import { tsImport } from "tsx/esm/api";
+const { getRouteName } = await tsImport("@ruan-cat/utils", import.meta.url);
+```
