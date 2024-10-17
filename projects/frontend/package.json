@@ -30,7 +30,7 @@
 		"b:@zo-java-resail/mall-admin": "pnpm -F @zo-java-resail/mall-admin run build:prod"
 	},
 	"dependencies": {
-		"@ruan-cat/utils": "^1.1.0",
+		"@ruan-cat/utils": "^1.1.1",
 		"lodash-es": "^4.17.21",
 		"pinia-plugin-persistedstate": "^3.2.1"
 	},
