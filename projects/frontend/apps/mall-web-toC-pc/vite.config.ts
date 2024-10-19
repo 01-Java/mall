@@ -21,6 +21,7 @@ import { VueRouterAutoImports } from "unplugin-vue-router";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import ElementPlus from "unplugin-element-plus/vite";
 import vueDevTools from "vite-plugin-vue-devtools";
+import { visualizer } from "rollup-plugin-visualizer";
 
 // https://vitejs.dev/config/
 export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
@@ -58,6 +59,15 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 					},
 				],
 				getRouteName,
+			}),
+
+			/**
+			 * 打包体积分析插件
+			 */
+			visualizer({
+				filename: "./dist/visualizer/index.html",
+				title: "visualizer打包分析报告",
+				template: "network",
 			}),
 
 			vue(),
