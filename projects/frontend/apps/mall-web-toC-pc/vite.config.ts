@@ -17,7 +17,6 @@ import { getRouteName } from "./src/plugins/unplugin-vue-router";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import VueRouter from "unplugin-vue-router/vite";
-import { type Options } from "unplugin-vue-router";
 import { VueRouterAutoImports } from "unplugin-vue-router";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import ElementPlus from "unplugin-element-plus/vite";
@@ -33,7 +32,13 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 		},
 
 		plugins: [
-			// https://uvr.esm.is/introduction.html#installation
+			/**
+			 * 类型化路由插件
+			 * @description
+			 * 其定义位置必须在 `@vitejs/plugin-vue` 插件之前。
+			 *
+			 * @see https://uvr.esm.is/introduction.html#installation
+			 */
 			VueRouter({
 				dts: "./types/typed-router.d.ts",
 				routesFolder: [
