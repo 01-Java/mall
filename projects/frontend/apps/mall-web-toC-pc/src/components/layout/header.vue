@@ -1,7 +1,7 @@
 <script setup>
 import { RouterLink } from "vue-router";
 import { useCategoryStore } from "@/stores";
-import LayoutCart from "@/views/Layout/components/LayoutCart.vue";
+import LayoutCart from "@/views/Layout/components/cart.vue";
 // 获取pinia中的数据
 const categoryStore = useCategoryStore();
 </script>

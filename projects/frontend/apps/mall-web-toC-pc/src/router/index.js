@@ -5,7 +5,7 @@ import { routes as autoRoutes, handleHotUpdate } from "vue-router/auto-routes";
 const originRoutes = [
 	{
 		path: "/",
-		component: () => import("@/views/Layout/index.vue"),
+		component: () => import("@/views/index.vue"),
 		children: [
 			{
 				path: "",
