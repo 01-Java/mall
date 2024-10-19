@@ -38,4 +38,5 @@ stats.html
 # 不提供自动生成的类型文件
 auto-imports.d.ts
 components.d.ts
+components-instance.d.ts
 typed-router.d.ts

@@ -22,12 +22,12 @@
 		"_preinstall_no_use": "npm run corepack:pnpm && npx only-allow pnpm",
 		"corepack:pnpm": "corepack install",
 		"git:fetch": "git fetch -p",
-		"rm:node_modules": "pnpm -r rm:node_modules && rimraf node_modules pnpm-lock.yaml",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
 		"prettier": "prettier --write .",
 		"b:@zo-java-resail/mall": "pnpm -F @zo-java-resail/mall run build:prod",
-		"b:@zo-java-resail/mall-admin": "pnpm -F @zo-java-resail/mall-admin run build:prod"
+		"b:@zo-java-resail/mall-admin": "pnpm -F @zo-java-resail/mall-admin run build:prod",
+		"rm:node_modules": "pnpm -r rm:node_modules && rimraf node_modules pnpm-lock.yaml"
 	},
 	"dependencies": {
 		"@ruan-cat/utils": "^1.1.1",

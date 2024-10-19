@@ -1,5 +1,8 @@
+import { dirname, resolve } from "node:path";
 import { fileURLToPath, URL } from "node:url";
+import * as fs from "node:fs";
 
+import { upperFirst } from "lodash-es";
 import { type UserConfig, type ConfigEnv, loadEnv, defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
@@ -22,6 +25,16 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import ElementPlus from "unplugin-element-plus/vite";
 import vueDevTools from "vite-plugin-vue-devtools";
 import { visualizer } from "rollup-plugin-visualizer";
+import { createPlugin, getName } from "vite-plugin-autogeneration-import-file";
+
+const { autoImport } = createPlugin();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+function pathResolve(dir: string) {
+	const resPath = resolve(__dirname, ".", dir);
+	return resPath;
+}
 
 // https://vitejs.dev/config/
 export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
@@ -30,6 +43,7 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 	return {
 		server: {
 			port: Number(env.VITE_APP_PORT),
+			open: true,
 		},
 
 		plugins: [
@@ -72,21 +86,61 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 
 			vue(),
 
+			/**
+			 * 自动生成类型声明文件插件
+			 */
+			autoImport([
+				{
+					pattern: ["**/*.vue"],
+
+					// 监听的文件夹
+					dir: pathResolve("src"),
+
+					// 生成的文件
+					// FIXME: 当不包含文件路径时，就出现错误 如果没有预先准备好文件夹，就会生成失败。
+					toFile: pathResolve("types/components-instance.d.ts"),
+
+					// 文件生成模板
+					template: fs.readFileSync(pathResolve("template/components.template.d.ts"), "utf-8"),
+
+					codeTemplates: [
+						{
+							key: "//typeCode",
+							template: 'type {{name}}Instance = InstanceType<typeof import("{{path}}")["default"]>;\n  ',
+						},
+					],
+
+					/**
+					 * 组件名命名规则支持字符串模板和函数
+					 * @description
+					 * 设置首字母为大写
+					 */
+					name(fileName) {
+						const resFileName = getName(fileName);
+						const upperFirstFileName = upperFirst(resFileName);
+						// console.log(" in name", upperFirstFileName);
+						return upperFirstFileName;
+					},
+				},
+			]),
+
 			// 配置插件
 			AutoImport({
 				imports: [VueRouterAutoImports],
 				ignore: ["vue-router"],
-				resolvers: [ElementPlusResolver()],
 				dts: "./types/auto-imports.d.ts",
+				resolvers: [ElementPlusResolver()],
 			}),
 
 			Components({
 				version: 3,
+				dirs: ["src/components", "src/views"],
+				dts: "./types/components.d.ts",
+				directoryAsNamespace: true,
 				resolvers: [
 					// 配置额，elementPlus采取sass样式配色系统
 					ElementPlusResolver({ importStyle: "sass" }),
 				],
-				dts: "./types/components.d.ts",
 			}),
 
 			/**
