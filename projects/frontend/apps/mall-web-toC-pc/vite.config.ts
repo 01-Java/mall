@@ -21,6 +21,7 @@ import { type Options } from "unplugin-vue-router";
 import { VueRouterAutoImports } from "unplugin-vue-router";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import ElementPlus from "unplugin-element-plus/vite";
+import vueDevTools from "vite-plugin-vue-devtools";
 
 // https://vitejs.dev/config/
 export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
@@ -71,6 +72,16 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 				],
 				dts: "./types/components.d.ts",
 			}),
+
+			/**
+			 * 开发调试插件
+			 * @description
+			 * vueDevTools 必须在 createHtmlPlugin 的前面导入
+			 *
+			 * @see https://github.com/vuejs/devtools-next/issues/278#issuecomment-2021745201
+			 */
+			vueDevTools(),
+
 			// 按需定制主题配置
 			ElementPlus({
 				useSource: true,
