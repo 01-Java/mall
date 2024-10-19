@@ -71,6 +71,7 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 			}),
 
 			Components({
+				version: 3,
 				resolvers: [
 					// 配置额，elementPlus采取sass样式配色系统
 					ElementPlusResolver({ importStyle: "sass" }),
