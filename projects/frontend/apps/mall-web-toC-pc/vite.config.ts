@@ -128,11 +128,7 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 			AutoImport({
 				imports: [VueRouterAutoImports],
 				ignore: ["vue-router"],
-
-				dirs: [
-					// "./src/apis", "./src/stores", "./src/composables", "./src/utils", "./src/plugins"
-					"src/**/*",
-				],
+				dirs: ["src/**/*"],
 				dts: "./types/auto-imports.d.ts",
 				resolvers: [ElementPlusResolver()],
 			}),
