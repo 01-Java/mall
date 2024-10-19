@@ -1,7 +1,4 @@
-<script setup>
-import { RouterLink } from "vue-router";
-import { useCategoryStore } from "@/stores";
-import LayoutCart from "@/views/Layout/components/cart.vue";
+<script lang="ts" setup>
 // 获取pinia中的数据
 const categoryStore = useCategoryStore();
 </script>
@@ -24,6 +21,7 @@ const categoryStore = useCategoryStore();
 				<i class="iconfont icon-search"></i>
 				<input type="text" placeholder="搜一搜" />
 			</div>
+
 			<!-- 头部购物车 -->
 			<LayoutCart></LayoutCart>
 		</div>

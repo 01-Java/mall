@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import GoodsItem from "@/components/GoodsItem.vue";
 import { useBanner } from "./composables/useBanner";
 import { useCategory } from "./composables/useCategory";

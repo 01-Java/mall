@@ -11,10 +11,11 @@ const originRoutes = [
 				path: "",
 				component: () => import("@/views/Home/index.vue"),
 			},
-			{
-				path: "category/:id",
-				component: () => import("@/views/Category/index.vue"),
-			},
+			// 已使用类型化路由完成自动替换
+			// {
+			// 	path: "category/:id",
+			// 	component: () => import("@/views/category/[id].vue"),
+			// },
 			{
 				path: "category/sub/:id",
 				component: () => import("@/views/SubCategory/index.vue"),
