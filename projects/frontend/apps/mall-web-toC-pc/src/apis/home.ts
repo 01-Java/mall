@@ -1,5 +1,7 @@
 import request from "@/utils/request";
 
+import { GoodsProductAPI } from "@/models/goods";
+
 // 获取轮播图数据
 export const getBannerAPI = () => {
 	return request({
@@ -18,9 +20,10 @@ export const getHotGoodsAPI = () => {
 		url: "home/hot",
 	});
 };
+
 // 获取商品数据
 export const getGoodsProductAPI = () => {
-	return request({
+	return request<any, GoodsProductAPI>({
 		url: "/home/goods",
 	});
 };

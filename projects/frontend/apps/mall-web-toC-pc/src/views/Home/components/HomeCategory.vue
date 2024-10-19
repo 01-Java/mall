@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useCategoryStore } from "@/stores";
 const categoryStore = useCategoryStore();
 </script>

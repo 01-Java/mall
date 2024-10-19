@@ -1,12 +1,13 @@
-<script setup>
-import HomePanel from "./HomePanel.vue";
+<script setup lang="ts">
 import { ref, onMounted } from "vue";
+import HomePanel from "./HomePanel.vue";
 import { getGoodsProductAPI } from "@/apis/home";
 import GoodsItem from "@/components/GoodsItem.vue";
 // 获取热门品牌数据
 const goodsProductList = ref([]);
 const getGoodsProduct = async () => {
 	const res = await getGoodsProductAPI();
+	// res.
 	goodsProductList.value = res.result;
 };
 
