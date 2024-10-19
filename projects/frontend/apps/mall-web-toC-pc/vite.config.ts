@@ -4,14 +4,14 @@ import { type UserConfig, type ConfigEnv, loadEnv, defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
 // FIXME: https://github.com/vitejs/vite/issues/5370
-import { getRouteName } from "@ruan-cat/utils";
+// import { getRouteName } from "@ruan-cat/utils";
 
 // 用tsx实现动态导入依赖包的方案 https://github.com/vitejs/vite/issues/5370#issuecomment-2417686698
 // 缺点就是项目启动慢了很多
 // import { tsImport } from "tsx/esm/api";
 // const { getRouteName } = await tsImport("@ruan-cat/utils", import.meta.url);
 
-// import { getRouteName } from "./src/plugins/unplugin-vue-router";
+import { getRouteName } from "./src/plugins/unplugin-vue-router";
 
 // 引入插件
 import AutoImport from "unplugin-auto-import/vite";
@@ -37,8 +37,12 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 				dts: "./types/typed-router.d.ts",
 				routesFolder: [
 					{
-						// src: "src/pages",
-						// 在我们项目中，页面放在 views 文件夹下。
+						/**
+						 * 在我们项目中，页面放在 views 文件夹下。
+						 *
+						 * 文档建议是写在pages内
+						 * src: "src/pages",
+						 */
 						src: "src/views",
 						// 下面的配置暂时不使用
 						// override globals
