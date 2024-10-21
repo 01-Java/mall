@@ -3,7 +3,9 @@ import { useUserStore } from "@/stores/index";
 import { ElMessage } from "element-plus";
 import router from "@/router";
 
-// 创建axios实例
+/**
+ * 创建axios实例
+ */
 const request = axios.create({
 	// baseURL: "http://pcapi-xiaotuxian-front-devtest.itheima.net",
 	baseURL: "https://pcapi-xiaotuxian-front-devtest.itheima.net",
@@ -24,6 +26,7 @@ request.interceptors.request.use((config) => {
 
 // axios响应拦截器
 request.interceptors.response.use(
+	// 这里决定了 每一个接口返回值的数据 都默认完成data数据解包。
 	(res) => res.data,
 	(e) => {
 		// 统一响应错误

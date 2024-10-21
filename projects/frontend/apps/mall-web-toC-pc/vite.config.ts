@@ -133,17 +133,21 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 					"pinia",
 
 					// TODO: 尝试手动实现第三方包的api导入，发现配置起来很难受 故暂时不考虑手动逐步地添加api
+					// 疑似有性能问题 项目启动慢
 					{
 						imports: ["debounce", "throttle"],
 						from: "lodash-es",
 						// 该配置会生成typescript类型，不符合我们的期望
 						// type: true,
 					},
-					{
-						"lodash-es": ["debounce", "throttle"],
-					},
+					// {
+					// 	"lodash-es": ["debounce", "throttle"],
+					// },
 					{
 						"@ruan-cat/utils": ["isConditionsEvery", "isConditionsSome"],
+					},
+					{
+						"@vueuse/integrations/useAxios": ["useAxios"],
 					},
 				],
 				ignore: ["vue-router"],
