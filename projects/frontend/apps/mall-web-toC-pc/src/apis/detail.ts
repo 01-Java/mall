@@ -1,14 +1,28 @@
 import request from "@/utils/request";
 
 import { type ApifoxModel_goods } from "models/goods";
+import { type UseAxiosOptions } from "@vueuse/integrations";
 
-// 获取商品详情
-export function getDetailAPI(id: string) {
-	return request<any, ApifoxModel_goods>({
-		url: "/goods",
-		params: { id },
-	});
+/** 获取商品详情 */
+// export function getDetailAPI(id: string) {
+// 	return request<any, ApifoxModel_goods>({
+// 		url: "/goods",
+// 		params: { id },
+// 	});
+// }
+
+/** 获取商品详情 */
+export function getDetailAPI<T = ApifoxModel_goods>(id: string, options?: UseAxiosOptions<T>) {
+	return useAxios<T>(
+		"/goods",
+		{
+			params: { id },
+		},
+		requestForUseAxios,
+		options,
+	);
 }
+
 // 获取热榜商品
 /**
  * 获取热榜商品

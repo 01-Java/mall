@@ -64,7 +64,7 @@ const originRoutes = [
 
 const routes = [...originRoutes, ...autoRoutes];
 
-console.log(" 看看最终的路由生成了什么？ ", routes);
+// console.log(" 看看最终的路由生成了什么？ ", routes);
 
 const router = createRouter({
 	/**

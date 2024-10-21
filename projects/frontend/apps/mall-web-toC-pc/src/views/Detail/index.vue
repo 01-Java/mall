@@ -4,27 +4,71 @@ import GoodsSku from "@/components/GoodsSku.vue";
 import { useCartStore } from "@/stores/index";
 import { ElMessage } from "element-plus";
 
+import { type ApifoxModel_goods } from "models/goods";
+
 // 获取商品详情
-const good = ref({});
+// @ts-ignore
+const _good = ref<ApifoxModel_goods>({});
+
+const good = computed({
+	get() {
+		return _good.value;
+	},
+	set(val) {
+		_good.value = val;
+	},
+});
+
 const route = useRoute();
 
 const getGoods = async () => {
-	const res = await getDetailAPI(route.params.id);
-	good.value = res.result;
+	// @ts-ignore
+
+	const { data: dataFormUseAxios, execute } = useAxios<T>(
+		"/goods",
+		{
+			// @ts-ignore
+			params: { id: route.params.id },
+		},
+		requestForUseAxios,
+		{
+			// immediate: true,
+		},
+	);
+	// const { data } = await getDetailAPI(route.params.id, {
+	// 	immediate: true,
+	// });
+	const resExecute = await execute();
+	const { data: dataFormResExecute } = resExecute;
+
+	console.log(" in getGoods = dataFormUseAxios ", dataFormUseAxios.value);
+	console.log(" in getGoods = resExecute ", resExecute);
+	console.log(" in getGoods = dataFormResExecute ", dataFormResExecute.value);
+
+	good.value = dataFormResExecute?.value?.result;
+
+	// console.log(" in getGoods = res ", res);
+	// const res = await getDetailAPI(route.params.id);
+	// good.value = res.result;
 };
 
-getGoods();
+onMounted(async () => {
+	await getGoods();
+});
+
 // 加入购物车逻辑
 // 1.选择商品规格
 const skuObj = ref({});
 const skuChange = (sku) => {
 	skuObj.value = sku;
 };
+
 // 2.输入数量
 const num = ref(1);
 const countChange = (count) => {
 	num.value = count;
 };
+
 // 3.点击加入购物车
 const cartStore = useCartStore();
 const add = () => {
@@ -47,6 +91,7 @@ const add = () => {
 	}
 };
 </script>
+
 <!-- 错误原因：goods一开始{}  {}.categories -> undefined  -> undefined[1]
 1. 可选链的语法?. 
 2. v-if手动控制渲染时机 保证只有数据存在才渲染-->
