@@ -7,14 +7,12 @@ import { AxiosPromise } from "axios";
  *
  * @param queryParams
  */
-export function getAdvertPage(
-  queryParams: AdvertQuery
-): AxiosPromise<AdvertPageResult> {
-  return request({
-    url: "/mall-sms/api/v1/adverts/page",
-    method: "get",
-    params: queryParams,
-  });
+export function getAdvertPage(queryParams: AdvertQuery): AxiosPromise<AdvertPageResult> {
+	return request({
+		url: "/mall-sms/api/v1/adverts/page",
+		method: "get",
+		params: queryParams,
+	});
 }
 
 /**
@@ -23,10 +21,10 @@ export function getAdvertPage(
  * @param id
  */
 export function getAdvertForm(id: number): AxiosPromise<AdvertForm> {
-  return request({
-    url: "/mall-sms/api/v1/adverts/" + id,
-    method: "get",
-  });
+	return request({
+		url: "/mall-sms/api/v1/adverts/" + id,
+		method: "get",
+	});
 }
 
 /**
@@ -35,11 +33,11 @@ export function getAdvertForm(id: number): AxiosPromise<AdvertForm> {
  * @param data
  */
 export function addAdvert(data: AdvertForm) {
-  return request({
-    url: "/mall-sms/api/v1/adverts",
-    method: "post",
-    data: data,
-  });
+	return request({
+		url: "/mall-sms/api/v1/adverts",
+		method: "post",
+		data: data,
+	});
 }
 
 /**
@@ -49,11 +47,11 @@ export function addAdvert(data: AdvertForm) {
  * @param data
  */
 export function updateAdvert(id: number, data: AdvertForm) {
-  return request({
-    url: "/mall-sms/api/v1/adverts/" + id,
-    method: "put",
-    data: data,
-  });
+	return request({
+		url: "/mall-sms/api/v1/adverts/" + id,
+		method: "put",
+		data: data,
+	});
 }
 
 /**
@@ -62,8 +60,8 @@ export function updateAdvert(id: number, data: AdvertForm) {
  * @param ids
  */
 export function deleteAdverts(ids: string) {
-  return request({
-    url: "/mall-sms/api/v1/adverts/" + ids,
-    method: "delete",
-  });
+	return request({
+		url: "/mall-sms/api/v1/adverts/" + ids,
+		method: "delete",
+	});
 }

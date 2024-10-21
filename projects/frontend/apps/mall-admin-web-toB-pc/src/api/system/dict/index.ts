@@ -1,27 +1,18 @@
 import request from "@/utils/request";
 import { AxiosPromise } from "axios";
-import {
-  DictTypeQuery,
-  DictTypePageResult,
-  DictTypeForm,
-  DictQuery,
-  DictForm,
-  DictPageResult,
-} from "./types";
+import { DictTypeQuery, DictTypePageResult, DictTypeForm, DictQuery, DictForm, DictPageResult } from "./types";
 
 /**
  * 字典类型分页列表
  *
  * @param queryParams
  */
-export function getDictTypePage(
-  queryParams: DictTypeQuery
-): AxiosPromise<DictTypePageResult> {
-  return request({
-    url: "/youlai-system/api/v1/dict/types/page",
-    method: "get",
-    params: queryParams,
-  });
+export function getDictTypePage(queryParams: DictTypeQuery): AxiosPromise<DictTypePageResult> {
+	return request({
+		url: "/youlai-system/api/v1/dict/types/page",
+		method: "get",
+		params: queryParams,
+	});
 }
 
 /**
@@ -30,10 +21,10 @@ export function getDictTypePage(
  * @param id
  */
 export function getDictTypeForm(id: number): AxiosPromise<DictTypeForm> {
-  return request({
-    url: "/youlai-system/api/v1/dict/types/" + id + "/form",
-    method: "get",
-  });
+	return request({
+		url: "/youlai-system/api/v1/dict/types/" + id + "/form",
+		method: "get",
+	});
 }
 
 /**
@@ -42,11 +33,11 @@ export function getDictTypeForm(id: number): AxiosPromise<DictTypeForm> {
  * @param data
  */
 export function addDictType(data: DictTypeForm) {
-  return request({
-    url: "/youlai-system/api/v1/dict/types",
-    method: "post",
-    data: data,
-  });
+	return request({
+		url: "/youlai-system/api/v1/dict/types",
+		method: "post",
+		data: data,
+	});
 }
 
 /**
@@ -56,21 +47,21 @@ export function addDictType(data: DictTypeForm) {
  * @param data
  */
 export function updateDictType(id: number, data: DictTypeForm) {
-  return request({
-    url: "/youlai-system/api/v1/dict/types/" + id,
-    method: "put",
-    data: data,
-  });
+	return request({
+		url: "/youlai-system/api/v1/dict/types/" + id,
+		method: "put",
+		data: data,
+	});
 }
 
 /**
  * 删除字典类型
  */
 export function deleteDictTypes(ids: string) {
-  return request({
-    url: "/youlai-system/api/v1/dict/types/" + ids,
-    method: "delete",
-  });
+	return request({
+		url: "/youlai-system/api/v1/dict/types/" + ids,
+		method: "delete",
+	});
 }
 
 /**
@@ -79,23 +70,21 @@ export function deleteDictTypes(ids: string) {
  * @param typeCode 字典类型编码
  */
 export function getDictOptions(typeCode: string): AxiosPromise<OptionType[]> {
-  return request({
-    url: "/youlai-system/api/v1/dict/types/" + typeCode + "/items",
-    method: "get",
-  });
+	return request({
+		url: "/youlai-system/api/v1/dict/types/" + typeCode + "/items",
+		method: "get",
+	});
 }
 
 /**
  * 字典分页列表
  */
-export function getDictPage(
-  queryParams: DictQuery
-): AxiosPromise<DictPageResult> {
-  return request({
-    url: "/youlai-system/api/v1/dict/page",
-    method: "get",
-    params: queryParams,
-  });
+export function getDictPage(queryParams: DictQuery): AxiosPromise<DictPageResult> {
+	return request({
+		url: "/youlai-system/api/v1/dict/page",
+		method: "get",
+		params: queryParams,
+	});
 }
 
 /**
@@ -104,10 +93,10 @@ export function getDictPage(
  * @param id
  */
 export function getDictFormData(id: number): AxiosPromise<DictForm> {
-  return request({
-    url: "/youlai-system/api/v1/dict/" + id + "/form",
-    method: "get",
-  });
+	return request({
+		url: "/youlai-system/api/v1/dict/" + id + "/form",
+		method: "get",
+	});
 }
 
 /**
@@ -116,11 +105,11 @@ export function getDictFormData(id: number): AxiosPromise<DictForm> {
  * @param data
  */
 export function addDict(data: DictForm) {
-  return request({
-    url: "/youlai-system/api/v1/dict",
-    method: "post",
-    data: data,
-  });
+	return request({
+		url: "/youlai-system/api/v1/dict",
+		method: "post",
+		data: data,
+	});
 }
 
 /**
@@ -130,11 +119,11 @@ export function addDict(data: DictForm) {
  * @param data
  */
 export function updateDict(id: number, data: DictForm) {
-  return request({
-    url: "/youlai-system/api/v1/dict/" + id,
-    method: "put",
-    data: data,
-  });
+	return request({
+		url: "/youlai-system/api/v1/dict/" + id,
+		method: "put",
+		data: data,
+	});
 }
 
 /**
@@ -143,8 +132,8 @@ export function updateDict(id: number, data: DictForm) {
  * @param ids 字典项ID，多个以英文逗号(,)分割
  */
 export function deleteDict(ids: string) {
-  return request({
-    url: "/youlai-system/api/v1/dict/" + ids,
-    method: "delete",
-  });
+	return request({
+		url: "/youlai-system/api/v1/dict/" + ids,
+		method: "delete",
+	});
 }

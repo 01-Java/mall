@@ -7,14 +7,12 @@ import { OrderPageResult, OrderQuery } from "./types";
  *
  * @param queryParams
  */
-export function getOrderPage(
-  queryParams: OrderQuery
-): AxiosPromise<OrderPageResult> {
-  return request({
-    url: "/mall-oms/api/v1/orders",
-    method: "get",
-    params: queryParams,
-  });
+export function getOrderPage(queryParams: OrderQuery): AxiosPromise<OrderPageResult> {
+	return request({
+		url: "/mall-oms/api/v1/orders",
+		method: "get",
+		params: queryParams,
+	});
 }
 
 /**
@@ -23,8 +21,8 @@ export function getOrderPage(
  * @param orderId
  */
 export function getOrderDetail(orderId: number) {
-  return request({
-    url: "/mall-oms/api/v1/orders/" + orderId,
-    method: "get",
-  });
+	return request({
+		url: "/mall-oms/api/v1/orders/" + orderId,
+		method: "get",
+	});
 }

@@ -1,9 +1,7 @@
 {
 	// "typescript.tsdk": "./node_modules/typescript/lib",
 	// https://uvr.esm.is/introduction.html#setup
-	"typescript.preferences.autoImportFileExcludePatterns": [
-		"vue-router/auto$"
-	],
+	"typescript.preferences.autoImportFileExcludePatterns": ["vue-router/auto$"],
 	"npm.packageManager": "pnpm",
 	// "editor.tabSize": 2,
 	"editor.formatOnSave": true,
@@ -124,7 +122,8 @@
 	},
 	"files.exclude": {
 		"**/.cache": true,
-		"**/.editorconfig": true,
+		// 不要忽略配置文件 该文件需要对外显示出来
+		"**/.editorconfig": false,
 		"**/.eslintcache": true,
 		"**/bower_components": true,
 		"**/.idea": true,
@@ -149,22 +148,15 @@
 	"i18n-ally.sortKeys": true,
 	"i18n-ally.namespace": false,
 	"i18n-ally.pathMatcher": "{locale}/{namespaces}.{ext}",
-	"i18n-ally.enabledParsers": [
-		"ts"
-	],
+	"i18n-ally.enabledParsers": ["ts"],
 	"i18n-ally.sourceLanguage": "en",
 	"i18n-ally.displayLanguage": "zh-CN",
-	"i18n-ally.enabledFrameworks": [
-		"vue",
-		"react"
-	],
-	"i18n-ally.localesPaths": [
-		"src/lang"
-	],
+	"i18n-ally.enabledFrameworks": ["vue", "react"],
+	"i18n-ally.localesPaths": ["src/lang"],
 	"picgo": {
 		"picBed": {
 			"current": "github",
-			"uploader": "github",
-		},
-	},
+			"uploader": "github"
+		}
+	}
 }

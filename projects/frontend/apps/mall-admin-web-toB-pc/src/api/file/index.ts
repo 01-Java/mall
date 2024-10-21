@@ -8,16 +8,16 @@ import { FileInfo } from "./types";
  * @param file
  */
 export function uploadFileApi(file: File): AxiosPromise<FileInfo> {
-  const formData = new FormData();
-  formData.append("file", file);
-  return request({
-    url: "/youlai-system/api/v1/files",
-    method: "post",
-    data: formData,
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+	const formData = new FormData();
+	formData.append("file", file);
+	return request({
+		url: "/youlai-system/api/v1/files",
+		method: "post",
+		data: formData,
+		headers: {
+			"Content-Type": "multipart/form-data",
+		},
+	});
 }
 
 /**
@@ -26,9 +26,9 @@ export function uploadFileApi(file: File): AxiosPromise<FileInfo> {
  * @param filePath 文件完整路径
  */
 export function deleteFileApi(filePath?: string) {
-  return request({
-    url: "/youlai-system/api/v1/files",
-    method: "delete",
-    params: { filePath: filePath },
-  });
+	return request({
+		url: "/youlai-system/api/v1/files",
+		method: "delete",
+		params: { filePath: filePath },
+	});
 }

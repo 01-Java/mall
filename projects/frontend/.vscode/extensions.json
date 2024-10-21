@@ -8,6 +8,6 @@
 		"esbenp.prettier-vscode",
 		"stylelint.vscode-stylelint",
 		"editorconfig.editorconfig",
-		"spades.vs-picgo",
+		"spades.vs-picgo"
 	]
 }

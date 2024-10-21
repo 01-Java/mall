@@ -92,7 +92,7 @@
 
 - 本地打包
 
-  ```
+  ```plain
   npm run build:prod
   ```
 
@@ -100,7 +100,7 @@
 
 - nginx.cofig 配置
 
-  ```
+  ```plain
   server {
       listen     80;
       server_name  localhost;

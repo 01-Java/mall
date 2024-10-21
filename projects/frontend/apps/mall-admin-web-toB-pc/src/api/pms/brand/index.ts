@@ -7,14 +7,12 @@ import { AxiosPromise } from "axios";
  *
  * @param queryParams
  */
-export function getBrandPage(
-  queryParams: BrandQuery
-): AxiosPromise<BrandPageResult> {
-  return request({
-    url: "/mall-pms/api/v1/brands/page",
-    method: "get",
-    params: queryParams,
-  });
+export function getBrandPage(queryParams: BrandQuery): AxiosPromise<BrandPageResult> {
+	return request({
+		url: "/mall-pms/api/v1/brands/page",
+		method: "get",
+		params: queryParams,
+	});
 }
 
 /**
@@ -23,11 +21,11 @@ export function getBrandPage(
  * @param queryParams
  */
 export function getBrandList(queryParams?: BrandQuery): AxiosPromise<Brand[]> {
-  return request({
-    url: "/mall-pms/api/v1/brands",
-    method: "get",
-    params: queryParams,
-  });
+	return request({
+		url: "/mall-pms/api/v1/brands",
+		method: "get",
+		params: queryParams,
+	});
 }
 
 /**
@@ -36,10 +34,10 @@ export function getBrandList(queryParams?: BrandQuery): AxiosPromise<Brand[]> {
  * @param id
  */
 export function getBrandFormDetail(id: number): AxiosPromise<BrandForm> {
-  return request({
-    url: "/mall-pms/api/v1/brands/" + id,
-    method: "get",
-  });
+	return request({
+		url: "/mall-pms/api/v1/brands/" + id,
+		method: "get",
+	});
 }
 
 /**
@@ -48,11 +46,11 @@ export function getBrandFormDetail(id: number): AxiosPromise<BrandForm> {
  * @param data
  */
 export function addBrand(data: BrandForm) {
-  return request({
-    url: "/mall-pms/api/v1/brands",
-    method: "post",
-    data: data,
-  });
+	return request({
+		url: "/mall-pms/api/v1/brands",
+		method: "post",
+		data: data,
+	});
 }
 
 /**
@@ -62,11 +60,11 @@ export function addBrand(data: BrandForm) {
  * @param data
  */
 export function updateBrand(id: number, data: BrandForm) {
-  return request({
-    url: "/mall-pms/api/v1/brands/" + id,
-    method: "put",
-    data: data,
-  });
+	return request({
+		url: "/mall-pms/api/v1/brands/" + id,
+		method: "put",
+		data: data,
+	});
 }
 
 /**
@@ -75,8 +73,8 @@ export function updateBrand(id: number, data: BrandForm) {
  * @param ids
  */
 export function deleteBrands(ids: string) {
-  return request({
-    url: "/mall-pms/api/v1/brands/" + ids,
-    method: "delete",
-  });
+	return request({
+		url: "/mall-pms/api/v1/brands/" + ids,
+		method: "delete",
+	});
 }
