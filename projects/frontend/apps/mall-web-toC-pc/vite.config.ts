@@ -126,7 +126,26 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 
 			// 配置插件
 			AutoImport({
-				imports: [VueRouterAutoImports, "vue", "@vueuse/core", "pinia"],
+				imports: [
+					VueRouterAutoImports,
+					"vue",
+					"@vueuse/core",
+					"pinia",
+
+					// TODO: 尝试手动实现第三方包的api导入，发现配置起来很难受 故暂时不考虑手动逐步地添加api
+					{
+						imports: ["debounce", "throttle"],
+						from: "lodash-es",
+						// 该配置会生成typescript类型，不符合我们的期望
+						// type: true,
+					},
+					{
+						"lodash-es": ["debounce", "throttle"],
+					},
+					{
+						"@ruan-cat/utils": ["isConditionsEvery", "isConditionsSome"],
+					},
+				],
 				ignore: ["vue-router"],
 				dirs: ["src/**/*"],
 				dts: "./types/auto-imports.d.ts",
