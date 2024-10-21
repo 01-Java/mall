@@ -1,17 +1,18 @@
-<script setup>
+<script lang="ts" setup>
 import { getDetailAPI } from "@/apis/detail";
-import { ref } from "vue";
-import { useRoute } from "vue-router";
 import GoodsSku from "@/components/GoodsSku.vue";
 import { useCartStore } from "@/stores/index";
 import { ElMessage } from "element-plus";
+
 // 获取商品详情
 const good = ref({});
 const route = useRoute();
+
 const getGoods = async () => {
 	const res = await getDetailAPI(route.params.id);
 	good.value = res.result;
 };
+
 getGoods();
 // 加入购物车逻辑
 // 1.选择商品规格

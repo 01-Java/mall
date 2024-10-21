@@ -147,9 +147,29 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 						"@ruan-cat/utils": ["isConditionsEvery", "isConditionsSome"],
 					},
 					{
-						"@vueuse/integrations/useAxios": ["useAxios"],
+						"@vueuse/integrations/useAxios": [
+							"useAxios",
+							// ["UseAxiosOptions", "UseAxiosOptionsaAlias"],
+							// ["UseAxiosReturn", "UseAxiosReturnAlias"],
+						],
+					},
+					{
+						from: "@vueuse/integrations/useAxios.d.ts",
+						type: true,
+						imports: [
+							// "UseAxiosOptions", "UseAxiosReturn",
+							{
+								name: "UseAxiosOptions",
+								as: "UseAxiosOptionsaAlias",
+							},
+							{
+								name: "UseAxiosReturn",
+								as: "UseAxiosReturnAlias",
+							},
+						],
 					},
 				],
+
 				ignore: ["vue-router"],
 				dirs: ["src/**/*"],
 				dts: "./types/auto-imports.d.ts",
@@ -185,6 +205,7 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 		resolve: {
 			alias: {
 				"@": fileURLToPath(new URL("./src", import.meta.url)),
+				models: fileURLToPath(new URL("./src/models", import.meta.url)),
 			},
 		},
 		css: {

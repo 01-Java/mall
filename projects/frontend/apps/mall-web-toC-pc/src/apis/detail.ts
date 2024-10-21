@@ -1,12 +1,14 @@
 import request from "@/utils/request";
 
+import { type ApifoxModel_goods } from "models/goods";
+
 // 获取商品详情
-export const getDetailAPI = (id) => {
-	return request({
+export function getDetailAPI(id: string) {
+	return request<any, ApifoxModel_goods>({
 		url: "/goods",
 		params: { id },
 	});
-};
+}
 // 获取热榜商品
 /**
  * 获取热榜商品

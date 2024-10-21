@@ -13,8 +13,8 @@
 		"rm:node_modules": "rimraf node_modules"
 	},
 	"dependencies": {
-		"@vueuse/core": "^10.11.1",
-		"@vueuse/integrations": "^10.11.1",
+		"@vueuse/core": "^11.1.0",
+		"@vueuse/integrations": "^11.1.0",
 		"axios": "^1.7.7",
 		"dayjs": "^1.11.13",
 		"element-plus": "^2.8.6",

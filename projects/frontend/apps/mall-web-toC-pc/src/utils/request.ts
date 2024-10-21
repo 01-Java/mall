@@ -13,29 +13,37 @@ const request = axios.create({
 });
 
 // axios请求拦截器
-request.interceptors.request.use((config) => {
-	// 1.从pinia获取token数据
-	const userStore = useUserStore();
-	const token = userStore.userInfo.token;
-	if (token) {
-		config.headers.Authorization = `Bearer ${token}`;
-	}
-	return config;
-}),
-	(e) => Promise.reject(e);
+request.interceptors.request.use(
+	(config) => {
+		// 1.从pinia获取token数据
+		const userStore = useUserStore();
+		// @ts-ignore
+		const token = userStore.userInfo.token;
+		if (token) {
+			config.headers.Authorization = `Bearer ${token}`;
+		}
+		return config;
+	},
+	(e) => Promise.reject(e),
+);
 
 // axios响应拦截器
 request.interceptors.response.use(
 	// 这里决定了 每一个接口返回值的数据 都默认完成data数据解包。
 	(res) => res.data,
+	// 其他配置也用 可能出现冲突
+	// (res) => res,
+
 	(e) => {
 		// 统一响应错误
 		const userStore = useUserStore();
-		console.log(e);
+		console.warn(" 出现请求错误 错误如下： ", e);
 		ElMessage.warning(e.response.data.message);
+		// ElMessage.warning(e);
 		// 401token失效处理
 		// 1.清除用户数据
 		// 2.跳转登录页
+		// 暂时隐藏 部分接口的返回值不一样。
 		if (e.response.status === 401) {
 			userStore.clearUserInfo();
 			router.push("/login");
