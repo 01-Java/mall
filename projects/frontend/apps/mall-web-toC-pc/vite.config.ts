@@ -126,10 +126,11 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 
 			// 配置插件
 			AutoImport({
-				imports: [VueRouterAutoImports],
+				imports: [VueRouterAutoImports, "vue", "@vueuse/core", "pinia"],
 				ignore: ["vue-router"],
 				dirs: ["src/**/*"],
 				dts: "./types/auto-imports.d.ts",
+				vueTemplate: true,
 				resolvers: [ElementPlusResolver()],
 			}),
 

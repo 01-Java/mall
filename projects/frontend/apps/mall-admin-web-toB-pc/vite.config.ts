@@ -15,11 +15,12 @@ import mockDevServerPlugin from "vite-plugin-mock-dev-server";
 import UnoCSS from "unocss/vite";
 import { resolve } from "path";
 
-import { name, version, engines, dependencies, devDependencies } from "./package.json";
+import { name, version, dependencies, devDependencies } from "./package.json";
 
 /** 平台的名称、版本、运行所需的`node`版本、依赖、构建时间的类型提示 */
 const __APP_INFO__ = {
-	pkg: { name, version, engines, dependencies, devDependencies },
+	// pkg: { name, version, engines, dependencies, devDependencies },
+	pkg: { name, version, dependencies, devDependencies },
 	buildTimestamp: Date.now(),
 };
 
@@ -86,6 +87,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 			AutoImport({
 				// 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
 				imports: ["vue", "@vueuse/core", "pinia", "vue-router", "vue-i18n"],
+				dirs: ["./src/**/*"],
 				// 自动导入 Element Plus 相关函数，如：ElMessage, ElMessageBox... (带样式)
 				resolvers: [ElementPlusResolver(), IconsResolver({})],
 				eslintrc: {
