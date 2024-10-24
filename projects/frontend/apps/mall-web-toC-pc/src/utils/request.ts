@@ -8,9 +8,11 @@ import router from "@/router";
  */
 export function createAxiosInstance() {
 	const instance = axios.create({
-		// baseURL: "http://pcapi-xiaotuxian-front-devtest.itheima.net",
-		baseURL: "https://pcapi-xiaotuxian-front-devtest.itheima.net",
-		timeout: 10000, // 请求超时时间
+		// https://pcapi-xiaotuxian-front-devtest.itheima.net
+		baseURL: import.meta.env.VITE_base_url,
+
+		// 请求超时时间
+		timeout: 10000,
 	});
 
 	return instance;

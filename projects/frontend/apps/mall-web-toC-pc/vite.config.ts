@@ -6,7 +6,10 @@ import { upperFirst } from "lodash-es";
 import { type UserConfig, type ConfigEnv, loadEnv, defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
-import { type ImportMetaEnv } from "./types/env.shim";
+// / <reference types="./types/env.shim.d.ts" />
+// / <reference types="" />
+/** TODO */
+import "./types/env.shim";
 
 // FIXME: https://github.com/vitejs/vite/issues/5370
 // import { getRouteName } from "@ruan-cat/utils";
@@ -48,8 +51,23 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 
 	return {
 		server: {
+			// 允许IP访问
+			host: "0.0.0.0",
+			// 应用端口 (默认:3000)
 			port: Number(VITE_app_port),
+			// 运行是否自动打开浏览器
 			open: true,
+			proxy: {
+				/**
+				 * VITE_APP_BASE_API: /dev-api
+				 */
+				[VITE_proxy_prefix]: {
+					changeOrigin: true,
+					// 接口地址
+					target: VITE_APP_API_URL,
+					rewrite: (path) => path.replace(new RegExp("^" + VITE_proxy_prefix), ""),
+				},
+			},
 		},
 
 		plugins: [
@@ -208,12 +226,14 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 				useSource: true,
 			}),
 		],
+
 		resolve: {
 			alias: {
 				"@": fileURLToPath(new URL("./src", import.meta.url)),
 				models: fileURLToPath(new URL("./src/models", import.meta.url)),
 			},
 		},
+
 		css: {
 			preprocessorOptions: {
 				scss: {
