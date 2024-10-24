@@ -5,11 +5,11 @@ defineOptions({
 	inheritAttrs: false,
 });
 
-import { getDictTypePage, getDictTypeForm, addDictType, updateDictType, deleteDictTypes } from "@/api/system/dict";
+import { getDictTypePage, getDictTypeForm, addDictType, updateDictType, deleteDictTypes } from "@/apis/system/dict";
 
 import DictData from "@/views/system/dict/DictData.vue";
 
-import { DictTypePageVO, DictTypeQuery, DictTypeForm } from "@/api/system/dict/types";
+import { DictTypePageVO, DictTypeQuery, DictTypeForm } from "@/apis/system/dict/types";
 
 const queryFormRef = ref(ElForm);
 const dataFormRef = ref(ElForm);

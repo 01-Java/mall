@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { getDictOptions } from "@/api/system/dict";
+import { getDictOptions } from "@/apis/system/dict";
 
 const props = defineProps({
 	/**

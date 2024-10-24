@@ -18,7 +18,7 @@
 import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
 
 // API 引用
-import { uploadFileApi } from "@/api/file";
+import { uploadFileApi } from "@/apis/file";
 
 const props = defineProps({
 	modelValue: {

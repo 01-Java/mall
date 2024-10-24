@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getAttributeList } from "@/api/pms/attribute";
+import { getAttributeList } from "@/apis/pms/attribute";
 
 const emit = defineEmits(["prev", "next", "update:modelValue"]);
 const dataFormRef = ref(ElForm);

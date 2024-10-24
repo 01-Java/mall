@@ -92,8 +92,8 @@
 
 <script setup lang="ts">
 import { useSettingsStore, useUserStore, useAppStore } from "@/store";
-import { getCaptchaApi } from "@/api/auth";
-import { LoginData } from "@/api/auth/types";
+import { getCaptchaApi } from "@/apis/auth";
+import { LoginData } from "@/apis/auth/types";
 import { Sunny, Moon } from "@element-plus/icons-vue";
 import { LocationQuery, LocationQueryValue, useRoute } from "vue-router";
 import router from "@/router";

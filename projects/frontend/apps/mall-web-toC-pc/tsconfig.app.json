@@ -45,7 +45,7 @@
 			"views/*": [
 				"src/views/*"
 			],
-			"api/*": [
+			"apis/*": [
 				"src/apis/*"
 			],
 			"stores/*": [

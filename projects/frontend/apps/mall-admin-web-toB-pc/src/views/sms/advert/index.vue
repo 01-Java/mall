@@ -5,8 +5,8 @@ defineOptions({
 	inheritAttrs: false,
 });
 
-import { getAdvertPage, getAdvertForm, updateAdvert, addAdvert, deleteAdverts } from "@/api/sms/advert";
-import { AdvertQuery, Advert, AdvertForm } from "@/api/sms/advert/types";
+import { getAdvertPage, getAdvertForm, updateAdvert, addAdvert, deleteAdverts } from "@/apis/sms/advert";
+import { AdvertQuery, Advert, AdvertForm } from "@/apis/sms/advert/types";
 
 const queryFormRef = ref(ElForm); // 属性名必须和元素的ref属性值一致
 const dataFormRef = ref(ElForm); // 属性名必须和元素的ref属性值一致

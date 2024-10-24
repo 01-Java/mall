@@ -4,9 +4,9 @@ import GoodsInfo from "./components/GoodsInfo.vue";
 import GoodsAttribute from "./components/GoodsAttribute.vue";
 import GoodsStock from "./components/GoodsStock.vue";
 
-import { getSpuDetail } from "@/api/pms/goods";
+import { getSpuDetail } from "@/apis/pms/goods";
 import { useRoute } from "vue-router";
-import { GoodsDetail } from "@/api/pms/goods/types";
+import { GoodsDetail } from "@/apis/pms/goods/types";
 
 const route = useRoute();
 

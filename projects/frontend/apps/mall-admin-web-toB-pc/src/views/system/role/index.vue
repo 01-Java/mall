@@ -12,10 +12,10 @@ import {
 	deleteRoles,
 	getRoleMenuIds,
 	updateRoleMenus,
-} from "@/api/system/role";
-import { getMenuOptions } from "@/api/system/menu";
+} from "@/apis/system/role";
+import { getMenuOptions } from "@/apis/system/menu";
 
-import { RolePageVO, RoleForm, RoleQuery } from "@/api/system/role/types";
+import { RolePageVO, RoleForm, RoleQuery } from "@/apis/system/role/types";
 
 const queryFormRef = ref(ElForm);
 const roleFormRef = ref(ElForm);

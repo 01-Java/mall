@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { listCategories, addCategory, updateCategory, deleteCategories } from "@/api/pms/category";
+import { listCategories, addCategory, updateCategory, deleteCategories } from "@/apis/pms/category";
 
 const emit = defineEmits(["category-click"]);
 

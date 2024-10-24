@@ -2,7 +2,7 @@
 import Editor from "@/components/WangEditor/index.vue";
 
 // API 依赖
-import { getBrandList } from "@/api/pms/brand";
+import { getBrandList } from "@/apis/pms/brand";
 
 const emit = defineEmits(["prev", "next", "update:modelValue"]);
 const dataFormRef = ref(ElForm);

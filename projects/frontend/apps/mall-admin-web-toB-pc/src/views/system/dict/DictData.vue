@@ -5,8 +5,8 @@ defineOptions({
 	inheritAttrs: false,
 });
 
-import { getDictPage, getDictFormData, addDict, updateDict, deleteDict } from "@/api/system/dict";
-import { DictPageVO, DictForm, DictQuery } from "@/api/system/dict/types";
+import { getDictPage, getDictFormData, addDict, updateDict, deleteDict } from "@/apis/system/dict";
+import { DictPageVO, DictForm, DictQuery } from "@/apis/system/dict/types";
 
 const props = defineProps({
 	typeCode: {

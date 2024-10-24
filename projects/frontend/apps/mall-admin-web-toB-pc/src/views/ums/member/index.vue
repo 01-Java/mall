@@ -5,8 +5,8 @@ defineOptions({
 	inheritAttrs: false,
 });
 
-import { getMemberPage } from "@/api/ums/member";
-import { Member, MemberQuery } from "@/api/ums/member/types";
+import { getMemberPage } from "@/apis/ums/member";
+import { Member, MemberQuery } from "@/apis/ums/member/types";
 
 const state = reactive({
 	// 遮罩层

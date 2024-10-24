@@ -123,8 +123,8 @@
 
 <script setup lang="ts">
 // API 引用
-import { getAttributeList } from "@/api/pms/attribute";
-import { addSpu, updateSpu } from "@/api/pms/goods";
+import { getAttributeList } from "@/apis/pms/attribute";
+import { addSpu, updateSpu } from "@/apis/pms/goods";
 
 const emit = defineEmits(["prev", "next", "update:modelValue"]);
 import { useRouter } from "vue-router";

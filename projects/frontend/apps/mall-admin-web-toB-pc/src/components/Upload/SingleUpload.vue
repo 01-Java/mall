@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { UploadRawFile, UploadRequestOptions } from "element-plus";
-import { uploadFileApi } from "@/api/file";
+import { uploadFileApi } from "@/apis/file";
 
 const props = defineProps({
 	modelValue: {

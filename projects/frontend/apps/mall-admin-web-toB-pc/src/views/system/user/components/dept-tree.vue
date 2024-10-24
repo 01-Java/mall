@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { getDeptOptions } from "@/api/system/dept";
+import { getDeptOptions } from "@/apis/system/dept";
 
 const props = defineProps({
 	modelValue: {

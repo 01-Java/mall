@@ -5,8 +5,8 @@ defineOptions({
 	inheritAttrs: false,
 });
 
-import { getOrderPage, getOrderDetail } from "@/api/oms/order";
-import { Order, OrderQuery } from "@/api/oms/order/types";
+import { getOrderPage, getOrderDetail } from "@/apis/oms/order";
+import { Order, OrderQuery } from "@/apis/oms/order/types";
 
 const queryFormRef = ref(ElForm);
 

@@ -16,11 +16,11 @@ import {
 	downloadTemplateApi,
 	exportUser,
 	importUser,
-} from "@/api/system/user";
-import { getDeptOptions } from "@/api/system/dept";
-import { getRoleOptions } from "@/api/system/role";
+} from "@/apis/system/user";
+import { getDeptOptions } from "@/apis/system/dept";
+import { getRoleOptions } from "@/apis/system/role";
 
-import { UserForm, UserQuery, UserPageVO } from "@/api/system/user/types";
+import { UserForm, UserQuery, UserPageVO } from "@/apis/system/user/types";
 import type { UploadInstance } from "element-plus";
 import { genFileId } from "element-plus";
 

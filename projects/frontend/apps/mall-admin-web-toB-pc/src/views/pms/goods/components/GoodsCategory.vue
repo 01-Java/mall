@@ -33,7 +33,7 @@
 
 <script setup lang="ts">
 // API 引用
-import { getCategoryOptions } from "@/api/pms/category";
+import { getCategoryOptions } from "@/apis/pms/category";
 
 const emit = defineEmits(["next", "update:modelValue"]);
 const props = defineProps({

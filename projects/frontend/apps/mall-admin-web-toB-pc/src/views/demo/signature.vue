@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { uploadFileApi } from "@/api/file";
+import { uploadFileApi } from "@/apis/file";
 
 const imgUrl = ref("");
 const canvas = ref();

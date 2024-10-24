@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { UploadRawFile, UploadRequestOptions, UploadUserFile, UploadFile, UploadProps } from "element-plus";
-import { uploadFileApi, deleteFileApi } from "@/api/file";
+import { uploadFileApi, deleteFileApi } from "@/apis/file";
 
 const emit = defineEmits(["update:modelValue"]);
 

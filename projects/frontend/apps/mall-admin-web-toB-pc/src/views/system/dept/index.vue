@@ -4,9 +4,9 @@ defineOptions({
 	inheritAttrs: false,
 });
 
-import { getDeptForm, deleteDept, updateDept, addDept, getDeptOptions, listDepts } from "@/api/system/dept";
+import { getDeptForm, deleteDept, updateDept, addDept, getDeptOptions, listDepts } from "@/apis/system/dept";
 
-import { DeptVO, DeptForm, DeptQuery } from "@/api/system/dept/types";
+import { DeptVO, DeptForm, DeptQuery } from "@/apis/system/dept/types";
 
 const queryFormRef = ref(ElForm);
 const deptFormRef = ref(ElForm);

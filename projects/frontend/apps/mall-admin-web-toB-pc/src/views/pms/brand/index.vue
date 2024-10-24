@@ -4,9 +4,9 @@ defineOptions({
 	inheritAttrs: false,
 });
 
-import { getBrandPage, getBrandFormDetail, updateBrand, addBrand, deleteBrands } from "@/api/pms/brand";
+import { getBrandPage, getBrandFormDetail, updateBrand, addBrand, deleteBrands } from "@/apis/pms/brand";
 
-import { BrandQuery, Brand, BrandForm } from "@/api/pms/brand/types";
+import { BrandQuery, Brand, BrandForm } from "@/apis/pms/brand/types";
 
 const queryFormRef = ref(ElForm); // 属性名必须和元素的ref属性值一致
 const dataFormRef = ref(ElForm); // 属性名必须和元素的ref属性值一致

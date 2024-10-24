@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getAttributeList, saveAttributeBatch } from "@/api/pms/attribute";
+import { getAttributeList, saveAttributeBatch } from "@/apis/pms/attribute";
 
 const props = defineProps({
 	attributeType: {

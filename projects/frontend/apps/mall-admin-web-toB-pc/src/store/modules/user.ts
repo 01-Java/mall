@@ -1,10 +1,10 @@
-import { loginApi, logoutApi } from "@/api/auth";
-import { getUserInfoApi } from "@/api/system/user";
+import { loginApi, logoutApi } from "@/apis/auth";
+import { getUserInfoApi } from "@/apis/system/user";
 import { resetRouter } from "@/router";
 import { store } from "@/store";
 
-import { LoginData } from "@/api/auth/types";
-import { UserInfo } from "@/api/system/user/types";
+import { LoginData } from "@/apis/auth/types";
+import { UserInfo } from "@/apis/system/user/types";
 
 export const useUserStore = defineStore("user", () => {
 	const user: UserInfo = {

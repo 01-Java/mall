@@ -228,8 +228,8 @@ defineOptions({
 	inheritAttrs: false,
 });
 
-import { MenuQuery, MenuForm, MenuVO } from "@/api/system/menu/types";
-import { listMenus, getMenuForm, getMenuOptions, addMenu, deleteMenu, updateMenu } from "@/api/system/menu";
+import { MenuQuery, MenuForm, MenuVO } from "@/apis/system/menu/types";
+import { listMenus, getMenuForm, getMenuOptions, addMenu, deleteMenu, updateMenu } from "@/apis/system/menu";
 
 import { MenuTypeEnum } from "@/enums/MenuTypeEnum";
 

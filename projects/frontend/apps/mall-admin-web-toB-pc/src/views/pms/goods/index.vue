@@ -6,10 +6,10 @@ defineOptions({
 });
 
 import { useRouter } from "vue-router";
-import { getSpuPage, deleteSpu } from "@/api/pms/goods";
-import { getCategoryOptions } from "@/api/pms/category";
+import { getSpuPage, deleteSpu } from "@/apis/pms/goods";
+import { getCategoryOptions } from "@/apis/pms/category";
 import { moneyFormatter } from "@/utils/filter";
-import { Goods, GoodsQuery } from "@/api/pms/goods/types";
+import { Goods, GoodsQuery } from "@/apis/pms/goods/types";
 
 const dataTableRef = ref(ElTable);
 const router = useRouter();

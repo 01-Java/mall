@@ -5,12 +5,12 @@ defineOptions({
 	inheritAttrs: false,
 });
 
-import { getCouponPage, getCouponForm, updateCoupon, addCoupon, deleteCoupons } from "@/api/sms/coupon";
+import { getCouponPage, getCouponForm, updateCoupon, addCoupon, deleteCoupons } from "@/apis/sms/coupon";
 
-import { getCategoryOptions } from "@/api/pms/category";
-import { getSpuPage } from "@/api/pms/goods";
-import { Coupon, CouponForm, CouponQuery } from "@/api/sms/coupon/types";
-import { Goods, GoodsQuery } from "@/api/pms/goods/types";
+import { getCategoryOptions } from "@/apis/pms/category";
+import { getSpuPage } from "@/apis/pms/goods";
+import { Coupon, CouponForm, CouponQuery } from "@/apis/sms/coupon/types";
+import { Goods, GoodsQuery } from "@/apis/pms/goods/types";
 
 const queryFormRef = ref(ElForm);
 const dataFormRef = ref(ElForm);
