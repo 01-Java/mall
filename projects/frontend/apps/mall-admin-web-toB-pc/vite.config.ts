@@ -1,6 +1,7 @@
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
-import { UserConfig, ConfigEnv, loadEnv, defineConfig } from "vite";
+import { type UserConfig, type ConfigEnv, loadEnv, defineConfig } from "vite";
+import { type ImportMetaEnv } from "./src/types/env";
 
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
@@ -25,9 +26,14 @@ const __APP_INFO__ = {
 };
 
 const pathSrc = resolve(__dirname, "src");
+
 //  https://cn.vitejs.dev/config
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
-	const env = loadEnv(mode, process.cwd());
+	const env = loadEnv(mode, process.cwd()) as unknown as ImportMetaEnv;
+
+	const VITE_APP_BASE_API = env.VITE_APP_BASE_API;
+	const VITE_APP_API_URL = env.VITE_APP_API_URL;
+
 	return {
 		resolve: {
 			alias: {
@@ -55,13 +61,13 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 			open: true,
 			proxy: {
 				/**
-				 * env.VITE_APP_BASE_API: /dev-api
+				 * VITE_APP_BASE_API: /dev-api
 				 */
-				[env.VITE_APP_BASE_API]: {
+				[VITE_APP_BASE_API]: {
 					changeOrigin: true,
 					// 接口地址
-					target: env.VITE_APP_API_URL,
-					rewrite: (path) => path.replace(new RegExp("^" + env.VITE_APP_BASE_API), ""),
+					target: VITE_APP_API_URL,
+					rewrite: (path) => path.replace(new RegExp("^" + VITE_APP_BASE_API), ""),
 				},
 			},
 		},
@@ -73,11 +79,11 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 			vueJsx(),
 
 			// MOCK 服务
-			// env.VITE_MOCK_DEV_SERVER === "true" ? mockDevServerPlugin() : null,
+			env.VITE_MOCK_DEV_SERVER === "true" ? mockDevServerPlugin() : null,
 			// 改成无条件开启mock接口。 生产环境也启用mock接口
-			mockDevServerPlugin({
-				build: true,
-			}),
+			// mockDevServerPlugin({
+			// 	build: true,
+			// }),
 
 			UnoCSS({
 				hmrTopLevelAwait: false,

@@ -44,6 +44,9 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 		server: {
 			port: Number(env.VITE_APP_PORT),
 			open: true,
+
+
+			
 		},
 
 		plugins: [
