@@ -6,9 +6,13 @@ import { upperFirst } from "lodash-es";
 import { type UserConfig, type ConfigEnv, loadEnv, defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
-// / <reference types="./types/env.shim.d.ts" />
-// / <reference types="" />
-/** TODO */
+/**
+ * 用全量导入的方式 获取类型
+ * 这些类型不能写成export导入的形式，会导致全局类型声明失效
+ *
+ * 也可以等效地用 三斜线表达式 实现全量导入
+ * <reference types="./types/env.shim.d.ts" />
+ */
 import "./types/env.shim";
 
 // FIXME: https://github.com/vitejs/vite/issues/5370
@@ -43,6 +47,7 @@ function pathResolve(dir: string) {
 
 // https://vitejs.dev/config/
 export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
+	// 提供类型声明 便于得到使用提示
 	const env = loadEnv(mode, process.cwd()) as unknown as ImportMetaEnv;
 
 	const VITE_proxy_prefix = env.VITE_proxy_prefix;

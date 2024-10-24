@@ -18,51 +18,68 @@ export function createAxiosInstance() {
 	return instance;
 }
 
+/** 创建本项目最通用的请求实例 */
+export function createRequest() {
+	/**
+	 * 通用的，标准的请求实例
+	 */
+	const request = createAxiosInstance();
+
+	// 设置 axios 请求拦截器
+	request.interceptors.request.use(
+		function onFulfilled(config) {
+			// 1.从pinia获取token数据
+			const userStore = useUserStore();
+			// @ts-ignore
+			const token = userStore.userInfo.token;
+			if (token) {
+				config.headers.Authorization = `Bearer ${token}`;
+			}
+			return config;
+		},
+
+		function onRejected(error) {
+			return Promise.reject(error);
+		},
+	);
+
+	// 设置 axios 响应拦截器
+	request.interceptors.response.use(
+		function onFulfilled(value) {
+			// 这里决定了 每一个接口返回值的数据 都默认完成data数据解包。
+			return value.data;
+		},
+
+		function onRejected(error) {
+			// 统一响应错误
+			const userStore = useUserStore();
+			console.warn(" 出现请求错误 错误如下： ", error);
+			ElMessage.warning(error.response.data.message);
+			// 401token失效处理
+			// 1.清除用户数据
+			// 2.跳转登录页
+			if (error.response.status === 401) {
+				userStore.clearUserInfo();
+				router.push("/login");
+			}
+			return Promise.reject(error);
+		},
+	);
+
+	return request;
+}
+
 /**
  * 通用的，标准的请求实例
+ * @description
+ * 本文件的默认导出
  */
-const request = createAxiosInstance();
+const request = createRequest();
 
-// axios 请求拦截器
-request.interceptors.request.use(
-	(config) => {
-		// 1.从pinia获取token数据
-		const userStore = useUserStore();
-		// @ts-ignore
-		const token = userStore.userInfo.token;
-		if (token) {
-			config.headers.Authorization = `Bearer ${token}`;
-		}
-		return config;
-	},
-	(e) => Promise.reject(e),
-);
-
-// axios 响应拦截器
-request.interceptors.response.use(
-	// 这里决定了 每一个接口返回值的数据 都默认完成data数据解包。
-	(res) => res.data,
-	// 其他配置也用 可能出现冲突
-	// (res) => res,
-
-	(e) => {
-		// 统一响应错误
-		const userStore = useUserStore();
-		console.warn(" 出现请求错误 错误如下： ", e);
-		ElMessage.warning(e.response.data.message);
-		// 401token失效处理
-		// 1.清除用户数据
-		// 2.跳转登录页
-		if (e.response.status === 401) {
-			userStore.clearUserInfo();
-			router.push("/login");
-		}
-		return Promise.reject(e);
-	},
-);
+export default request;
 
 /**
- * 用于useAxios的axios实例
+ * 创建用于useAxios的axios实例
  * @description
  * useAxios 使用具体的示例时，其拦截器是默认使用返回原来的数据的。
  *
@@ -70,38 +87,52 @@ request.interceptors.response.use(
  *
  * 因此本实例将默认保持返回值为原值。
  */
-const requestForUseAxios = createAxiosInstance();
+export function createRequestForUseAxios() {
+	/**
+	 * 用于useAxios的axios实例
+	 */
+	const requestForUseAxios = createAxiosInstance();
 
-// axios 请求拦截器
-requestForUseAxios.interceptors.request.use(
-	(config) => {
-		const userStore = useUserStore();
-		// @ts-ignore
-		const token = userStore.userInfo.token;
-		if (token) {
-			config.headers.Authorization = `Bearer ${token}`;
-		}
-		return config;
-	},
-	(e) => Promise.reject(e),
-);
+	// 设置 axios 请求拦截器
+	requestForUseAxios.interceptors.request.use(
+		function onFulfilled(config) {
+			// 1.从pinia获取token数据
+			const userStore = useUserStore();
+			// @ts-ignore
+			const token = userStore.userInfo.token;
+			if (token) {
+				config.headers.Authorization = `Bearer ${token}`;
+			}
+			return config;
+		},
 
-// axios 响应拦截器
-requestForUseAxios.interceptors.response.use(
-	(res) => res,
-	(e) => {
-		const userStore = useUserStore();
-		console.warn(" 出现请求错误 错误如下： ", e);
-		ElMessage.warning(e.response.data.message);
-		if (e.response.status === 401) {
-			userStore.clearUserInfo();
-			router.push("/login");
-		}
-		return Promise.reject(e);
-	},
-);
+		function onRejected(error) {
+			return Promise.reject(error);
+		},
+	);
 
-// 先配置 再导出
-export { requestForUseAxios };
+	// 设置 axios 响应拦截器
+	requestForUseAxios.interceptors.response.use(
+		function onFulfilled(value) {
+			// 不做任何解包
+			return value;
+		},
 
-export default request;
+		function onRejected(error) {
+			// 统一响应错误
+			const userStore = useUserStore();
+			console.warn(" 出现请求错误 错误如下： ", error);
+			ElMessage.warning(error.response.data.message);
+			// 401token失效处理
+			// 1.清除用户数据
+			// 2.跳转登录页
+			if (error.response.status === 401) {
+				userStore.clearUserInfo();
+				router.push("/login");
+			}
+			return Promise.reject(error);
+		},
+	);
+
+	return requestForUseAxios;
+}

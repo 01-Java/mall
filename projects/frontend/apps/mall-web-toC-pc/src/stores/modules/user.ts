@@ -9,8 +9,10 @@ export const useUserStore = defineStore(
 	() => {
 		// 调用购物车store
 		const cartStore = useCartStore();
+
 		// 定义用户管理的state
 		const userInfo = ref({});
+
 		// 定义获取数据的action函数
 		const getUserInfo = async ({ account, password }) => {
 			const res = await loginAPI({ account, password });
@@ -27,11 +29,13 @@ export const useUserStore = defineStore(
 			);
 			cartStore.updateCartList();
 		};
+
 		// 退出时清除用户信息
 		const clearUserInfo = () => {
 			userInfo.value = {};
 			cartStore.clearCart();
 		};
+
 		return {
 			getUserInfo,
 			userInfo,
