@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import { useAppStore } from "@/store/modules/app";
+import { useAppStore } from "@/stores/modules/app";
 
 const appStore = useAppStore();
 const { locale } = useI18n();

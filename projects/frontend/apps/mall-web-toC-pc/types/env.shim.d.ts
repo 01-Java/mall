@@ -1,6 +1,5 @@
 /// <reference types="vite/client" />
 
-// export
 interface ImportMetaEnv {
 	/**
 	 * 应用端口

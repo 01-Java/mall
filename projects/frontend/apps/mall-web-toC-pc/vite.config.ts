@@ -13,7 +13,7 @@ import vue from "@vitejs/plugin-vue";
  * 也可以等效地用 三斜线表达式 实现全量导入
  * <reference types="./types/env.shim.d.ts" />
  */
-import "./types/env.shim";
+import "./types/env.shim.d.ts";
 
 // FIXME: https://github.com/vitejs/vite/issues/5370
 // import { getRouteName } from "@ruan-cat/utils";

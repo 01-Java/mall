@@ -1,7 +1,6 @@
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import { type UserConfig, type ConfigEnv, loadEnv, defineConfig } from "vite";
-import { type ImportMetaEnv } from "./types/env.shim";
 
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
@@ -15,6 +14,15 @@ import mockDevServerPlugin from "vite-plugin-mock-dev-server";
 
 import UnoCSS from "unocss/vite";
 import { resolve } from "path";
+
+/**
+ * 用全量导入的方式 获取类型
+ * 这些类型不能写成export导入的形式，会导致全局类型声明失效
+ *
+ * 也可以等效地用 三斜线表达式 实现全量导入
+ * <reference types="./types/env.shim.d.ts" />
+ */
+import "./types/env.shim.d.ts";
 
 import { name, version, dependencies, devDependencies } from "./package.json";
 

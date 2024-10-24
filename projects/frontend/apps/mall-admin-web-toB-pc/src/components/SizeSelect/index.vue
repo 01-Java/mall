@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAppStore } from "@/store/modules/app";
+import { useAppStore } from "@/stores/modules/app";
 
 const sizeOptions = ref([
 	{ label: "默认", value: "default" },

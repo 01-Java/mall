@@ -7,7 +7,7 @@ declare module "*.vue" {
 	export default component;
 }
 
-export interface ImportMetaEnv {
+interface ImportMetaEnv {
 	/**
 	 * 应用端口
 	 * @example

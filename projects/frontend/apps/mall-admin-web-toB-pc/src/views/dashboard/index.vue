@@ -170,7 +170,7 @@ defineOptions({
 	inheritAttrs: false,
 });
 
-import { useUserStore } from "@/store/modules/user";
+import { useUserStore } from "@/stores/modules/user";
 import { useTransition, TransitionPresets } from "@vueuse/core";
 
 const userStore = useUserStore();
