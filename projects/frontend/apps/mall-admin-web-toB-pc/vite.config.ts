@@ -1,7 +1,7 @@
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import { type UserConfig, type ConfigEnv, loadEnv, defineConfig } from "vite";
-import { type ImportMetaEnv } from "./src/types/env";
+import { type ImportMetaEnv } from "./types/env.shim";
 
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
@@ -31,8 +31,9 @@ const pathSrc = resolve(__dirname, "src");
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 	const env = loadEnv(mode, process.cwd()) as unknown as ImportMetaEnv;
 
-	const VITE_APP_BASE_API = env.VITE_APP_BASE_API;
-	const VITE_APP_API_URL = env.VITE_APP_API_URL;
+	const VITE_proxy_prefix = env.VITE_proxy_prefix;
+	const VITE_APP_API_URL = env.VITE_base_url;
+	const VITE_app_port = env.VITE_app_port;
 
 	return {
 		resolve: {
@@ -56,18 +57,18 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 			// 允许IP访问
 			host: "0.0.0.0",
 			// 应用端口 (默认:3000)
-			port: Number(env.VITE_APP_PORT),
+			port: Number(VITE_app_port),
 			// 运行是否自动打开浏览器
 			open: true,
 			proxy: {
 				/**
 				 * VITE_APP_BASE_API: /dev-api
 				 */
-				[VITE_APP_BASE_API]: {
+				[VITE_proxy_prefix]: {
 					changeOrigin: true,
 					// 接口地址
 					target: VITE_APP_API_URL,
-					rewrite: (path) => path.replace(new RegExp("^" + VITE_APP_BASE_API), ""),
+					rewrite: (path) => path.replace(new RegExp("^" + VITE_proxy_prefix), ""),
 				},
 			},
 		},

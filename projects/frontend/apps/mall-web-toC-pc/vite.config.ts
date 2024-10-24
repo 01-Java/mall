@@ -6,6 +6,8 @@ import { upperFirst } from "lodash-es";
 import { type UserConfig, type ConfigEnv, loadEnv, defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
+import { type ImportMetaEnv } from "./types/env.shim";
+
 // FIXME: https://github.com/vitejs/vite/issues/5370
 // import { getRouteName } from "@ruan-cat/utils";
 
@@ -38,15 +40,16 @@ function pathResolve(dir: string) {
 
 // https://vitejs.dev/config/
 export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
-	const env = loadEnv(mode, process.cwd());
+	const env = loadEnv(mode, process.cwd()) as unknown as ImportMetaEnv;
+
+	const VITE_proxy_prefix = env.VITE_proxy_prefix;
+	const VITE_APP_API_URL = env.VITE_base_url;
+	const VITE_app_port = env.VITE_app_port;
 
 	return {
 		server: {
-			port: Number(env.VITE_APP_PORT),
+			port: Number(VITE_app_port),
 			open: true,
-
-
-			
 		},
 
 		plugins: [
