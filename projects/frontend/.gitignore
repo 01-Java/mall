@@ -40,3 +40,6 @@ auto-imports.d.ts
 components.d.ts
 components-instance.d.ts
 typed-router.d.ts
+
+# 我们自动生成工作区文件 所以不提交到仓库内
+*.code-workspace

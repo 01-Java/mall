@@ -80,7 +80,7 @@ function getPackagesNameAndDescription() {
 
 	/**
 	 * pnpm-workspace.yaml 的配置
-	 * @type { import("./types/pnpm-workspace.yaml.shim.ts").PnpmWorkspace }
+	 * @type { import("@ruan-cat/utils/src/index.ts").PnpmWorkspace }
 	 */
 	// @ts-ignore 忽略unknown的警告
 	const workspaceConfig = yaml.load(workspaceFile);
@@ -102,6 +102,7 @@ function getPackagesNameAndDescription() {
 	let pkgPaths = [];
 
 	// 根据每个模式匹配相应的目录
+	// @ts-ignore
 	pkgPatterns.map((pkgPattern) => {
 		const matchedPath = pathChange(path.join(__dirname, pkgPattern, "package.json"));
 
