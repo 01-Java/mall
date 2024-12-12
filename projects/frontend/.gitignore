@@ -43,3 +43,11 @@ typed-router.d.ts
 
 # 我们自动生成工作区文件 所以不提交到仓库内
 *.code-workspace
+
+# nuxt在开发与构建时产生的文件 需要忽略
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
