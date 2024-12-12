@@ -172,3 +172,5 @@ const { getRouteName } = await tsImport("@ruan-cat/utils", import.meta.url);
   插件文件夹的配置，不会导致 bug。
 - assets 无故障
 - vite 配置文件 无故障
+- apis 无故障
+- components 无故障
