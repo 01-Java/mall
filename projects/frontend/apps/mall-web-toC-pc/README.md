@@ -130,3 +130,15 @@ projects/frontend/apps/mall-web-toC-pc/\*
 import { tsImport } from "tsx/esm/api";
 const { getRouteName } = await tsImport("@ruan-cat/utils", import.meta.url);
 ```
+
+## 尝试将 vite 项目改造成 nuxt 项目
+
+其初衷是为了减少各种约定俗成的配置，配置越少越好，安装的依赖越少越好。
+
+### 手动迁移项清单
+
+这里列举全部从基础模板内手动迁移调整的内容：
+
+- app.vue
+- cli 启动命令
+- dependencies 生产环境依赖

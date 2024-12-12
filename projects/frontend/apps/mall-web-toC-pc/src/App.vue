@@ -8,7 +8,14 @@ useTitle(settings.title);
 </script>
 
 <template>
-	<RouterView />
+	<!-- 不使用vite的基础根界面 -->
+	<!-- <RouterView /> -->
+
+	<!-- 使用nuxt项目提供的基础根界面 -->
+	<div>
+		<NuxtRouteAnnouncer />
+		<NuxtWelcome />
+	</div>
 </template>
 
 <style scoped></style>
