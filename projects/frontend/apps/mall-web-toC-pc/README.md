@@ -165,3 +165,8 @@ const { getRouteName } = await tsImport("@ruan-cat/utils", import.meta.url);
 	"typescript": "^5.7.2"
 }
 ```
+
+## 排查 nuxt 化项目启动报错的故障
+
+- plugins
+  插件文件夹的配置，不会导致 bug。
