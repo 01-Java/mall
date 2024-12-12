@@ -5,23 +5,29 @@
 	"private": true,
 	"description": "01星球-Java再起航小组-商城前台",
 	"scripts": {
-		"dev": "vite",
+		"postinstall": "nuxt prepare",
+		"dev:nuxt": "nuxt dev",
+		"dev:vite": "vite",
 		"dev:with-import-tsx": "cross-env NODE_OPTIONS=\"--import tsx\" pnpm exec vite",
-		"build:prod": "vite build --mode production",
-		"preview": "vite preview",
-		"lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+		"build:vite-prod": "vite build --mode production",
+		"build:nuxt": "nuxt build",
+		"preview:vite": "vite preview",
+		"preview:nuxt": "nuxt preview",
+		"generate": "nuxt generate",
+		"notuse-lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
 		"rm:node_modules": "rimraf node_modules"
 	},
 	"dependencies": {
+		"nuxt": "^3.14.1592",
+		"vue": "latest",
+		"vue-router": "latest",
 		"@vueuse/core": "^12.0.0",
 		"@vueuse/integrations": "^12.0.0",
 		"axios": "^1.7.9",
 		"dayjs": "^1.11.13",
 		"element-plus": "^2.9.0",
 		"pinia": "^2.3.0",
-		"pinia-plugin-persistedstate": "^4.1.3",
-		"vue": "^3.5.13",
-		"vue-router": "^4.5.0"
+		"pinia-plugin-persistedstate": "^4.1.3"
 	},
 	"devDependencies": {
 		"@rushstack/eslint-patch": "^1.10.4",
