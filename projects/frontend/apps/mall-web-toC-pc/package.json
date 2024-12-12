@@ -1,9 +1,9 @@
 {
-	"name": "@zo-java-resail/mall",
+	"name": "mall",
 	"version": "0.0.1",
 	"type": "module",
 	"private": true,
-	"description": "01星球-Java再起航小组-商城前台",
+	"description": "01星球-Java再起航小组-商城前台。",
 	"scripts": {
 		"postinstall": "nuxt prepare",
 		"dev:nuxt": "nuxt dev",
@@ -38,15 +38,6 @@
 		"eslint": "^9.16.0",
 		"eslint-plugin-vue": "^9.32.0",
 		"prettier": "^3.4.2",
-		"rollup-plugin-visualizer": "^5.12.0",
-		"sass": "^1.82.0",
-		"typescript": "^5.7.2",
-		"unplugin-auto-import": "^0.18.6",
-		"unplugin-element-plus": "^0.8.0",
-		"unplugin-vue-components": "^0.27.5",
-		"unplugin-vue-router": "^0.10.9",
-		"vite-plugin-autogeneration-import-file": "^3.0.0",
-		"vite-plugin-vue-devtools": "^7.6.8",
-		"vue-tsc": "^2.1.10"
+		"rollup-plugin-visualizer": "^5.12.0"
 	}
 }

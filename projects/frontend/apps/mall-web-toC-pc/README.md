@@ -95,6 +95,12 @@ npm run build
 
 projects/frontend/apps/mall-web-toC-pc/\*
 
+## 包名
+
+`@zo-java-resail/mall`
+
+TODO: 为了提高开发效率，暂时将项目的包名改名简单的字符串值。
+
 ## 历史笔记记录
 
 ## 处理 vite 配置不能以符号链接的形式导入 ts 包的问题
@@ -142,3 +148,20 @@ const { getRouteName } = await tsImport("@ruan-cat/utils", import.meta.url);
 - app.vue
 - cli 启动命令
 - dependencies 生产环境依赖
+- .gitignore 文件忽略
+
+### 手动删除的依赖
+
+```json
+{
+	"unplugin-auto-import": "^0.18.6",
+	"unplugin-element-plus": "^0.8.0",
+	"unplugin-vue-components": "^0.27.5",
+	"unplugin-vue-router": "^0.10.9",
+	"vite-plugin-autogeneration-import-file": "^3.0.0",
+	"vite-plugin-vue-devtools": "^7.6.8",
+	"vue-tsc": "^2.1.10",
+	"sass": "^1.82.0",
+	"typescript": "^5.7.2"
+}
+```
