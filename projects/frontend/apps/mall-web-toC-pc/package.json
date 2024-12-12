@@ -6,6 +6,7 @@
 	"description": "01星球-Java再起航小组-商城前台。",
 	"scripts": {
 		"postinstall": "nuxt prepare",
+		"predev:nuxt": "nuxt prepare",
 		"dev:nuxt": "nuxt dev",
 		"dev:vite": "vite",
 		"dev:with-import-tsx": "cross-env NODE_OPTIONS=\"--import tsx\" pnpm exec vite",
