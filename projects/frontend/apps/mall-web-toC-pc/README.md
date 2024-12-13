@@ -176,3 +176,9 @@ const { getRouteName } = await tsImport("@ruan-cat/utils", import.meta.url);
 - components 无故障
 - composables 无故障
 - directives 无故障
+
+- models 无故障
+- router 无故障
+- settings 无故障
+- stores 无故障
+- styles 无故障
