@@ -174,3 +174,4 @@ const { getRouteName } = await tsImport("@ruan-cat/utils", import.meta.url);
 - vite 配置文件 无故障
 - apis 无故障
 - components 无故障
+- composables 无故障

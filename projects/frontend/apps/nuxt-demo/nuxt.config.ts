@@ -4,6 +4,13 @@ export default defineNuxtConfig({
 	devtools: { enabled: true },
 	srcDir: "src",
 
+	imports: {
+		dirs: [
+			/** @see https://nuxt.com/docs/guide/directory-structure/composables#how-files-are-scanned */
+			"composables/**",
+		],
+	},
+
 	vite: {
 		server: {
 			open: true,

@@ -5,4 +5,17 @@ export default defineNuxtConfig({
 
 	// 我们项目的根目录配置就是来自于src的，绝大多数项目的根目录都是src
 	srcDir: "src",
+
+	imports: {
+		dirs: [
+			/** @see https://nuxt.com/docs/guide/directory-structure/composables#how-files-are-scanned */
+			"composables/**",
+		],
+	},
+
+	vite: {
+		server: {
+			open: true,
+		},
+	},
 });
