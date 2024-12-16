@@ -1,7 +1,14 @@
 import axios from "axios";
 import { useUserStore } from "@/stores/index";
 import { ElMessage } from "element-plus";
-import router from "@/router";
+
+// import router from "@/router";
+/**
+ * FIXME: 在nuxt外面 不能直接使用该工具 不允许直接使用组合式api的东西
+ *
+ * 在nuxt内，如何封装这种常见的接口请求？比如很典型的前端鉴权失败，跳转路由到登录页？
+ */
+// const router = useRouter();
 
 /**
  * 创建axios实例
@@ -60,7 +67,8 @@ export function createRequest() {
 			// 2.跳转登录页
 			if (error.response.status === 401) {
 				userStore.clearUserInfo();
-				router.push("/login");
+				// FIXME: 不清楚如何在nuxt内单独使用路由对象实现跳路由。
+				// router.push("/login");
 			}
 			return Promise.reject(error);
 		},
@@ -128,7 +136,8 @@ export function createRequestForUseAxios() {
 			// 2.跳转登录页
 			if (error.response.status === 401) {
 				userStore.clearUserInfo();
-				router.push("/login");
+				// FIXME: 不清楚如何在nuxt内单独使用路由对象实现跳路由。
+				// router.push("/login");
 			}
 			return Promise.reject(error);
 		},

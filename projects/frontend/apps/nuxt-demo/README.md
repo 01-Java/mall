@@ -75,3 +75,5 @@ bun run preview
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 
 ## 全局样式 scss 在 nuxt 项目内如何导入？
+
+- https://juejin.cn/post/7443087944720384050#heading-4
