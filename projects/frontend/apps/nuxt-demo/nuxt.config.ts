@@ -8,6 +8,10 @@ export default defineNuxtConfig({
 		dirs: [
 			/** @see https://nuxt.com/docs/guide/directory-structure/composables#how-files-are-scanned */
 			"composables/**",
+
+			"stores/**",
+
+			"apis/**",
 		],
 	},
 
@@ -27,6 +31,7 @@ export default defineNuxtConfig({
 
 	css: [
 		/**
+		 * 迁移main.ts的全局样式
 		 * @see https://nuxt.com/docs/guide/directory-structure/assets
 		 * @see https://blog.csdn.net/jiaohuizhuang6019/article/details/135029171
 		 */
