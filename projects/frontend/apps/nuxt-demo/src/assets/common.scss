@@ -1,4 +1,11 @@
+/** 
+	这是原本位于 @/styles/common.scss 的全局样式，预期在 main.ts 内全局导入
+
+	在nuxt项目中，样式文件应该在 assets 文件夹下，而不是 styles 文件夹下
+*/
+
 // 重置样式
+
 * {
 	box-sizing: border-box;
 }

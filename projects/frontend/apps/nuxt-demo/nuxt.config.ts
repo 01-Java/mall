@@ -25,6 +25,14 @@ export default defineNuxtConfig({
 		/** Options */
 	},
 
+	css: [
+		/**
+		 * @see https://nuxt.com/docs/guide/directory-structure/assets
+		 * @see https://blog.csdn.net/jiaohuizhuang6019/article/details/135029171
+		 */
+		"@/assets/common.scss",
+	],
+
 	vite: {
 		server: {
 			open: true,
