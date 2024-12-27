@@ -8,35 +8,27 @@ function createAxiosInstance() {
 		timeout: 10000,
 
 		/** 允许跨域 */
-		// withCredentials: true,
+		withCredentials: true,
+
+		/** 不使用任何代理 避免本机电脑的配置影响请求 */
+		proxy: false,
 	});
 
 	return instance;
 }
 
 function main() {
+	const instance = createAxiosInstance();
+
 	// const url = `https://pcapi-xiaotuxian-front-devtest.itheima.net/home/category/head`;
 	const url = `https://pcapi-xiaotuxian-front-devtest.itheima.net/home/hot`;
 
-	axios({
+	instance({
 		url,
 		method: "get",
 	}).then((res) => {
 		console.log(" ? ", res.data);
 	});
-
-	// axios.get(url).then((res) => {
-	// 	console.log(" ? ", res);
-	// });
-	// fetch(url).then((res) => {
-	// 	console.log(" ? ", res);
-	// 	res.body
-	// 		?.getReader()
-	// 		.read()
-	// 		.then((res) => {
-	// 			console.log(" ? ", res);
-	// 		});
-	// });
 }
 
 main();
