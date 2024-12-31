@@ -18,8 +18,11 @@ export function createAxiosInstance() {
 		// https://pcapi-xiaotuxian-front-devtest.itheima.net
 		baseURL: import.meta.env.VITE_base_url,
 
-		// 请求超时时间
+		/** 请求超时时间 */
 		timeout: 10000,
+
+		proxy: false,
+		withCredentials: false,
 	});
 
 	return instance;
