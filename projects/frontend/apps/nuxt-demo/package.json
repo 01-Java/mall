@@ -9,6 +9,7 @@
 		"generate": "nuxt generate",
 		"preview": "nuxt preview",
 		"postinstall": "nuxt prepare",
+		"rm:node_modules": "rimraf node_modules .nuxt .output",
 		"up:ruan-cat": "pnpm up @ruan-cat/*@latest"
 	},
 	"dependencies": {

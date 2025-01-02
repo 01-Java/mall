@@ -10,7 +10,7 @@ import IconsResolver from "unplugin-icons/resolver";
 import vueDevTools from "vite-plugin-vue-devtools";
 
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
-import mockDevServerPlugin from "vite-plugin-mock-dev-server";
+// import mockDevServerPlugin from "vite-plugin-mock-dev-server";
 
 import UnoCSS from "unocss/vite";
 import { resolve } from "path";
@@ -55,7 +55,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 			preprocessorOptions: {
 				// 定义全局 SCSS 变量
 				scss: {
-					javascriptEnabled: true,
+					// javascriptEnabled: true,
 					additionalData: `
             @use "@/styles/variables.scss" as *;
           `,
@@ -90,7 +90,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 			vueJsx(),
 
 			// MOCK 服务
-			env.VITE_MOCK_DEV_SERVER === "true" ? mockDevServerPlugin() : null,
+			// env.VITE_MOCK_DEV_SERVER === "true" ? mockDevServerPlugin() : null,
 			// 改成无条件开启mock接口。 生产环境也启用mock接口
 			// mockDevServerPlugin({
 			// 	build: true,
