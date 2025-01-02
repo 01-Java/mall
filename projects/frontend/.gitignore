@@ -51,3 +51,9 @@ typed-router.d.ts
 .nitro
 .cache
 dist
+
+# 忽略掉自己配置的 vitest 报告文件 忽略掉其生成的缓存文件
+.vitest-reporter-html
+
+# 忽略掉 vitest 的过程文件
+vitest.config.ts.timestamp-*.mjs
