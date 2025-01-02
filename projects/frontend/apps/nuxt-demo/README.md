@@ -77,3 +77,19 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 ## 全局样式 scss 在 nuxt 项目内如何导入？
 
 - https://juejin.cn/post/7443087944720384050#heading-4
+
+## 接近烂尾
+
+这个将商城项目改造成期望的 nuxt 项目，太坐牢了。
+
+### bug1
+
+在根目录运行 vitest 时，无法启动。
+
+```bash
+Did you mean to import "@babel/plugin-transform-typescript/lib/index.js"?
+```
+
+### bug2
+
+每次运行开发环境时，运行速度非常的慢，要加载非常多的文件。开发环境非常缓慢。

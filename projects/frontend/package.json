@@ -36,6 +36,7 @@
 	},
 	"devDependencies": {
 		"@antfu/eslint-config": "^3.11.2",
+		"@babel/plugin-transform-typescript": "^7.26.3",
 		"@eslint/eslintrc": "^3.2.0",
 		"@eslint/js": "^9.16.0",
 		"@ruan-cat/generate-code-workspace": "^0.2.1",

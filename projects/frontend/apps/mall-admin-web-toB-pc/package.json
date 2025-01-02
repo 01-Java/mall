@@ -1,9 +1,9 @@
 {
-	"name": "@zo-java-resail/mall-admin",
-	"version": "0.0.1",
+	"name": "admin",
+	"version": "0.0.0",
 	"private": true,
 	"type": "module",
-	"description": "01星球-Java再起航小组-商城管理后台",
+	"description": "01星球-Java再起航小组-商城管理后台 @zo-java-resail/mall-admin",
 	"scripts": {
 		"dev": "vite",
 		"build:prod": "vite build",
