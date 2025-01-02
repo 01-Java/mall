@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useUserStore } from "@/stores/index";
 import { ElMessage } from "element-plus";
+import { useAxiosWrapper } from "@ruan-cat/utils";
 
 // import router from "@/router";
 /**
