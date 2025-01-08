@@ -22,7 +22,7 @@
 		"_preinstall_no_use": "npm run corepack:pnpm && npx only-allow pnpm",
 		"corepack:pnpm": "corepack install",
 		"git:fetch": "git fetch -p",
-		"up:ruan-cat": "pnpm -w -r up @ruan-cat/*@latest && pnpm -r up:ruan-cat",
+		"up:ruan-cat": "pnpm -F=* up @ruan-cat/*@latest",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
 		"prettier": "prettier --write .",
