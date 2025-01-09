@@ -32,7 +32,7 @@ import { VueRouterAutoImports } from "unplugin-vue-router";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import ElementPlus from "unplugin-element-plus/vite";
 import vueDevTools from "vite-plugin-vue-devtools";
-import { visualizer } from "rollup-plugin-visualizer";
+// import { visualizer } from "rollup-plugin-visualizer";
 import { createPlugin, getName } from "vite-plugin-autogeneration-import-file";
 
 const { autoImport } = createPlugin();
@@ -105,12 +105,14 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 
 			/**
 			 * 打包体积分析插件
+			 * @description
+			 * 项目跑不起来 暂时不需要分析工具
 			 */
-			visualizer({
-				filename: "./dist/visualizer/index.html",
-				title: "visualizer打包分析报告",
-				template: "network",
-			}),
+			// visualizer({
+			// 	filename: "./dist/visualizer/index.html",
+			// 	title: "visualizer打包分析报告",
+			// 	template: "network",
+			// }),
 
 			vue(),
 
@@ -222,8 +224,12 @@ export default defineConfig(function ({ mode }: ConfigEnv): UserConfig {
 			 * vueDevTools 必须在 createHtmlPlugin 的前面导入
 			 *
 			 * @see https://github.com/vuejs/devtools-next/issues/278#issuecomment-2021745201
+			 *
+			 * 项目跑不起来 暂时不使用
+			 *
+			 * FIXME: 该内容导致项目无法启动
 			 */
-			vueDevTools(),
+			// vueDevTools(),
 
 			// 按需定制主题配置
 			ElementPlus({
