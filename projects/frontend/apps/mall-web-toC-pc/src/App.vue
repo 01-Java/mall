@@ -9,13 +9,13 @@ useTitle(settings.title);
 
 <template>
 	<!-- 不使用vite的基础根界面 -->
-	<!-- <RouterView /> -->
+	<RouterView />
 
 	<!-- 使用nuxt项目提供的基础根界面 -->
-	<div>
+	<!-- <div>
 		<NuxtRouteAnnouncer />
 		<NuxtWelcome />
-	</div>
+	</div> -->
 </template>
 
 <style scoped></style>
