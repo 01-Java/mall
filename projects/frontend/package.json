@@ -6,7 +6,7 @@
 	"description": "01星球-Java再起航小组-前端根项目",
 	"main": "index.js",
 	"type": "module",
-	"packageManager": "pnpm@9.10.0",
+	"packageManager": "pnpm@9.15.4",
 	"engines": {
 		"vscode": "^1.22.0",
 		"node": ">=20.15.1",
