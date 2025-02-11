@@ -22,7 +22,7 @@
 		"rm:node_modules": "rimraf node_modules"
 	},
 	"dependencies": {
-		"@ruan-cat/utils": "^1.4.1",
+		"@ruan-cat/utils": "^1.5.0",
 		"@vueuse/core": "^12.3.0",
 		"@vueuse/integrations": "^12.3.0",
 		"axios": "^1.7.9",
