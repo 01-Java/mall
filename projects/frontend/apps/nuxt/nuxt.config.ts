@@ -9,7 +9,6 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxtjs/color-mode',
     '@vite-pwa/nuxt',
-    '@nuxt/eslint',
     '@element-plus/nuxt',
   ],
 
@@ -71,14 +70,14 @@ export default defineNuxtConfig({
     },
   },
 
-  eslint: {
-    config: {
-      standalone: false,
-      nuxt: {
-        sortConfigKeys: true,
-      },
-    },
-  },
+  // eslint: {
+  //   config: {
+  //     standalone: false,
+  //     nuxt: {
+  //       sortConfigKeys: true,
+  //     },
+  //   },
+  // },
 
   pwa,
 
