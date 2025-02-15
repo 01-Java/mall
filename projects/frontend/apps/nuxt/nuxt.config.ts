@@ -1,5 +1,6 @@
 import { pwa } from './app/config/pwa'
 import { appDescription } from './app/constants/index'
+import { resolve } from 'path'
 
 export default defineNuxtConfig({
   modules: [
@@ -9,6 +10,7 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@vite-pwa/nuxt',
     '@nuxt/eslint',
+    '@element-plus/nuxt',
   ],
 
   devtools: {
@@ -35,6 +37,7 @@ export default defineNuxtConfig({
 
   css: [
     '@unocss/reset/tailwind.css',
+    '@/assets/styles/common.scss'
   ],
 
   colorMode: {
@@ -78,4 +81,23 @@ export default defineNuxtConfig({
   },
 
   pwa,
+
+  imports: {
+    dirs: ['stores']
+  },
+
+  alias: {
+    '@': resolve(__dirname, './'),
+    'assets': resolve(__dirname, './assets'),
+    'public': resolve(__dirname, './public')
+  },
+
+  elementPlus: {
+    importStyle: 'scss',
+    themes: ['dark']
+  },
+
+  build: {
+    transpile: ['element-plus/es']
+  }
 })
