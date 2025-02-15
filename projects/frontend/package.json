@@ -30,6 +30,7 @@
 		"prettier": "prettier --write .",
 		"test:vitest": "vitest --ui --watch",
 		"rm:node_modules": "pnpm -r rm:node_modules && rimraf node_modules pnpm-lock.yaml",
+		"rm:node_modules-2": "rimraf node_modules pnpm-lock.yaml && rimraf */**/node_modules",
 		"code-workspace:create": "node --import=tsx ./scripts/generate.code-workspace.ts --name=01星球-商城项目"
 	},
 	"dependencies": {
