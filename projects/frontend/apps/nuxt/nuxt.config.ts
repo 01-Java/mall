@@ -83,7 +83,15 @@ export default defineNuxtConfig({
   pwa,
 
   imports: {
-    dirs: ['stores']
+    dirs: [
+      'stores',
+      'composables/**',
+    ],
+    presets: [
+      'vue',
+      'vue-router',
+      '@vueuse/core',
+    ]
   },
 
   alias: {

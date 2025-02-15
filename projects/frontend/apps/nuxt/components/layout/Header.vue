@@ -1,5 +1,6 @@
 <script setup lang="ts">
-const categoryStore = useCategoryStore();
+// 不再需要导入 useCategoryStore
+const categoryStore = useCategoryStore()
 </script>
 
 <template>
