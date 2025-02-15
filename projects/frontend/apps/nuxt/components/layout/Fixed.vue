@@ -1,12 +1,10 @@
 <script setup lang="ts">
-// 不再需要导入 useScroll，它会被自动导入
-const { y } = useScroll(window)
-// 不再需要导入 useCategoryStore，它会被自动导入
+const { isFixed } = useScrollFixed()
 const categoryStore = useCategoryStore()
 </script>
 
 <template>
-  <div class="app-header-sticky" :class="{ show: y > 78 }">
+  <div class="app-header-sticky" :class="{ show: isFixed }">
     <div class="container">
       <NuxtLink class="logo" to="/" />
       <!-- 导航区域 -->

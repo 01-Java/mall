@@ -9,26 +9,28 @@ interface CartItem {
   attrsText: string
 }
 
-export const useCartStore = defineStore('cart', {
-  state: () => ({
-    cartList: [] as CartItem[]
-  }),
+export const useCartStore = defineStore('cart', () => {
+  const cartList = ref<CartItem[]>([])
 
-  getters: {
-    allCount(): number {
-      return this.cartList.reduce((sum, item) => sum + item.count, 0)
-    },
-    allPrice(): number {
-      return this.cartList.reduce((sum, item) => sum + item.count * item.price, 0)
-    }
-  },
+  const allCount = computed(() => 
+    cartList.value.reduce((sum, item) => sum + item.count, 0)
+  )
 
-  actions: {
-    deleteCart(skuId: string) {
-      const index = this.cartList.findIndex(item => item.skuId === skuId)
-      if (index > -1) {
-        this.cartList.splice(index, 1)
-      }
+  const allPrice = computed(() => 
+    cartList.value.reduce((sum, item) => sum + item.count * item.price, 0)
+  )
+
+  function deleteCart(skuId: string) {
+    const index = cartList.value.findIndex(item => item.skuId === skuId)
+    if (index > -1) {
+      cartList.value.splice(index, 1)
     }
+  }
+
+  return {
+    cartList,
+    allCount,
+    allPrice,
+    deleteCart
   }
 }) 

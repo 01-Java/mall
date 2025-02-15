@@ -82,15 +82,25 @@ export default defineNuxtConfig({
 
   pwa,
 
+  plugins: [
+    '~/plugins/element-plus.ts'
+  ],
+
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || '/api'
+    }
+  },
+
   imports: {
     dirs: [
       'stores',
-      'composables/**',
+      'composables/**'
     ],
     presets: [
       'vue',
       'vue-router',
-      '@vueuse/core',
+      '@vueuse/core'
     ]
   },
 
@@ -103,6 +113,14 @@ export default defineNuxtConfig({
   elementPlus: {
     importStyle: 'scss',
     themes: ['dark']
+  },
+
+  typescript: {
+    tsConfig: {
+      compilerOptions: {
+        types: ['element-plus/global']
+      }
+    }
   },
 
   build: {
