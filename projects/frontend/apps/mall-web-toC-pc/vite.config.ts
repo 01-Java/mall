@@ -31,8 +31,7 @@ import VueRouter from "unplugin-vue-router/vite";
 import { VueRouterAutoImports } from "unplugin-vue-router";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import ElementPlus from "unplugin-element-plus/vite";
-import vueDevTools from "vite-plugin-vue-devtools";
-// import { visualizer } from "rollup-plugin-visualizer";
+// import vueDevTools from "vite-plugin-vue-devtools";
 import { createPlugin, getName } from "vite-plugin-autogeneration-import-file";
 
 const { autoImport } = createPlugin();
