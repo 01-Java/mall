@@ -29,3 +29,25 @@ frontend\apps\nuxt
 ## 注意事项
 
 - 不要修改 mall 项目的源代码，mall 项目仍旧保持 vite 项目架构。
+
+## 参考信息
+
+为了协助你完成 vite 项目转换成 nuxt 项目，我会提供给你一些关键内容，以便帮助你了解项目架构。
+
+### mall 项目
+
+- package.json
+
+- main.ts
+
+- vite.config.ts
+
+- 路由配置文件
+  src\router\index.ts
+
+- 布局用的组件
+  src\components\layout
+
+### nuxt 项目
+
+- nuxt.config.ts
