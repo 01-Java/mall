@@ -93,7 +93,7 @@ npm run build
 
 ## 尝试触发部署
 
-projects/frontend/apps/mall-web-toC-pc/\*
+projects/frontend/apps/mall/\*
 
 ## 包名
 
