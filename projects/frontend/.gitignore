@@ -57,3 +57,4 @@ dist
 
 # 忽略掉 vitest 的过程文件
 vitest.config.ts.timestamp-*.mjs
+*storybook.log
