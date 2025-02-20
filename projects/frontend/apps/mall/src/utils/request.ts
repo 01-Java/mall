@@ -136,3 +136,5 @@ export function createRequestForUseAxios() {
 
 	return requestForUseAxios;
 }
+
+export const requestForUseAxios = createRequestForUseAxios();
