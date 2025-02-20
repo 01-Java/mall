@@ -1,5 +1,5 @@
 declare interface Window {
-  $ELEMENT: {
-    size: string
-  }
-} 
+	$ELEMENT: {
+		size: string;
+	};
+}
