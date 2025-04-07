@@ -10,9 +10,7 @@
 
 将本项目改造成 nuxt 项目，在本工作区内，相对路径地址如下：
 
-<!-- frontend\apps\mall-web-toC-pc -->
-
-mall
+frontend\apps\mall-web-toC-pc
 
 该项目接下来将会被称呼为 mall ，即商城项目。
 
@@ -20,9 +18,7 @@ mall
 
 其相对路径为：
 
-<!-- frontend\apps\nuxt -->
-
-nuxt
+frontend\apps\nuxt
 
 该项目接下来称呼为 nuxt 项目。
 
