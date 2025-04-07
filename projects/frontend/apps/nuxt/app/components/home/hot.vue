@@ -15,7 +15,7 @@ getHotGoods();
       <ul class="goods-list">
         <li v-for="item in hotGoodsList" :key="item.id">
           <NuxtLink :to="`/detail/${item.id}`">
-            <img v-img-lazy="item.picture" alt="" />
+            <NuxtImg :src="item.picture" width="306" height="306" loading="lazy" alt="" />
             <p class="name">{{ item.title }}</p>
             <p class="desc">{{ item.alt }}</p>
           </NuxtLink>
@@ -39,11 +39,6 @@ getHotGoods();
     &:hover {
       transform: translate3d(0, -3px, 0);
       box-shadow: 0 3px 8px rgb(0 0 0 / 20%);
-    }
-
-    img {
-      width: 306px;
-      height: 306px;
     }
 
     p {

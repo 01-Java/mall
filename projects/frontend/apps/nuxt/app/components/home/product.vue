@@ -17,7 +17,7 @@ onMounted(() => getGoodsProduct());
       <template #main>
         <div class="box">
           <NuxtLink class="cover" to="/">
-            <img v-img-lazy="cate.picture" />
+            <NuxtImg :src="cate.picture" width="240" height="610" loading="lazy" />
             <strong class="label">
               <span>{{ cate.name }}馆</span>
               <span>{{ cate.saleInfo }}</span>
@@ -65,11 +65,6 @@ onMounted(() => getGoodsProduct());
       height: 610px;
       margin-right: 10px;
       position: relative;
-
-      img {
-        width: 100%;
-        height: 100%;
-      }
 
       .label {
         width: 188px;
