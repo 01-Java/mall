@@ -81,6 +81,12 @@ export default defineNuxtConfig({
 
 	compatibilityDate: "2024-08-14",
 
+	routeRules: {
+		'/api/**': {
+			proxy: { to: 'https://pcapi-xiaotuxian-front-devtest.itheima.net/**' }
+		}
+	},
+
 	nitro: {
 		esbuild: {
 			options: {
@@ -91,7 +97,7 @@ export default defineNuxtConfig({
 			crawlLinks: false,
 			routes: ["/"],
 			ignore: ["/hi"],
-		},
+		}
 	},
 
 	vite: {
