@@ -9,9 +9,8 @@ interface Props {
 	};
 }
 
-const props = withDefaults(defineProps<Props>(), {
-	good: () => ({}),
-});
+// 直接解构defineProps，Vue会自动保持响应性
+const { good } = defineProps<Props>();
 </script>
 
 <template>

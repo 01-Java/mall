@@ -36,13 +36,8 @@ interface Props {
   skus: SkuData[];
 }
 
-// 定义Props并提供默认值
-const props = withDefaults(defineProps<Props>(), {
-  goods: () => ({}),
-  skuId: '',
-  specs: () => [],
-  skus: () => []
-});
+// 直接解构defineProps，Vue会自动保持响应性
+const { goods, skuId, specs, skus } = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'change', sku: SkuData): void
@@ -53,11 +48,11 @@ const selectedSpec = ref<Record<string, string>>({});
 
 // 2. 监听变化，判断规格组合是否有效
 watch(
-  () => props.skuId,
+  () => skuId,
   (newVal) => {
-    if (newVal && props.skus.length) {
+    if (newVal && skus.length) {
       // 获取当前SKU对应的规格选项
-      const sku = props.skus.find(item => item.skuId === newVal);
+      const sku = skus.find(item => item.skuId === newVal);
       if (sku) {
         // 遍历规格，选中传入的skuId对应的规格选项
         selectedSpec.value = getSelectedSpec(sku.specs);
@@ -81,7 +76,7 @@ const getSelectedSpec = (specs: { name: string; valueName: string }[]) => {
 // 3. 获取路径字典，用于确定库存
 const pathMap = ref<Record<string, string>>({});
 watch(
-  () => props.skus,
+  () => skus,
   (newVal) => {
     const pathDict: Record<string, string> = {};
     if (newVal && newVal.length) {
@@ -98,7 +93,7 @@ watch(
 
 // 4. 更新禁用状态
 const updateDisabledStatus = () => {
-  props.specs.forEach((spec) => {
+  specs.forEach((spec) => {
     spec.values.forEach(val => {
       // 拷贝一份当前选中规格
       const selected = { ...selectedSpec.value };
@@ -178,15 +173,15 @@ const clickSpec = (spec: SkuSpec, val: SpecValue) => {
   }
   
   // 找到对应的sku并触发change事件
-  const validSelection = Object.keys(selectedSpec.value).length === props.specs.length;
+  const validSelection = Object.keys(selectedSpec.value).length === specs.length;
   if (validSelection) {
-    const key = props.specs
+    const key = specs
       .map(spec => `${spec.name}:${selectedSpec.value[spec.name]}`)
       .join('_');
     
     if (pathMap.value[key]) {
       const skuId = pathMap.value[key];
-      const sku = props.skus.find(item => item.skuId === skuId);
+      const sku = skus.find(item => item.skuId === skuId);
       if (sku) {
         emit('change', sku);
       }
@@ -203,7 +198,7 @@ updateDisabledStatus();
 
 <template>
   <div class="goods-sku">
-    <dl v-for="item in props.specs" :key="item.name">
+    <dl v-for="item in specs" :key="item.name">
       <dt>{{ item.name }}</dt>
       <dd>
         <template v-for="val in item.values" :key="val.name">

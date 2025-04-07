@@ -6,9 +6,8 @@ interface Props {
 	imageList: string[];
 }
 
-const props = withDefaults(defineProps<Props>(), {
-	imageList: () => [],
-});
+// 直接解构defineProps，Vue会自动保持响应性
+const { imageList } = defineProps<Props>();
 
 // 实现鼠标移入交互，小图切换大图显示
 const curIndex = ref(0);
@@ -70,14 +69,14 @@ watch([elementX, elementY, isOutside], () => {
 	<div class="goods-image">
 		<!-- 左侧大图-->
 		<div class="middle" ref="target">
-			<NuxtImg :src="props.imageList[curIndex]" width="400" height="400" alt="" />
+			<NuxtImg :src="imageList[curIndex]" width="400" height="400" alt="" />
 			<!-- 蒙层小滑块 -->
 			<div class="layer" :style="{ left: `${left}px`, top: `${top}px` }"></div>
 		</div>
 		<!-- 小图列表 -->
 		<ul class="small">
 			<li 
-				v-for="(img, i) in props.imageList" 
+				v-for="(img, i) in imageList" 
 				:key="i" 
 				@mouseenter="mouseEnterFn(i)" 
 				:class="{ active: i === curIndex }"
@@ -90,7 +89,7 @@ watch([elementX, elementY, isOutside], () => {
 			class="large"
 			:style="[
 				{
-					backgroundImage: `url(${props.imageList[curIndex]})`,
+					backgroundImage: `url(${imageList[curIndex]})`,
 					backgroundPositionX: `${positionX}px`,
 					backgroundPositionY: `${positionY}px`,
 				},

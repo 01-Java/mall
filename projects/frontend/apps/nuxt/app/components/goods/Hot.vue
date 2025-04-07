@@ -7,16 +7,15 @@ interface Props {
 	type: 1 | 2;
 }
 
-const props = withDefaults(defineProps<Props>(), {
-	type: 1,
-});
+// 直接解构defineProps，Vue会自动保持响应性
+const { type } = defineProps<Props>();
 
 // 使用Record<number, string>避免隐式any索引错误
 const titleMap: Record<number, string> = {
 	1: "24小时热榜",
 	2: "周热榜",
 };
-const title = computed(() => titleMap[props.type]);
+const title = computed(() => titleMap[type]);
 
 // 定义商品类型
 interface GoodItem {
@@ -34,7 +33,7 @@ const getHotList = async () => {
 	try {
 		const res = await fetchHotGoodsAPI({
 			id: route.params.id as string,
-			type: props.type,
+			type: type,
 		});
 		// 确保响应数据符合期望格式
 		goodList.value = res.data?.result || [];
