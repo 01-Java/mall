@@ -15,7 +15,7 @@ import vue from "@vitejs/plugin-vue";
  */
 import "./types/env.shim.d.ts";
 
-import { getRouteName } from "@ruan-cat/utils/dist/index.js";
+import { getRouteName } from "@ruan-cat/utils/unplugin-vue-router";
 
 // 引入插件
 import AutoImport from "unplugin-auto-import/vite";
