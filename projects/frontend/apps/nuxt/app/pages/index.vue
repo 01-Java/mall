@@ -1,4 +1,8 @@
 <script setup lang="ts">
+// 在页面加载时获取分类数据
+const categoryStore = useCategoryStore();
+categoryStore.getCategory();
+
 definePageMeta({
 	layout: "default",
 });
@@ -7,24 +11,19 @@ const online = useOnline();
 </script>
 
 <template>
-	<div>
-		<Logos mb-6 />
-		<ClientOnly>
-			<Suspense>
-				<PageView v-if="online" />
-				<div v-else text-gray:80>You're offline</div>
-				<template #fallback>
-					<div italic op50>
-						<span animate-pulse>Loading...</span>
-					</div>
-				</template>
-			</Suspense>
-			<template #fallback>
-				<div op50>
-					<span animate-pulse>...</span>
-				</div>
-			</template>
-		</ClientOnly>
-		<InputEntry />
+	<div class="container">
+		<HomeCategory />
+		<HomeBanner />
 	</div>
+	<HomeNew />
+	<HomeHot />
+	<HomeProduct />
 </template>
+
+<style scoped lang="scss">
+.container {
+	width: 1240px;
+	margin: 0 auto;
+	position: relative;
+}
+</style>
