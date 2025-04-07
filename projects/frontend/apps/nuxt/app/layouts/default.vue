@@ -4,14 +4,13 @@
 
 <template>
 	<div class="mall-container">
+		<LayoutFixed />
 		<LayoutNav />
 		<LayoutHeader />
 		<main class="main-content">
 			<slot />
 		</main>
 		<LayoutFooter />
-		<LayoutFixed />
-		<LayoutCart />
 	</div>
 </template>
 
