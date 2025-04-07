@@ -1,44 +1,102 @@
 <script setup lang="ts">
+import { ref, watch } from "vue";
+import { useMouseInElement } from "@vueuse/core";
+
 interface Props {
-	images?: string[];
-	mainImage?: string;
+	imageList: string[];
 }
 
 const props = withDefaults(defineProps<Props>(), {
-	images: () => [],
+	imageList: () => [],
 });
 
-// 当前预览图
-const activeIndex = ref(0);
-
-// 图片列表
-const imageList = computed(() => {
-	return props.mainImage ? [props.mainImage, ...props.images] : [...props.images];
-});
-
-// 切换图片
-const changePicture = (i: number) => {
-	activeIndex.value = i;
+// 实现鼠标移入交互，小图切换大图显示
+const curIndex = ref(0);
+const mouseEnterFn = (i: number) => {
+	curIndex.value = i;
 };
+
+// 放大镜效果实现
+// 1.获取鼠标相对位置
+const target = ref<HTMLElement | null>(null);
+const { elementX, elementY, isOutside } = useMouseInElement(target);
+
+// 2.控制滑块跟随鼠标移动
+// （监听elementX/Y变化，一旦变化 重新设置left/top）
+const left = ref(0); // 蒙尘小滑块的左边距
+const top = ref(0); // 蒙尘小滑块的上边距
+const positionX = ref(0); // 大图的left位置
+const positionY = ref(0); // 大图的top位置
+
+watch([elementX, elementY, isOutside], () => {
+	if (isOutside.value) {
+		// 如果鼠标没有移入到盒子里面 直接不执行后面的逻辑
+		return;
+	}
+	
+	// 如果鼠标移入到盒子里面
+	// (1).有效范围内控制滑块距离
+	// 横向
+	if (elementX.value > 100 && elementX.value < 300) {
+		left.value = elementX.value - 100;
+	}
+	// 纵向
+	if (elementY.value > 100 && elementY.value < 300) {
+		top.value = elementY.value - 100;
+	}
+	
+	// (2).处理边界
+	if (elementX.value < 100) {
+		left.value = 0;
+	}
+	if (elementX.value > 300) {
+		left.value = 200;
+	}
+	if (elementY.value < 100) {
+		top.value = 0;
+	}
+	if (elementY.value > 300) {
+		top.value = 200;
+	}
+	
+	// 控制放大图显示
+	// 当小滑块往右移动的时候，大图往左移动，这时出现在视图窗口的才是放大图
+	positionX.value = -left.value * 2;
+	positionY.value = -top.value * 2;
+});
 </script>
 
 <template>
 	<div class="goods-image">
-		<!-- 大图 -->
-		<div class="middle" v-if="imageList[activeIndex]">
-			<img :src="imageList[activeIndex]" alt="" />
+		<!-- 左侧大图-->
+		<div class="middle" ref="target">
+			<NuxtImg :src="props.imageList[curIndex]" width="400" height="400" alt="" />
+			<!-- 蒙层小滑块 -->
+			<div class="layer" :style="{ left: `${left}px`, top: `${top}px` }"></div>
 		</div>
 		<!-- 小图列表 -->
 		<ul class="small">
-			<li
-				v-for="(img, i) in imageList"
-				:key="img"
-				:class="{ active: i === activeIndex }"
-				@mouseenter="changePicture(i)"
+			<li 
+				v-for="(img, i) in props.imageList" 
+				:key="i" 
+				@mouseenter="mouseEnterFn(i)" 
+				:class="{ active: i === curIndex }"
 			>
-				<img :src="img" alt="" />
+				<NuxtImg :src="img" width="68" height="68" alt="" />
 			</li>
 		</ul>
+		<!-- 放大镜大图 -->
+		<div
+			class="large"
+			:style="[
+				{
+					backgroundImage: `url(${props.imageList[curIndex]})`,
+					backgroundPositionX: `${positionX}px`,
+					backgroundPositionY: `${positionY}px`,
+				},
+			]"
+			v-show="!isOutside"
+		></div>
 	</div>
 </template>
 
@@ -53,6 +111,30 @@ const changePicture = (i: number) => {
 		width: 400px;
 		height: 400px;
 		background: #f5f5f5;
+	}
+
+	.large {
+		position: absolute;
+		top: 0;
+		left: 412px;
+		width: 400px;
+		height: 400px;
+		z-index: 500;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		background-repeat: no-repeat;
+		// 背景图:盒子的大小 = 2:1  将来控制背景图的移动来实现放大的效果查看 background-position
+		background-size: 800px 800px;
+		background-color: #f8f8f8;
+	}
+
+	.layer {
+		width: 200px;
+		height: 200px;
+		background: rgba(0, 0, 0, 0.2);
+		// 绝对定位 然后跟随咱们鼠标控制left和top属性就可以让滑块移动起来
+		left: 0;
+		top: 0;
+		position: absolute;
 	}
 
 	.small {
@@ -70,11 +152,6 @@ const changePicture = (i: number) => {
 				border: 2px solid $xtxColor;
 			}
 		}
-	}
-
-	img {
-		width: 100%;
-		height: 100%;
 	}
 }
 </style>

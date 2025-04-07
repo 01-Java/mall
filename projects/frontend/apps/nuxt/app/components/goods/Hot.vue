@@ -2,23 +2,45 @@
 import { fetchHotGoodsAPI } from "@/apis/detail";
 
 interface Props {
-	type: number;
-	goodsId: string;
+	// 接受type适配不同类型的热榜数据
+	// 1代表24小时热销榜 2代表周热销榜
+	type: 1 | 2;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+	type: 1,
+});
 
-// TODO: 补充正确的类型
-const hotList = ref([]);
+// 使用Record<number, string>避免隐式any索引错误
+const titleMap: Record<number, string> = {
+	1: "24小时热榜",
+	2: "周热榜",
+};
+const title = computed(() => titleMap[props.type]);
 
-// 获取热门商品数据
+// 定义商品类型
+interface GoodItem {
+	id: string;
+	name: string;
+	desc: string;
+	price: string | number;
+	picture: string;
+}
+
+// 获取热榜数据
+const goodList = ref<GoodItem[]>([]);
+const route = useRoute();
 const getHotList = async () => {
-	const res = await fetchHotGoodsAPI({
-		id: props.goodsId,
-		type: props.type,
-	});
-	// @ts-ignore
-	hotList.value = res.result;
+	try {
+		const res = await fetchHotGoodsAPI({
+			id: route.params.id as string,
+			type: props.type,
+		});
+		// 确保响应数据符合期望格式
+		goodList.value = res.data?.result || [];
+	} catch (error) {
+		console.error('获取热榜数据失败', error);
+	}
 };
 
 onMounted(() => {
@@ -28,9 +50,16 @@ onMounted(() => {
 
 <template>
 	<div class="goods-hot">
-		<h3>{{ type === 1 ? "24小时热榜" : "周热榜" }}</h3>
-		<!-- 商品列表 -->
-		<GoodsItem v-for="item in hotList" :key="item.id" :goods="item" />
+		<h3>{{ title }}</h3>
+		<!-- 商品区块 -->
+		<div class="goods-list">
+			<GoodsItem 
+				v-for="item in goodList" 
+				:key="item.id" 
+				:good="item" 
+				class="goods-item"
+			/>
+		</div>
 	</div>
 </template>
 
@@ -47,27 +76,13 @@ onMounted(() => {
 		font-weight: normal;
 	}
 
-	:deep(.goods-item) {
-		background: #fff;
-		width: 100%;
+	.goods-list {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.goods-item {
 		margin-bottom: 10px;
-
-		img {
-			width: 120px;
-			height: 120px;
-		}
-
-		p {
-			margin: 0 10px;
-		}
-
-		.desc {
-			height: 22px;
-		}
-
-		.price {
-			margin-top: 5px;
-		}
 	}
 }
 </style>

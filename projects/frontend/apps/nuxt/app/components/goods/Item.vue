@@ -1,25 +1,29 @@
 <script setup lang="ts">
-defineProps<{
-	goods: {
-		id: string;
-		name: string;
-		desc: string;
-		price: number;
-		picture: string;
+interface Props {
+	good: {
+		id?: string | number;
+		name?: string;
+		desc?: string;
+		price?: number | string;
+		picture?: string;
 	};
-}>();
+}
+
+const props = withDefaults(defineProps<Props>(), {
+	good: () => ({}),
+});
 </script>
 
 <template>
-	<RouterLink :to="`/goods/${goods.id}`" class="goods-item">
-		<img :src="goods.picture" alt="" />
-		<p class="name ellipsis">{{ goods.name }}</p>
-		<p class="desc ellipsis">{{ goods.desc }}</p>
-		<p class="price">&yen;{{ goods.price }}</p>
-	</RouterLink>
+	<NuxtLink :to="`/detail/${good.id}`" class="goods-item">
+		<NuxtImg :src="good.picture" width="160" height="160" loading="lazy" alt="" />
+		<p class="name ellipsis">{{ good.name }}</p>
+		<p class="desc ellipsis">{{ good.desc }}</p>
+		<p class="price">&yen;{{ good.price }}</p>
+	</NuxtLink>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .goods-item {
 	display: block;
 	width: 220px;
@@ -30,11 +34,6 @@ defineProps<{
 	&:hover {
 		transform: translate3d(0, -3px, 0);
 		box-shadow: 0 3px 8px rgb(0 0 0 / 20%);
-	}
-
-	img {
-		width: 160px;
-		height: 160px;
 	}
 
 	p {
