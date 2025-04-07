@@ -6,3 +6,5 @@ dist
 .env
 .idea/
 public/assets/fonts
+
+pnpm-lock.yaml

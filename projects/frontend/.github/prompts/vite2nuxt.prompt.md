@@ -10,7 +10,9 @@
 
 将本项目改造成 nuxt 项目，在本工作区内，相对路径地址如下：
 
-frontend\apps\mall
+<!-- frontend\apps\mall-web-toC-pc -->
+
+mall
 
 该项目接下来将会被称呼为 mall ，即商城项目。
 
@@ -18,7 +20,9 @@ frontend\apps\mall
 
 其相对路径为：
 
-frontend\apps\nuxt
+<!-- frontend\apps\nuxt -->
+
+nuxt
 
 该项目接下来称呼为 nuxt 项目。
 
@@ -76,3 +80,11 @@ nuxt 项目现在是时来自以下仓库的。本身就是已经可以使用的
 ### nuxt 项目
 
 - nuxt.config.ts
+
+## 边缘性质的改造
+
+以下改造项收益率较低，改造可有可无。在大多数的改造项完成后，再考虑完成以下项目的改造。
+
+### NuxtImg
+
+使用 Nuxt 的图片组件 NuxtImg。将项目内 img 标签，换成 NuxtImg 组件。
