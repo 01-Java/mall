@@ -1,3 +1,26 @@
 // 导入基础样式
 @import "./var.scss";
 @import "./common.scss";
+
+// 全局容器样式
+.container {
+  width: 1240px;
+  margin: 0 auto;
+  position: relative;
+}
+
+// 文本省略样式
+.ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.ellipsis-2 {
+  word-break: break-all;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}

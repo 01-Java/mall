@@ -3,36 +3,29 @@
 </script>
 
 <template>
-	<div class="app">
-		<!-- 顶部导航 -->
-		<LayoutTopnav />
-		<!-- 头部组件 -->
+	<div class="mall-container">
+		<LayoutNav />
 		<LayoutHeader />
-		<!-- 吸顶组件 -->
-		<LayoutFixed />
-
-		<!-- 页面主体 -->
-		<main class="app-body">
+		<main class="main-content">
 			<slot />
 		</main>
-
-		<!-- 底部信息 -->
 		<LayoutFooter />
+		<LayoutFixed />
+		<LayoutCart />
 	</div>
 </template>
 
-<style lang="scss">
-// 移除 scoped，让样式可以影响子组件
-.app {
-	min-height: 100vh;
+<style scoped lang="scss">
+.mall-container {
+	min-width: 1240px;
 	display: flex;
 	flex-direction: column;
+	min-height: 100vh;
 }
 
-.app-body {
+.main-content {
 	flex: 1;
-	min-height: 600px;
-	padding-top: 20px;
+	padding-top: 0;
 }
 
 .container {
