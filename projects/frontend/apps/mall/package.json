@@ -1,5 +1,5 @@
 {
-	"name": "mall",
+	"name": "mall-vite",
 	"version": "0.0.1",
 	"type": "module",
 	"private": true,
