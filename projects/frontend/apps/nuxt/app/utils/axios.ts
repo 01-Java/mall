@@ -2,12 +2,13 @@ import axios from 'axios';
 
 export const requestForUseAxios = axios.create({
   baseURL: '/api',
-  timeout: 5000,
+  timeout: 10000,
 });
 
 // 请求拦截器
 requestForUseAxios.interceptors.request.use(
   (config) => {
+    config.cancelToken = undefined;
     return config;
   },
   (error) => {
@@ -21,6 +22,10 @@ requestForUseAxios.interceptors.response.use(
     return response.data;
   },
   (error) => {
+    if (axios.isCancel(error)) {
+      console.log('请求已被取消');
+      return Promise.resolve({ cancelled: true });
+    }
     return Promise.reject(error);
   },
 ); 

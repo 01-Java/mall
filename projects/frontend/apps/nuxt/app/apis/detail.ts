@@ -3,9 +3,22 @@ import type { ApifoxModel_goods } from "@/models/goods";
 import type { UseAxiosOptions } from "@vueuse/integrations";
 import { requestForUseAxios } from "@/utils/axios";
 
-/** 获取商品详情 */
+/** 获取商品详情 - 使用useAxios */
 export function getDetailAPI<T = ApifoxModel_goods>(id: string, options?: UseAxiosOptions<T>) {
-	return useAxios<T>("/goods", { params: { id } }, requestForUseAxios, options);
+	return useAxios<T>("/goods", { params: { id } }, requestForUseAxios, {
+		// 默认设置，可以被options覆盖
+		immediate: false,
+		resetOnExecute: false,
+		...options
+	});
+}
+
+/** 获取商品详情 - 直接使用request */
+export function getDetailDirectAPI<T = ApifoxModel_goods>(id: string) {
+	return request<any, T>({
+		url: "/goods",
+		params: { id },
+	});
 }
 
 interface HotGoodsParams {

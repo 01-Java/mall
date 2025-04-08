@@ -46,6 +46,16 @@ const emit = defineEmits<{
 // 1. 选中记录
 const selectedSpec = ref<Record<string, string>>({});
 
+// 类型安全的访问函数，避免类型错误
+const getSelectedSpecValue = (specName: string): string | undefined => {
+  return selectedSpec.value[specName];
+};
+
+// 判断规格是否被选中
+const isSpecSelected = (specName: string, valueName: string): boolean => {
+  return getSelectedSpecValue(specName) === valueName;
+};
+
 // 2. 监听变化，判断规格组合是否有效
 watch(
   () => skuId,
@@ -207,7 +217,7 @@ updateDisabledStatus();
             v-if="val.picture"
             :class="[
               'sku-value', 
-              { selected: Object.prototype.hasOwnProperty.call(selectedSpec.value, item.name) && selectedSpec.value[item.name] === val.name }, 
+              { selected: isSpecSelected(item.name, val.name) }, 
               { disabled: val.disabled }
             ]"
             @click="clickSpec(item, val)"
@@ -226,7 +236,7 @@ updateDisabledStatus();
             v-else
             :class="[
               'sku-value', 
-              { selected: Object.prototype.hasOwnProperty.call(selectedSpec.value, item.name) && selectedSpec.value[item.name] === val.name }, 
+              { selected: isSpecSelected(item.name, val.name) }, 
               { disabled: val.disabled }
             ]"
             @click="clickSpec(item, val)"

@@ -9,6 +9,7 @@ interface CartItem {
 	price: number;
 	count: number;
 	attrsText: string;
+	selected?: boolean;
 }
 
 export const useCartStore = defineStore("cart", () => {
