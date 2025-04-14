@@ -81,11 +81,17 @@ export const useUserStore = defineStore(
 			navigateTo('/');
 		}
 
+		// 为了兼容Nav组件中的调用，添加clearUserInfo方法作为logout的别名
+		function clearUserInfo() {
+			logout();
+		}
+
 		return {
 			profile,
 			getUserInfo,
 			setUser,
 			logout,
+			clearUserInfo,
 		};
 	},
 	{

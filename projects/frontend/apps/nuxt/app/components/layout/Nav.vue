@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useUserStore } from '@/composables/states/use-user';
+
 const userStore = useUserStore();
 const router = useRouter();
 
@@ -14,9 +16,9 @@ const confirm = () => {
   <nav class="app-topnav">
     <div class="container">
       <ul>
-        <template v-if="userStore.userInfo?.token">
+        <template v-if="userStore.profile.token">
           <li>
-            <a href="javascript:;"><i class="iconfont icon-user"></i>{{ userStore.userInfo.nickname }}</a>
+            <a href="javascript:;"><i class="iconfont icon-user"></i>我是小兔鲜</a>
           </li>
           <li>
             <el-popconfirm title="确认退出吗?" confirm-button-text="确认" cancel-button-text="取消" @confirm="confirm">
