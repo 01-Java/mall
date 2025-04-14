@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// 个人中心页面布局
+// 会员中心布局页面
 </script>
 
 <template>

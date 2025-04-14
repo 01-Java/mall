@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { getUserOrderAPI } from '@/apis/order';
+import type { TabPaneName } from 'element-plus';
 
 // API响应类型
 interface ApiResponse {
@@ -54,8 +55,10 @@ const getUserOrder = async () => {
 };
 
 // 导航栏切换
-const tabChange = (type: number) => {
-  params.value.orderState = type;
+const tabChange = (name: TabPaneName) => {
+  // 根据tab索引设置订单状态
+  const index = tabTypes.findIndex(item => item.name === name);
+  params.value.orderState = index;
   params.value.page = 1;
   getUserOrder();
 };
@@ -76,7 +79,7 @@ onMounted(() => {
   <div class="order-container">
     <el-tabs @tab-change="tabChange">
       <!-- tab切换 -->
-      <el-tab-pane v-for="item in tabTypes" :key="item.name" :label="item.label" />
+      <el-tab-pane v-for="item in tabTypes" :key="item.name" :label="item.label" :name="item.name" />
       
       <div class="main-container">
         <div class="holder-container" v-if="orderList.length === 0">
