@@ -31,7 +31,7 @@ const cartStore = useCartStore();
 					<p>共 {{ cartStore.allCount }} 件商品</p>
 					<p>&yen; {{ cartStore.allPrice.toFixed(2) }}</p>
 				</div>
-				<NuxtLink to="/cartlist" class="btn">去购物车结算</NuxtLink>
+				<NuxtLink to="/cart" class="btn">去购物车结算</NuxtLink>
 			</div>
 		</div>
 	</div>
