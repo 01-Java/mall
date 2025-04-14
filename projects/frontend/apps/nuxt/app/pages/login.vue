@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ElMessage } from "element-plus";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 // 表单校验对象
 const userInfo = ref({
@@ -29,6 +29,11 @@ const rules = {
 const formRef = ref<any>();
 const router = useRouter();
 const userStore = useUserStore();
+const route = useRoute();
+
+const redirectUrl = computed(() => {
+  return route.query.redirectUrl as string || '/';
+});
 
 const doLogin = () => {
   // 提交表单进行预校验
@@ -40,8 +45,8 @@ const doLogin = () => {
         await userStore.getUserInfo({ account, password });
         // 提示用户
         ElMessage.success("登录成功");
-        // 跳转首页
-        router.replace({ path: "/" });
+        // 跳转到之前想要访问的页面
+        router.replace({ path: redirectUrl.value });
       } catch (error) {
         ElMessage.error("登录失败，请检查账号密码");
       }
@@ -51,14 +56,14 @@ const doLogin = () => {
 
 // 设置页面元数据
 definePageMeta({
-  layout: "default"
+  layout: false
 });
 </script>
 
 <template>
-  <div>
+  <div class="login-page">
     <header class="login-header">
-      <div class="container m-top-20">
+      <div class="container">
         <h1 class="logo">
           <NuxtLink to="/">小兔鲜</NuxtLink>
         </h1>
@@ -118,6 +123,14 @@ definePageMeta({
 </template>
 
 <style scoped lang="scss">
+.login-page {
+  min-width: 1240px;
+  background: #f5f5f5;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .login-header {
   background: #fff;
   border-bottom: 1px solid #e4e4e4;
@@ -312,6 +325,15 @@ definePageMeta({
 
       &.disabled {
         background: #cfcdcd;
+      }
+    }
+
+    .subBtn {
+      background: $xtxColor;
+      width: 100%;
+      color: #fff;
+      &:hover {
+        background: lighten($xtxColor, 10%);
       }
     }
   }

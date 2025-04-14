@@ -14,7 +14,7 @@ const confirm = () => {
   <nav class="app-topnav">
     <div class="container">
       <ul>
-        <template v-if="userStore.userInfo.token">
+        <template v-if="userStore.userInfo?.token">
           <li>
             <a href="javascript:;"><i class="iconfont icon-user"></i>{{ userStore.userInfo.nickname }}</a>
           </li>

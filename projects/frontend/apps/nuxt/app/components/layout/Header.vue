@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useUserStore } from '@/composables/states/use-user';
+
+const userStore = useUserStore();
 const categoryStore = useCategoryStore();
 </script>
 
@@ -22,6 +25,18 @@ const categoryStore = useCategoryStore();
 			</div>
 			<!-- 购物车 -->
 			<LayoutCart />
+			<div class="user">
+				<template v-if="userStore.profile.token">
+					<NuxtLink to="/member" class="user-info">
+						<img :src="userStore.profile.avatar" alt="" class="avatar">
+						<span class="nickname">{{ userStore.profile.nickname || userStore.profile.account }}</span>
+					</NuxtLink>
+					<a href="javascript:;" class="logout" @click="userStore.logout()">退出登录</a>
+				</template>
+				<template v-else>
+					<NuxtLink to="/login">请先登录</NuxtLink>
+				</template>
+			</div>
 		</div>
 	</header>
 </template>
@@ -94,6 +109,40 @@ const categoryStore = useCategoryStore();
 			width: 140px;
 			padding-left: 5px;
 			color: #666;
+		}
+	}
+
+	.user {
+		margin-left: 20px;
+		display: flex;
+		align-items: center;
+		
+		.user-info {
+			display: flex;
+			align-items: center;
+			
+			.avatar {
+				width: 30px;
+				height: 30px;
+				border-radius: 50%;
+				object-fit: cover;
+				margin-right: 8px;
+			}
+			
+			.nickname {
+				color: #666;
+				font-size: 14px;
+			}
+		}
+		
+		.logout {
+			margin-left: 10px;
+			color: #999;
+			font-size: 13px;
+			
+			&:hover {
+				color: $xtxColor;
+			}
 		}
 	}
 }
