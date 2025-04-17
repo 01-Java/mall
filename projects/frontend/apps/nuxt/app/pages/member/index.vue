@@ -1,96 +1,144 @@
-<script setup lang="ts">
-// 会员中心布局页面
-definePageMeta({
-  // 默认子路由配置（允许index.vue包含子路由）
-  alias: ['/member']
-})
+<script setup>
+import { getLikeListAPI } from '@/apis/user';
+import { ref, onMounted } from 'vue';
+import { useUserStore } from '@/stores/user';
+
+// 定义变量
+const likeList = ref([]);
+const userStore = useUserStore();
+
+// 获取猜你喜欢商品数据
+const getLikeList = async () => {
+  const res = await getLikeListAPI({ limit: 4 });
+  likeList.value = res.result;
+};
+
+onMounted(() => getLikeList());
 </script>
 
 <template>
-  <div class="container">
-    <div class="xtx-member-aside">
-      <div class="user-manage">
-        <h4>我的账户</h4>
-        <div class="links">
-          <NuxtLink to="/member">个人中心</NuxtLink>
-        </div>
-        <h4>交易管理</h4>
-        <div class="links">
-          <NuxtLink to="/member/order">我的订单</NuxtLink>
-        </div>
+  <div class="home-overview">
+    <!-- 用户信息 -->
+    <div class="user-meta">
+      <div class="avatar">
+        <img :src="userStore.userInfo?.avatar" />
       </div>
+      <h4>{{ userStore.userInfo?.account }}</h4>
     </div>
-    <div class="article">
-      <!-- 子路由的挂载点 -->
-      <NuxtPage />
+    <div class="item">
+      <a href="javascript:;">
+        <span class="iconfont icon-hy"></span>
+        <p>会员中心</p>
+      </a>
+      <a href="javascript:;">
+        <span class="iconfont icon-aq"></span>
+        <p>安全设置</p>
+      </a>
+      <a href="javascript:;">
+        <span class="iconfont icon-dw"></span>
+        <p>地址管理</p>
+      </a>
+    </div>
+  </div>
+  <div class="like-container">
+    <div class="home-panel">
+      <div class="header">
+        <h4>猜你喜欢</h4>
+      </div>
+      <div class="goods-list">
+        <GoodsItem v-for="good in likeList" :key="good.id" :good="good" />
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-.container {
+.home-overview {
+  height: 132px;
+  background: url('@/assets/images/center-bg.png') no-repeat center / cover;
   display: flex;
-  padding-top: 20px;
 
-  .xtx-member-aside {
-    width: 220px;
-    margin-right: 20px;
-    border-radius: 2px;
-    background-color: #fff;
+  .user-meta {
+    flex: 1;
+    display: flex;
+    align-items: center;
 
-    .user-manage {
-      background-color: #fff;
+    .avatar {
+      width: 85px;
+      height: 85px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-left: 60px;
 
-      h4 {
-        font-size: 18px;
-        font-weight: 400;
-        padding: 20px 52px 5px;
-        border-top: 1px solid #f6f6f6;
+      img {
+        width: 100%;
+        height: 100%;
       }
+    }
 
-      .links {
-        padding: 0 52px 10px;
-      }
-
-      a {
-        display: block;
-        line-height: 1;
-        padding: 15px 0;
-        font-size: 14px;
-        color: #666;
-        position: relative;
-
-        &:hover {
-          color: $xtxColor;
-        }
-
-        &.active,
-        &.router-link-exact-active {
-          color: $xtxColor;
-
-          &:before {
-            display: block;
-          }
-        }
-
-        &:before {
-          content: "";
-          display: none;
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          position: absolute;
-          top: 19px;
-          left: -16px;
-          background-color: $xtxColor;
-        }
-      }
+    h4 {
+      padding-left: 26px;
+      font-size: 18px;
+      font-weight: normal;
+      color: white;
     }
   }
 
-  .article {
-    width: 1000px;
-    background-color: #fff;
+  .item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    &:first-child {
+      border-right: 1px solid #f4f4f4;
+    }
+
+    a {
+      color: white;
+      font-size: 16px;
+      text-align: center;
+
+      .iconfont {
+        font-size: 32px;
+      }
+
+      p {
+        line-height: 32px;
+      }
+    }
+  }
+}
+
+.like-container {
+  margin-top: 20px;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.home-panel {
+  background-color: #fff;
+  padding: 0 20px;
+  margin-top: 20px;
+  height: 400px;
+
+  .header {
+    height: 66px;
+    border-bottom: 1px solid #f5f5f5;
+    padding: 18px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    h4 {
+      font-size: 22px;
+      font-weight: 400;
+    }
+  }
+
+  .goods-list {
+    display: flex;
+    justify-content: space-around;
   }
 }
 </style> 
