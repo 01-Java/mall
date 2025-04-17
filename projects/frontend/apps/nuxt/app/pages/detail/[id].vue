@@ -121,17 +121,17 @@ const add = () => {
               <ul class="goods-sales">
                 <li>
                   <p>销量人气</p>
-                  <p>{{ good.salesCount || good.orderNum }}+</p>
+                  <p>{{ good.salesCount }}+</p>
                   <p><i class="iconfont icon-task-filling"></i>销量人气</p>
                 </li>
                 <li>
                   <p>商品评价</p>
-                  <p>{{ good.commentCount || good.orderNum }}+</p>
+                  <p>{{ good.commentCount }}+</p>
                   <p><i class="iconfont icon-comment-filling"></i>查看评价</p>
                 </li>
                 <li>
                   <p>收藏人气</p>
-                  <p>{{ good.collectCount || good.orderNum }}+</p>
+                  <p>{{ good.collectCount }}+</p>
                   <p><i class="iconfont icon-favorite-filling"></i>收藏商品</p>
                 </li>
                 <li>
