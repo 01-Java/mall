@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watchEffect } from 'vue';
+import getPowerSet from '@/utils/power-set';
 
 // 规格值类型
 interface SpecValue {
@@ -31,218 +32,169 @@ export interface SkuData {
 // 组件Props类型
 interface Props {
   goods: Record<string, any>;
-  skuId: string;
-  specs: SkuSpec[];
-  skus: SkuData[];
+  skus?: SkuData[];
+  specs?: any[];
+  skuId?: string;
 }
 
-// 直接解构defineProps，Vue会自动保持响应性
-const { goods, skuId, specs, skus } = defineProps<Props>();
+// 接收Props
+const props = defineProps<Props>();
+const emit = defineEmits(['change']);
 
-const emit = defineEmits<{
-  (e: 'change', sku: SkuData): void
-}>();
+// 分隔符
+const spliter = "★";
 
-// 1. 选中记录
-const selectedSpec = ref<Record<string, string>>({});
-
-// 类型安全的访问函数，避免类型错误
-const getSelectedSpecValue = (specName: string): string | undefined => {
-  return selectedSpec.value[specName];
-};
-
-// 判断规格是否被选中
-const isSpecSelected = (specName: string, valueName: string): boolean => {
-  return getSelectedSpecValue(specName) === valueName;
-};
-
-// 2. 监听变化，判断规格组合是否有效
-watch(
-  () => skuId,
-  (newVal) => {
-    if (newVal && skus.length) {
-      // 获取当前SKU对应的规格选项
-      const sku = skus.find(item => item.skuId === newVal);
-      if (sku) {
-        // 遍历规格，选中传入的skuId对应的规格选项
-        selectedSpec.value = getSelectedSpec(sku.specs);
+// 创建路径字典
+const getPathMap = (skus: SkuData[]) => {
+  const pathMap: Record<string, string[]> = {};
+  if (skus && skus.length > 0) {
+    skus.forEach((sku) => {
+      // 1. 过滤出有库存有效的sku
+      if (sku.inventory) {
+        // 2. 得到sku属性值数组
+        const specs = sku.specs.map((spec) => spec.valueName);
+        // 3. 得到sku属性值数组的子集
+        const powerSet = getPowerSet(specs);
+        // 4. 设置给路径字典对象
+        powerSet.forEach((set: string[]) => {
+          const key = set.join(spliter);
+          // 如果没有就先初始化一个空数组
+          if (!pathMap[key]) {
+            pathMap[key] = [];
+          }
+          pathMap[key].push(sku.id);
+        });
       }
-    } else {
-      selectedSpec.value = {};
-    }
-  },
-  { immediate: true }
-);
-
-// 根据specs数组生成selectedSpec对象
-const getSelectedSpec = (specs: { name: string; valueName: string }[]) => {
-  const result: Record<string, string> = {};
-  specs.forEach(spec => {
-    result[spec.name] = spec.valueName;
-  });
-  return result;
+    });
+  }
+  return pathMap;
 };
 
-// 3. 获取路径字典，用于确定库存
-const pathMap = ref<Record<string, string>>({});
-watch(
-  () => skus,
-  (newVal) => {
-    const pathDict: Record<string, string> = {};
-    if (newVal && newVal.length) {
-      newVal.forEach(sku => {
-        const specKeys = sku.specs.map(spec => `${spec.name}:${spec.valueName}`);
-        const key = specKeys.join('_');
-        pathDict[key] = sku.skuId;
+// 初始化禁用状态
+const initDisabledStatus = (specs: any[], pathMap: Record<string, any>) => {
+  if (specs && specs.length > 0) {
+    specs.forEach((spec) => {
+      spec.values.forEach((val: any) => {
+        // 设置禁用状态
+        val.disabled = !pathMap[val.name];
       });
-    }
-    pathMap.value = pathDict;
-  },
-  { immediate: true }
-);
+    });
+  }
+};
 
-// 4. 更新禁用状态
-const updateDisabledStatus = () => {
-  specs.forEach((spec) => {
-    spec.values.forEach(val => {
-      // 拷贝一份当前选中规格
-      const selected = { ...selectedSpec.value };
-      // 忽略当前选项，判断剩余规格是否可以组合
-      selected[spec.name] = val.name;
-      
-      // 遍历其他规格是否可以组合成有效的sku
-      val.disabled = !isValid(spec.name, selected);
+// 得到当前选中规格集合
+const getSelectedArr = (specs: any[]) => {
+  const selectedArr: (string | undefined)[] = [];
+  specs.forEach((spec, index) => {
+    const selectedVal = spec.values.find((val: any) => val.selected);
+    if (selectedVal) {
+      selectedArr[index] = selectedVal.name;
+    } else {
+      selectedArr[index] = undefined;
+    }
+  });
+  return selectedArr;
+};
+
+// 更新按钮的禁用状态
+const updateDisabledStatus = (specs: any[], pathMap: Record<string, any>) => {
+  // 遍历每一种规格
+  specs.forEach((item, i) => {
+    // 拿到当前选择的项目
+    const selectedArr = getSelectedArr(specs);
+    // 遍历每一个按钮
+    item.values.forEach((val: any) => {
+      if (!val.selected) {
+        selectedArr[i] = val.name;
+        // 去掉undefined之后组合成key
+        const key = selectedArr.filter((value) => value).join(spliter);
+        val.disabled = !pathMap[key];
+      }
     });
   });
 };
 
-// 检查规格组合是否有效
-const isValid = (currentName: string, selected: Record<string, string>) => {
-  // 获取当前所有可能的组合
-  const keys = Object.keys(selected).filter(key => key !== currentName);
-  
-  // 如果只有一个规格，直接查询是否存在
-  if (keys.length === 0) {
-    const key = `${currentName}:${selected[currentName]}`;
-    return !!pathMap.value[key];
-  }
-  
-  // 检查是否有满足条件的组合
-  let result = false;
-  const combinations = getCombinations(keys, selected);
-  combinations.forEach(combo => {
-    const key = combo.join('_');
-    if (pathMap.value[key]) {
-      result = true;
-    }
-  });
-  
-  return result;
-};
+// 存储路径字典
+let pathMap = ref<Record<string, any>>({});
 
-// 生成所有可能的规格组合
-const getCombinations = (keys: string[], selected: Record<string, string>) => {
-  const result: string[][] = [];
-  
-  // 遍历所有可能的规格组合
-  const generateCombos = (index: number, current: string[]) => {
-    if (index === keys.length) {
-      result.push([...current]);
-      return;
-    }
-    
-    const key = keys[index];
-    // 确保key存在于selected中
-    if (key && key in selected) {
-      const value = selected[key];
-      current.push(`${key}:${value}`);
-      generateCombos(index + 1, current);
-      current.pop();
-    }
-  };
-  
-  generateCombos(0, []);
-  return result;
-};
+// 监听商品和SKU变化
+watchEffect(() => {
+  // 判断是否使用传入的skus或者商品的skus
+  const skusToUse = props.skus && props.skus.length ? props.skus : props.goods.skus;
+  // 判断是否使用传入的specs或者商品的specs
+  const specsToUse = props.specs && props.specs.length ? props.specs : props.goods.specs;
 
-// 5. 选择规格
-const clickSpec = (spec: SkuSpec, val: SpecValue) => {
-  if (val.disabled) return;
+  // 得到所有字典集合
+  pathMap.value = getPathMap(skusToUse || []);
+  // 组件初始化的时候更新禁用状态
+  initDisabledStatus(specsToUse || [], pathMap.value);
+});
+
+// 处理规格点击
+const clickSpecs = (item: any, val: any) => {
+  if (val.disabled) return false;
   
-  if (selectedSpec.value[spec.name] === val.name) {
-    // 再次点击取消选择
-    const newSelected = { ...selectedSpec.value };
-    delete newSelected[spec.name];
-    selectedSpec.value = newSelected;
+  // 选中与取消选中逻辑
+  if (val.selected) {
+    val.selected = false;
   } else {
-    // 点击选择
-    selectedSpec.value = {
-      ...selectedSpec.value,
-      [spec.name]: val.name
-    };
+    item.values.forEach((bv: any) => {
+      bv.selected = false;
+    });
+    val.selected = true;
   }
   
-  // 找到对应的sku并触发change事件
-  const validSelection = Object.keys(selectedSpec.value).length === specs.length;
-  if (validSelection) {
-    const key = specs
-      .map(spec => `${spec.name}:${selectedSpec.value[spec.name]}`)
-      .join('_');
+  // 使用传入的specs或商品的specs
+  const specsToUse = props.specs && props.specs.length ? props.specs : props.goods.specs;
+  const skusToUse = props.skus && props.skus.length ? props.skus : props.goods.skus;
+  
+  // 点击之后再次更新选中状态
+  updateDisabledStatus(specsToUse, pathMap.value);
+  
+  // 把选择的sku信息传出去给父组件
+  const selectedArr = getSelectedArr(specsToUse).filter((value) => value);
+  
+  // 如果选中得规格数量和传入得规格总数相等则传出完整信息(都选择了)
+  // 否则传出空对象
+  if (selectedArr.length === specsToUse.length) {
+    // 从路径字典中得到skuId
+    const skuId = pathMap.value[selectedArr.join(spliter)][0];
+    const sku = skusToUse.find((sku: any) => sku.id === skuId);
     
-    if (pathMap.value[key]) {
-      const skuId = pathMap.value[key];
-      const sku = skus.find(item => item.skuId === skuId);
-      if (sku) {
-        emit('change', sku);
-      }
-    }
+    // 传递数据给父组件
+    emit("change", {
+      skuId: sku.id,
+      price: sku.price,
+      oldPrice: sku.oldPrice,
+      inventory: sku.inventory,
+      specsText: sku.specs.reduce((p: string, n: any) => `${p} ${n.name}：${n.valueName}`, "").trim(),
+    });
+  } else {
+    emit("change", {});
   }
-  
-  // 更新禁用状态
-  updateDisabledStatus();
 };
-
-// 初始化时更新禁用状态
-updateDisabledStatus();
 </script>
 
 <template>
   <div class="goods-sku">
-    <dl v-for="item in specs" :key="item.name">
+    <dl v-for="item in (props.specs && props.specs.length ? props.specs : props.goods.specs)" :key="item.id">
       <dt>{{ item.name }}</dt>
       <dd>
         <template v-for="val in item.values" :key="val.name">
-          <!-- 图片类型规格 -->
-          <div
+          <img
+            :class="{ selected: val.selected, disabled: val.disabled }"
+            @click="clickSpecs(item, val)"
             v-if="val.picture"
-            :class="[
-              'sku-value', 
-              { selected: isSpecSelected(item.name, val.name) }, 
-              { disabled: val.disabled }
-            ]"
-            @click="clickSpec(item, val)"
-          >
-            <NuxtImg 
-              :src="val.picture" 
-              width="38"
-              height="38"
-              alt="" 
-              :title="val.name"
-            />
-            <div class="sku-name">{{ val.name }}</div>
-          </div>
-          <!-- 文本类型规格 -->
-          <div
+            :src="val.picture"
+            :title="val.name"
+          />
+          <span 
+            :class="{ selected: val.selected, disabled: val.disabled }" 
+            @click="clickSpecs(item, val)" 
             v-else
-            :class="[
-              'sku-value', 
-              { selected: isSpecSelected(item.name, val.name) }, 
-              { disabled: val.disabled }
-            ]"
-            @click="clickSpec(item, val)"
           >
-            <span class="sku-name">{{ val.name }}</span>
-          </div>
+            {{ val.name }}
+          </span>
         </template>
       </dd>
     </dl>
@@ -250,6 +202,22 @@ updateDisabledStatus();
 </template>
 
 <style scoped lang="scss">
+@mixin sku-state-mixin {
+  border: 1px solid #e4e4e4;
+  margin-right: 10px;
+  cursor: pointer;
+
+  &.selected {
+    border-color: $xtxColor;
+  }
+
+  &.disabled {
+    opacity: 0.6;
+    border-style: dashed;
+    cursor: not-allowed;
+  }
+}
+
 .goods-sku {
   padding-left: 10px;
   padding-top: 20px;
@@ -266,42 +234,23 @@ updateDisabledStatus();
 
     dd {
       flex: 1;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-  }
+      color: #666;
 
-  .sku-value {
-    display: inline-block;
-    padding: 5px 18px;
-    margin-right: 10px;
-    cursor: pointer;
-    border: 1px solid #e4e4e4;
-    background-color: #fff;
+      > img {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 4px;
+        @include sku-state-mixin;
+      }
 
-    &.selected {
-      background-color: #f5f5f5;
-      color: $xtxColor;
-      border-color: $xtxColor;
-    }
-
-    &.disabled {
-      opacity: 0.6;
-      border-style: dashed;
-      cursor: not-allowed;
-    }
-
-    img {
-      width: 38px;
-      height: 38px;
-      margin-right: 8px;
-      vertical-align: middle;
-    }
-
-    .sku-name {
-      display: inline-block;
-      vertical-align: middle;
+      > span {
+        display: inline-block;
+        height: 30px;
+        line-height: 28px;
+        padding: 0 20px;
+        margin-bottom: 4px;
+        @include sku-state-mixin;
+      }
     }
   }
 }
