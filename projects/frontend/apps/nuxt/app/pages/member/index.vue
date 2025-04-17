@@ -1,7 +1,7 @@
 <script setup>
 import { getLikeListAPI } from '@/apis/user';
 import { ref, onMounted } from 'vue';
-import { useUserStore } from '@/stores/user';
+import { useUserStore } from '@/composables/states/use-user';
 
 // 定义变量
 const likeList = ref([]);
@@ -21,9 +21,9 @@ onMounted(() => getLikeList());
     <!-- 用户信息 -->
     <div class="user-meta">
       <div class="avatar">
-        <img :src="userStore.userInfo?.avatar" />
+        <img :src="userStore.profile?.avatar" />
       </div>
-      <h4>{{ userStore.userInfo?.account }}</h4>
+      <h4>{{ userStore.profile?.account }}</h4>
     </div>
     <div class="item">
       <a href="javascript:;">
