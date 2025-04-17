@@ -403,6 +403,7 @@ const add = () => {
     width: 500px;
     padding: 20px 10px 0 10px;
     margin-top: 10px;
+    // margin-bottom: 20px;
 
     dl {
       padding-bottom: 20px;

@@ -204,7 +204,8 @@ const clickSpecs = (item: any, val: any) => {
 <style scoped lang="scss">
 @mixin sku-state-mixin {
   border: 1px solid #e4e4e4;
-  margin-right: 10px;
+  // margin-right: 10px;
+  // margin-bottom: 10px;
   cursor: pointer;
 
   &.selected {
@@ -221,35 +222,54 @@ const clickSpecs = (item: any, val: any) => {
 .goods-sku {
   padding-left: 10px;
   padding-top: 20px;
+  
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 
   dl {
     display: flex;
     padding-bottom: 20px;
-    align-items: center;
+    align-items: flex-start;
+		justify-content: center;
 
     dt {
       width: 50px;
       color: #999;
+      flex-shrink: 0;
     }
 
     dd {
       flex: 1;
       color: #666;
+      
+      min-width: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      row-gap: 10px;
+      column-gap: 10px;
 
       > img {
         width: 50px;
         height: 50px;
-        margin-bottom: 4px;
+        // margin-bottom: 4px;
         @include sku-state-mixin;
+        flex-shrink: 0;
       }
 
       > span {
-        display: inline-block;
+        display: inline-flex;
         height: 30px;
-        line-height: 28px;
         padding: 0 20px;
-        margin-bottom: 4px;
+        // margin-bottom: 4px;
         @include sku-state-mixin;
+        
+        line-height: 1;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
       }
     }
   }
