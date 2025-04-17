@@ -36,24 +36,24 @@ const getHotList = async () => {
 			type: type,
 		});
 		// 打印返回数据结构，便于调试
-		console.log('热榜数据返回结构:', res);
-		
+		console.log("热榜数据返回结构:", res);
+
 		// 使用类型断言处理返回数据
 		const data = res as any;
-		
+
 		// 根据实际返回的数据结构调整
 		if (Array.isArray(data)) {
 			goodList.value = data;
 		} else if (data.result) {
 			goodList.value = data.result;
 		} else if (data.data) {
-			goodList.value = Array.isArray(data.data) ? data.data : (data.data.result || []);
+			goodList.value = Array.isArray(data.data) ? data.data : data.data.result || [];
 		} else {
 			goodList.value = [];
-			console.error('热榜数据结构不符合预期:', data);
+			console.error("热榜数据结构不符合预期:", data);
 		}
 	} catch (error) {
-		console.error('获取热榜数据失败', error);
+		console.error("获取热榜数据失败", error);
 		goodList.value = [];
 	}
 };
@@ -69,12 +69,7 @@ onMounted(() => {
 		<!-- 商品区块 -->
 
 		<div class="goods-list">
-			<GoodsItem 
-		class="goods-item"
-				v-for="item in goodList" 
-				:key="item.id" 
-				:good="item" 
-			/>
+			<GoodsItem class="goods-item" v-for="item in goodList" :key="item.id" :good="item" />
 		</div>
 	</div>
 </template>
@@ -108,7 +103,7 @@ onMounted(() => {
 :deep(.goods-list) {
 	.goods-item {
 		width: 100%;
-		
+
 		img {
 			display: block;
 			width: 160px;
@@ -117,5 +112,5 @@ onMounted(() => {
 			object-fit: cover;
 		}
 	}
-} 
+}
 </style>
