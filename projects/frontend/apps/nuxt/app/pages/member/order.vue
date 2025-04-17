@@ -1,6 +1,6 @@
 <script setup>
 import { getUserOrderAPI } from '@/apis/order';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 
 // tab列表
 const tabTypes = [
@@ -36,9 +36,23 @@ const params = ref({
 });
 
 const getUserOrder = async () => {
-  const res = await getUserOrderAPI(params.value);
-  orderList.value = res.result.items;
-  total.value = res.result.counts;
+  try {
+    console.log('开始获取订单数据，参数:', params.value);
+    const res = await getUserOrderAPI(params.value);
+    console.log('获取到订单数据:', res);
+    if (res && res.result) {
+      orderList.value = res.result.items || [];
+      total.value = res.result.counts || 0;
+    } else {
+      console.error('订单数据格式不正确:', res);
+      orderList.value = [];
+      total.value = 0;
+    }
+  } catch (error) {
+    console.error('获取订单数据出错:', error);
+    orderList.value = [];
+    total.value = 0;
+  }
 };
 
 onMounted(() => getUserOrder());
