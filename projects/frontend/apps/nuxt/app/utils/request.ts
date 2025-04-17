@@ -4,7 +4,7 @@ import { useUserStore } from "@/composables/states/use-user";
 // 创建axios实例
 const request = axios.create({
 	baseURL: "/api",
-	timeout: 5000,
+	timeout: 10000,
 });
 
 // 请求拦截器
