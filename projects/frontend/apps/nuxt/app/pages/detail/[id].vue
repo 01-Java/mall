@@ -120,24 +120,20 @@ const add = () => {
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>
-                  <p>销量人气</p>
-                  <p>{{ good.salesCount }}+</p>
-                  <p><i class="iconfont icon-task-filling"></i>销量人气</p>
+                  <p class="label"><i class="iconfont icon-task-filling"></i>销量人气</p>
+                  <p class="desc">{{ good.salesCount }}+</p>
                 </li>
                 <li>
-                  <p>商品评价</p>
-                  <p>{{ good.commentCount }}+</p>
-                  <p><i class="iconfont icon-comment-filling"></i>查看评价</p>
+                  <p class="label"><i class="iconfont icon-comment-filling"></i>查看评价</p>
+                  <p class="desc">{{ good.commentCount }}+</p>
                 </li>
                 <li>
-                  <p>收藏人气</p>
-                  <p>{{ good.collectCount }}+</p>
-                  <p><i class="iconfont icon-favorite-filling"></i>收藏商品</p>
+                  <p class="label"><i class="iconfont icon-favorite-filling"></i>收藏商品</p>
+                  <p class="desc">{{ good.collectCount }}+</p>
                 </li>
                 <li>
-                  <p>品牌信息</p>
-                  <p>{{ good.brand?.name }}</p>
-                  <p><i class="iconfont icon-dynamic-filling"></i>品牌主页</p>
+                  <p class="label"><i class="iconfont icon-dynamic-filling"></i>品牌主页</p>
+                  <p class="desc">{{ good.brand?.name }}</p>
                 </li>
               </ul>
             </div>
@@ -338,16 +334,7 @@ const add = () => {
       }
 
       p {
-        &:first-child {
-          color: #999;
-        }
-
-        &:nth-child(2) {
-          color: $priceColor;
-          margin-top: 10px;
-        }
-
-        &:last-child {
+				&.label {
           color: #666;
           margin-top: 10px;
 
@@ -361,6 +348,11 @@ const add = () => {
             color: $xtxColor;
             cursor: pointer;
           }
+        }
+
+        &.desc {
+          color: $priceColor;
+          margin-top: 10px;
         }
       }
     }
