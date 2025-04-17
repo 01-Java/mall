@@ -231,13 +231,11 @@ const clickSpecs = (item: any, val: any) => {
   dl {
     display: flex;
     padding-bottom: 20px;
-    align-items: flex-start;
-		justify-content: center;
+    align-items: center;
 
     dt {
       width: 50px;
       color: #999;
-      flex-shrink: 0;
     }
 
     dd {
