@@ -4,6 +4,7 @@ import { getLikeListAPI } from "@/apis/user";
 import { onMounted, ref } from "vue";
 import GoodsItem from '@/components/goods/Item.vue';
 
+
 // API响应类型
 interface ApiResponse {
   code: string;

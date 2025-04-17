@@ -1,5 +1,9 @@
 <script setup lang="ts">
 // 会员中心布局页面
+definePageMeta({
+  // 默认子路由配置（允许index.vue包含子路由）
+  alias: ['/member']
+})
 </script>
 
 <template>
