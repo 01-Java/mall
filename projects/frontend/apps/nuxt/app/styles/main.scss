@@ -1,6 +1,7 @@
 // 导入基础样式
 @import "./var.scss";
 @import "./common.scss";
+@import "./element.scss"; // 添加Element主题样式
 
 // 全局容器样式 - 使用更高权重的选择器
 body .container {
