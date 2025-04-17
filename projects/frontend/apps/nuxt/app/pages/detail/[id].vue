@@ -5,12 +5,20 @@ import { useCartStore } from "@/composables/states/use-cart";
 import { ElMessage } from "element-plus";
 import type { SkuData } from "@/components/goods/Sku.vue";
 
+// 扩展商品数据类型，兼容不同的字段名
+interface ExtendedGoodsData extends Partial<ApifoxModel_goods> {
+  mainPictures?: string[];
+  salesCount?: number;
+  commentCount?: number;
+  collectCount?: number;
+}
+
 // 获取路由参数
 const route = useRoute();
 const id = route.params.id as string;
 
 // 商品数据
-const good = ref<Partial<ApifoxModel_goods>>({});
+const good = ref<ExtendedGoodsData>({});
 // 转换后的SKU数据
 const goodSkus = ref<SkuData[]>([]);
 
@@ -29,32 +37,11 @@ const mapSkuData = (skus: any[] = []): SkuData[] => {
 // 获取商品详情
 const getGoods = async () => {
   try {
-    // // 方案1：使用useAxios
-    // const { data, error, execute } = await getDetailAPI(id, {
-    //   immediate: false,
-    //   resetOnExecute: false
-    // });
-		// await execute();
-		// console.log('data', data.value);
-    // if (data.value) {
-    //   good.value = data.value;
-    //   // 转换SKU数据
-    //   if (good.value.skus) {
-    //     goodSkus.value = mapSkuData(good.value.skus);
-    //   }
-    //   return; // 成功获取数据后退出
-    // }
-
-    // if (error.value) {
-    //   console.warn('useAxios获取商品详情失败，尝试备选方案', error.value);
-    //   // 如果useAxios方式失败，尝试方案2
-    // }
-    // 方案2：直接使用axios请求
-    // console.log('正在使用备选方案获取商品详情...');
-    const result = await getDetailDirectAPI<ApifoxModel_goods>(id);
-		console.log('result', result);
+    // 使用直接API请求获取商品详情
+    const result = await getDetailDirectAPI<ExtendedGoodsData>(id);
+    console.log('result', result);
     if (result) {
-			// @ts-ignore
+      // @ts-ignore
       good.value = result.result;
       // 转换SKU数据
       if (good.value.skus) {
@@ -92,7 +79,7 @@ const add = () => {
     cartStore.addCart({
       id: good.value.id!,
       name: good.value.name!,
-      picture: good.value.picture!,
+      picture: good.value.picture || (good.value.mainPictures?.[0] || ''),
       price: good.value.price!,
       count: num.value,
       skuId: skuObj.value.skuId,
@@ -129,22 +116,22 @@ const add = () => {
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
-              <GoodsImage :imageList="good.picture ? [good.picture] : []" />
+              <GoodsImage :imageList="good.mainPictures || (good.picture ? [good.picture] : [])" />
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>
                   <p>销量人气</p>
-                  <p>{{ good.orderNum }}+</p>
+                  <p>{{ good.salesCount || good.orderNum }}+</p>
                   <p><i class="iconfont icon-task-filling"></i>销量人气</p>
                 </li>
                 <li>
                   <p>商品评价</p>
-                  <p>{{ good.orderNum }}+</p>
+                  <p>{{ good.commentCount || good.orderNum }}+</p>
                   <p><i class="iconfont icon-comment-filling"></i>查看评价</p>
                 </li>
                 <li>
                   <p>收藏人气</p>
-                  <p>{{ good.orderNum }}+</p>
+                  <p>{{ good.collectCount || good.orderNum }}+</p>
                   <p><i class="iconfont icon-favorite-filling"></i>收藏商品</p>
                 </li>
                 <li>
@@ -159,8 +146,8 @@ const add = () => {
               <p class="g-name">{{ good.name }}</p>
               <p class="g-desc">{{ good.desc }}</p>
               <p class="g-price">
-                <span>{{ good.oldPrice }}</span>
                 <span>{{ good.price }}</span>
+                <span>{{ good.oldPrice }}</span>
               </p>
               <div class="g-service">
                 <dl>
@@ -213,7 +200,9 @@ const add = () => {
                     </li>
                   </ul>
                   <!-- 图片 -->
-                  <div class="detail-content" v-if="good.details?.pictures" v-html="good.details.pictures.join('')"></div>
+                  <div class="detail-content" v-if="good.details?.pictures">
+                    <img v-for="(img, i) in good.details.pictures" :key="i" :src="img" alt="" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -282,12 +271,10 @@ const add = () => {
         font-size: 18px;
         position: relative;
 
-        &:first-child {
-          border-right: 1px solid #f5f5f5;
-        }
-
-        &.active {
-          color: $xtxColor;
+        > span {
+          color: $priceColor;
+          font-size: 16px;
+          margin-left: 10px;
         }
       }
     }
@@ -320,7 +307,7 @@ const add = () => {
 
     .detail-content {
       img {
-        max-width: 100%;
+        width: 100%;
         height: auto;
       }
     }
@@ -332,50 +319,64 @@ const add = () => {
 
   .goods-sales {
     display: flex;
-    width: 100%;
+    width: 400px;
+    align-items: center;
+    text-align: center;
     height: 140px;
 
     li {
       flex: 1;
-      text-align: center;
-      line-height: 30px;
+      position: relative;
 
-      i {
-        font-size: 16px;
-        color: $xtxColor;
-        margin-right: 4px;
+      ~ li::after {
+        position: absolute;
+        top: 10px;
+        left: 0;
+        height: 60px;
+        border-left: 1px solid #e4e4e4;
+        content: "";
       }
 
       p {
+        &:first-child {
+          color: #999;
+        }
+
         &:nth-child(2) {
           color: $priceColor;
-          font-size: 18px;
+          margin-top: 10px;
         }
 
-        &:nth-child(3) {
-          color: #999;
-          font-size: 12px;
-        }
-      }
+        &:last-child {
+          color: #666;
+          margin-top: 10px;
 
-      ~li {
-        border-left: 1px solid #f5f5f5;
+          i {
+            color: $xtxColor;
+            font-size: 14px;
+            margin-right: 2px;
+          }
+
+          &:hover {
+            color: $xtxColor;
+            cursor: pointer;
+          }
+        }
       }
     }
   }
 
   .g-name {
     font-size: 22px;
-    margin-top: 20px;
   }
 
   .g-desc {
     color: #999;
-    margin-top: 20px;
+    margin-top: 10px;
   }
 
   .g-price {
-    margin-top: 20px;
+    margin-top: 10px;
 
     span {
       &::before {
@@ -384,24 +385,27 @@ const add = () => {
       }
 
       &:first-child {
-        color: #999;
+        color: $priceColor;
         margin-right: 10px;
-        text-decoration: line-through;
+        font-size: 22px;
       }
 
       &:last-child {
-        color: $priceColor;
-        font-size: 22px;
+        color: #999;
+        text-decoration: line-through;
+        font-size: 16px;
       }
     }
   }
 
   .g-service {
     background: #f5f5f5;
-    margin-top: 20px;
+    width: 500px;
+    padding: 20px 10px 0 10px;
+    margin-top: 10px;
 
     dl {
-      padding: 10px 0;
+      padding-bottom: 20px;
       display: flex;
       align-items: center;
 
