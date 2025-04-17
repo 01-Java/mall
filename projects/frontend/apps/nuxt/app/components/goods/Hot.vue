@@ -35,10 +35,26 @@ const getHotList = async () => {
 			id: route.params.id as string,
 			type: type,
 		});
-		// 确保响应数据符合期望格式
-		goodList.value = res.data?.result || [];
+		// 打印返回数据结构，便于调试
+		console.log('热榜数据返回结构:', res);
+		
+		// 使用类型断言处理返回数据
+		const data = res as any;
+		
+		// 根据实际返回的数据结构调整
+		if (Array.isArray(data)) {
+			goodList.value = data;
+		} else if (data.result) {
+			goodList.value = data.result;
+		} else if (data.data) {
+			goodList.value = Array.isArray(data.data) ? data.data : (data.data.result || []);
+		} else {
+			goodList.value = [];
+			console.error('热榜数据结构不符合预期:', data);
+		}
 	} catch (error) {
 		console.error('获取热榜数据失败', error);
+		goodList.value = [];
 	}
 };
 
@@ -51,12 +67,13 @@ onMounted(() => {
 	<div class="goods-hot">
 		<h3>{{ title }}</h3>
 		<!-- 商品区块 -->
+
 		<div class="goods-list">
 			<GoodsItem 
+		class="goods-item"
 				v-for="item in goodList" 
 				:key="item.id" 
 				:good="item" 
-				class="goods-item"
 			/>
 		</div>
 	</div>
@@ -78,10 +95,27 @@ onMounted(() => {
 	.goods-list {
 		display: flex;
 		flex-direction: column;
+		justify-content: center;
+		width: 100%;
 	}
 
 	.goods-item {
 		margin-bottom: 10px;
 	}
 }
+
+// 单独设置goods-item的样式 使其内容居中
+:deep(.goods-list) {
+	.goods-item {
+		width: 100%;
+		
+		img {
+			display: block;
+			width: 160px;
+			height: 160px;
+			margin: 0 auto;
+			object-fit: cover;
+		}
+	}
+} 
 </style>
