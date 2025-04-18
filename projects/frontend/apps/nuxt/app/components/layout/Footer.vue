@@ -1,69 +1,64 @@
 <template>
-	<footer class="app-footer">
-		<div class="container">
-			<!-- 联系我们 -->
-			<div class="contact">
-				<div class="container">
-					<dl>
-						<dt>客户服务</dt>
-						<dd><i class="iconfont icon-kefu"></i> 在线客服</dd>
-						<dd><i class="iconfont icon-question"></i> 问题反馈</dd>
-					</dl>
-					<dl>
-						<dt>关注我们</dt>
-						<dd><i class="iconfont icon-weixin"></i> 公众号</dd>
-						<dd><i class="iconfont icon-weibo"></i> 微博</dd>
-					</dl>
-					<dl>
-						<dt>下载APP</dt>
-						<dd class="qrcode">
-							<!-- <img src="@/assets/images/qrcode.jpg" /> -->
-							<!-- TODO: 不清楚如何使用 NuxtImg 组件 ， 无法导入期望的图片 -->
-							<!-- https://nuxt.com/docs/api/components/nuxt-img -->
-							<NuxtImg src="/images/qrcode.jpg"></NuxtImg>
-						</dd>
-						<dd class="download">
-							<span>扫描二维码</span>
-							<span>立马下载APP</span>
-							<a href="javascript:;">下载页面</a>
-						</dd>
-					</dl>
-					<dl>
-						<dt>服务热线</dt>
-						<dd class="hotline">400-0000-000 <small>周一至周日 8:00-18:00</small></dd>
-					</dl>
-				</div>
+	<footer class="app_footer">
+		<!-- 联系我们 -->
+		<div class="contact">
+			<div class="container">
+				<dl>
+					<dt>客户服务</dt>
+					<dd><i class="iconfont icon-kefu"></i> 在线客服</dd>
+					<dd><i class="iconfont icon-question"></i> 问题反馈</dd>
+				</dl>
+				<dl>
+					<dt>关注我们</dt>
+					<dd><i class="iconfont icon-weixin"></i> 公众号</dd>
+					<dd><i class="iconfont icon-weibo"></i> 微博</dd>
+				</dl>
+				<dl>
+					<dt>下载APP</dt>
+					<dd class="qrcode">
+						<NuxtImg src="/images/qrcode.jpg"></NuxtImg>
+					</dd>
+					<dd class="download">
+						<span>扫描二维码</span>
+						<span>立马下载APP</span>
+						<a href="javascript:;">下载页面</a>
+					</dd>
+				</dl>
+				<dl>
+					<dt>服务热线</dt>
+					<dd class="hotline">400-0000-000 <small>周一至周日 8:00-18:00</small></dd>
+				</dl>
 			</div>
-			<!-- 其它 -->
-			<div class="extra">
-				<div class="container">
-					<div class="slogan">
-						<a href="javascript:;">
-							<i class="iconfont icon-footer01"></i>
-							<span>价格亲民</span>
-						</a>
-						<a href="javascript:;">
-							<i class="iconfont icon-footer02"></i>
-							<span>物流快捷</span>
-						</a>
-						<a href="javascript:;">
-							<i class="iconfont icon-footer03"></i>
-							<span>品质新鲜</span>
-						</a>
-					</div>
-					<!-- 版权信息 -->
-					<div class="copyright">
-						<p>
-							<a href="javascript:;">关于我们</a>
-							<a href="javascript:;">帮助中心</a>
-							<a href="javascript:;">售后服务</a>
-							<a href="javascript:;">配送与验收</a>
-							<a href="javascript:;">商务合作</a>
-							<a href="javascript:;">搜索推荐</a>
-							<a href="javascript:;">友情链接</a>
-						</p>
-						<p>CopyRight © 小兔鲜儿</p>
-					</div>
+		</div>
+		<!-- 其它 -->
+		<div class="extra">
+			<div class="container">
+				<div class="slogan">
+					<a href="javascript:;">
+						<i class="iconfont icon-footer01"></i>
+						<span>价格亲民</span>
+					</a>
+					<a href="javascript:;">
+						<i class="iconfont icon-footer02"></i>
+						<span>物流快捷</span>
+					</a>
+					<a href="javascript:;">
+						<i class="iconfont icon-footer03"></i>
+						<span>品质新鲜</span>
+					</a>
+				</div>
+				<!-- 版权信息 -->
+				<div class="copyright">
+					<p>
+						<a href="javascript:;">关于我们</a>
+						<a href="javascript:;">帮助中心</a>
+						<a href="javascript:;">售后服务</a>
+						<a href="javascript:;">配送与验收</a>
+						<a href="javascript:;">商务合作</a>
+						<a href="javascript:;">搜索推荐</a>
+						<a href="javascript:;">友情链接</a>
+					</p>
+					<p>CopyRight © 小兔鲜儿</p>
 				</div>
 			</div>
 		</div>
@@ -71,7 +66,7 @@
 </template>
 
 <style scoped lang="scss">
-.app-footer {
+.app_footer {
 	overflow: hidden;
 	background-color: #f5f5f5;
 	padding-top: 20px;
@@ -99,70 +94,79 @@
 				border-right: none;
 				padding-right: 0;
 			}
+		}
 
-			dt {
-				line-height: 1;
-				font-size: 18px;
-				margin-bottom: 30px;
+		dt {
+			line-height: 1;
+			font-size: 18px;
+		}
+
+		dd {
+			margin: 36px 12px 0 0;
+			float: left;
+			width: 92px;
+			height: 92px;
+			padding-top: 10px;
+			border: 1px solid #ededed;
+
+			.iconfont {
+				font-size: 36px;
+				display: block;
+				color: #666;
 			}
 
-			dd {
-				margin-bottom: 10px;
-
-				&:last-child {
-					margin-bottom: 0;
+			&:hover {
+				.iconfont {
+					color: $xtxColor;
 				}
+			}
 
-				i {
-					font-size: 22px;
-					display: inline-block;
-					vertical-align: middle;
-				}
+			&:last-child {
+				margin-right: 0;
+			}
+		}
 
-				.iconfont-kefu {
-					font-size: 32px;
-				}
+		.qrcode {
+			width: 92px;
+			height: 92px;
+			padding: 7px;
+			border: 1px solid #ededed;
+		}
 
-				&.qrcode {
-					width: 92px;
-					height: 92px;
-					padding: 7px;
-					border: 1px solid #ededed;
-				}
+		.download {
+			padding-top: 5px;
+			font-size: 14px;
+			width: auto;
+			height: auto;
+			border: none;
 
-				&.download {
-					padding-top: 5px;
-					font-size: 14px;
-					width: 92px;
-					color: #999;
+			span {
+				display: block;
+			}
 
-					span {
-						display: block;
-					}
+			a {
+				display: block;
+				line-height: 1;
+				padding: 10px 25px;
+				margin-top: 5px;
+				color: #fff;
+				border-radius: 2px;
+				background-color: $xtxColor;
+			}
+		}
 
-					a {
-						display: block;
-						line-height: 1;
-						padding: 10px 25px;
-						margin-top: 5px;
-						color: #fff;
-						border-radius: 2px;
-						background-color: $xtxColor;
-					}
-				}
+		.hotline {
+			padding-top: 20px;
+			font-size: 22px;
+			color: #666;
+			width: auto;
+			height: auto;
+			border: none;
 
-				&.hotline {
-					padding-top: 20px;
-					font-size: 22px;
-					color: #666;
-					width: 180px;
-
-					small {
-						display: block;
-						font-size: 15px;
-						color: #999;
-					}
-				}
+			small {
+				display: block;
+				font-size: 15px;
+				color: #999;
 			}
 		}
 	}
