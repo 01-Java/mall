@@ -16,7 +16,12 @@
 				<dl>
 					<dt>下载APP</dt>
 					<dd class="qrcode">
-						<NuxtImg src="/images/qrcode.jpg"></NuxtImg>
+						<!-- 
+							有疑惑 无法使用 NuxtImg ，无法加载图片
+							问了cursor也无法解决
+						-->
+						<!-- <NuxtImg src="/images/qrcode.jpg" alt="二维码" width="78" height="78" /> -->
+						<img src="/images/qrcode.jpg" alt="二维码" width="78" height="78" />
 					</dd>
 					<dd class="download">
 						<span>扫描二维码</span>
