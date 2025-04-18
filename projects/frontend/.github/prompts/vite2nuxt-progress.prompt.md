@@ -23,15 +23,21 @@
 - 检查 `mall/src/stores/cartStore.js`
 - 迁移到 `nuxt/app/composables/states/use-cart.ts`
 
+√ 已完成
+
 #### 迁移购物车页面组件
 
 - 从 `mall/src/views/CartList/index.vue` 迁移到 `nuxt/app/pages/cart.vue`
 - 确保 `cart.vue` 能正确使用状态管理和 API
 
+√ 已完成
+
 #### 迁移购物车 mini 组件
 
 - 迁移 `mall/src/components/layout/cart.vue` 到 nuxt 项目中
 - 此组件通常显示在导航栏中的迷你购物车
+
+√ 已完成
 
 ### 第二阶段：结算流程迁移
 
