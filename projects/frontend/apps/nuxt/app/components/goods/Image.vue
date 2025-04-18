@@ -32,7 +32,7 @@ watch([elementX, elementY, isOutside], () => {
 		// 如果鼠标没有移入到盒子里面 直接不执行后面的逻辑
 		return;
 	}
-	
+
 	// 如果鼠标移入到盒子里面
 	// (1).有效范围内控制滑块距离
 	// 横向
@@ -43,7 +43,7 @@ watch([elementX, elementY, isOutside], () => {
 	if (elementY.value > 100 && elementY.value < 300) {
 		top.value = elementY.value - 100;
 	}
-	
+
 	// (2).处理边界
 	if (elementX.value < 100) {
 		left.value = 0;
@@ -57,7 +57,7 @@ watch([elementX, elementY, isOutside], () => {
 	if (elementY.value > 300) {
 		top.value = 200;
 	}
-	
+
 	// 控制放大图显示
 	// 当小滑块往右移动的时候，大图往左移动，这时出现在视图窗口的才是放大图
 	positionX.value = -left.value * 2;
@@ -75,12 +75,7 @@ watch([elementX, elementY, isOutside], () => {
 		</div>
 		<!-- 小图列表 -->
 		<ul class="small">
-			<li 
-				v-for="(img, i) in imageList" 
-				:key="i" 
-				@mouseenter="mouseEnterFn(i)" 
-				:class="{ active: i === curIndex }"
-			>
+			<li v-for="(img, i) in imageList" :key="i" @mouseenter="mouseEnterFn(i)" :class="{ active: i === curIndex }">
 				<NuxtImg :src="img" width="68" height="68" alt="" />
 			</li>
 		</ul>

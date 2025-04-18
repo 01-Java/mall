@@ -37,7 +37,7 @@ request.interceptors.response.use(
 			const userStore = useUserStore();
 			userStore.clearUserInfo();
 			// nuxt中使用navigateTo
-			navigateTo('/login');
+			navigateTo("/login");
 		}
 		return Promise.reject(error);
 	},

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useUserStore } from '@/composables/states/use-user';
+import { useUserStore } from "@/composables/states/use-user";
 
 const userStore = useUserStore();
 const categoryStore = useCategoryStore();

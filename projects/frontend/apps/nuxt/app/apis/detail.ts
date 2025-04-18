@@ -9,7 +9,7 @@ export function getDetailAPI<T = ApifoxModel_goods>(id: string, options?: UseAxi
 		// 默认设置，可以被options覆盖
 		immediate: false,
 		resetOnExecute: false,
-		...options
+		...options,
 	});
 }
 

@@ -28,7 +28,7 @@ interface LoginParams {
 }
 
 export const useUserStore = defineStore(
-	"user", 
+	"user",
 	() => {
 		const profile = ref<Profile>({
 			id: "",
@@ -47,7 +47,7 @@ export const useUserStore = defineStore(
 		// 登录获取用户信息
 		const getUserInfo = async ({ account, password }: LoginParams) => {
 			try {
-				const res = await loginAPI({ account, password }) as unknown as ApiResponse;
+				const res = (await loginAPI({ account, password })) as unknown as ApiResponse;
 				// 存储用户信息到state
 				profile.value = res.result;
 				// 返回用户信息
@@ -76,9 +76,9 @@ export const useUserStore = defineStore(
 				provinceCode: "",
 				profession: "",
 			};
-			
+
 			// 退出登录后可以执行其他操作，如跳转到首页
-			navigateTo('/');
+			navigateTo("/");
 		}
 
 		// 为了兼容Nav组件中的调用，添加clearUserInfo方法作为logout的别名
@@ -96,6 +96,6 @@ export const useUserStore = defineStore(
 	},
 	{
 		// 持久化配置
-		persist: true
-	}
+		persist: true,
+	},
 );

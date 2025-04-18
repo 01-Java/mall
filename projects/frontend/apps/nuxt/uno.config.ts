@@ -22,7 +22,7 @@ export default defineConfig({
 		],
 	],
 	// 排除与项目冲突的选择器
-	blocklist: ['.container'],
+	blocklist: [".container"],
 	// 设置前缀预防冲突
 	preflights: [
 		{
