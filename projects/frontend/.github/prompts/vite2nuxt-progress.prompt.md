@@ -48,8 +48,8 @@
 
 #### 迁移支付页面
 
-- 从 `mall/src/views/Pay/index.vue` 迁移到 `nuxt/app/pages/pay/index.vue`
-- 从 `mall/src/views/Pay/PayBack.vue` 迁移到 `nuxt/app/pages/pay/result.vue`
+- 从 `mall/src/views/Pay/index.vue` 迁移到 `nuxt/app/pages/pay.vue`。
+- 迁移支付反馈页面 `mall/src/views/Pay/PayBack.vue` 。注意其生成的路由为 `/paycallback` 。且能够从路由内获取参数 orderId 。
 
 ### 第三阶段：测试与优化
 
