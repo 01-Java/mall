@@ -116,23 +116,30 @@ onMounted(() => {
 			display: flex;
 			padding: 0 32px;
 			flex-wrap: wrap;
+			justify-content: flex-start;
 
 			li {
 				width: 168px;
 				height: 160px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
 
 				a {
 					text-align: center;
 					display: block;
 					font-size: 16px;
+					width: 100%;
 
 					img {
 						width: 100px;
 						height: 100px;
+						margin: 0 auto;
 					}
 
 					p {
 						line-height: 40px;
+						text-align: center;
 					}
 
 					&:hover {
