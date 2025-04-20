@@ -46,6 +46,8 @@
 - 从 `mall/src/views/Checkout/index.vue` 迁移到 `nuxt/app/pages/checkout.vue`
 - 确保地址选择、支付方式等功能正常
 
+√ 已完成
+
 #### 迁移支付页面
 
 - 从 `mall/src/views/Pay/index.vue` 迁移到 `nuxt/app/pages/pay.vue`。
