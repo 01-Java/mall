@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from "vue-router";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useCountDown } from "~/composables/useCountDown";
 import { getOrderAPI } from "~/apis/order";
 
@@ -25,11 +25,18 @@ const payInfo = ref({
 
 // 获取订单数据
 const getPayInfo = async () => {
-	const res = await getOrderAPI(route.query.id as string);
-	payInfo.value = res.data.result;
-	// 初始化倒计时
-	if (res.data.result.countdown > 0) {
-		start(res.data.result.countdown);
+	try {
+		const res = await getOrderAPI(route.query.id as string);
+		// 确保后端返回了有效数据
+		if (res.data && res.data.result) {
+			payInfo.value = res.data.result;
+			// 初始化倒计时
+			if (res.data.result.countdown > 0) {
+				start(res.data.result.countdown);
+			}
+		}
+	} catch (error) {
+		console.error("获取订单数据失败", error);
 	}
 };
 
@@ -58,7 +65,7 @@ const payUrl = `${baseURL}pay/aliPay?orderId=${route.query.id}&redirect=${redire
 				</div>
 				<div class="amount">
 					<span>应付总额：</span>
-					<span>¥{{ payInfo.payMoney?.toFixed(2) }}</span>
+					<span>¥{{ payInfo.payMoney ? payInfo.payMoney.toFixed(2) : "0.00" }}</span>
 				</div>
 			</div>
 			<!-- 付款方式 -->
@@ -156,6 +163,7 @@ const payUrl = `${baseURL}pay/aliPay?orderId=${route.query.id}&redirect=${redire
 		margin-left: 30px;
 		color: #666666;
 		display: inline-block;
+		background-color: #fff;
 
 		&.active,
 		&:hover {
@@ -163,12 +171,12 @@ const payUrl = `${baseURL}pay/aliPay?orderId=${route.query.id}&redirect=${redire
 		}
 
 		&.alipay {
-			background: url(https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/7b6b02396368c9314528c0bbd85a2e06.png) no-repeat
+			background: #fff url(https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/7b6b02396368c9314528c0bbd85a2e06.png) no-repeat
 				center / contain;
 		}
 
 		&.wx {
-			background: url(https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c66f98cff8649bd5ba722c2e8067c6ca.jpg) no-repeat
+			background: #fff url(https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c66f98cff8649bd5ba722c2e8067c6ca.jpg) no-repeat
 				center / contain;
 		}
 	}
