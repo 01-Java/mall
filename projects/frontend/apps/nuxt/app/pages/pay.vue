@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
-import { ElMessage } from "element-plus";
 import { useCountDown } from "~/composables/useCountDown";
 import { getOrderAPI } from "~/apis/order";
 
@@ -13,7 +12,7 @@ const route = useRoute();
 const router = useRouter();
 
 // 订单数据
-const orderInfo = ref({
+const payInfo = ref({
 	id: "",
 	createTime: "",
 	payType: 1,
@@ -24,57 +23,24 @@ const orderInfo = ref({
 	skus: [],
 });
 
-// 支付地址
-const payUrl = ref("");
-
-// 支付状态：1为支付宝，2为微信
-const payStatus = ref<1 | 2>(1);
-
 // 获取订单数据
-const getOrderInfo = async () => {
+const getPayInfo = async () => {
 	const res = await getOrderAPI(route.query.id as string);
-	orderInfo.value = res.data.result;
-	// 计算倒计时时间
+	payInfo.value = res.data.result;
+	// 初始化倒计时
 	if (res.data.result.countdown > 0) {
 		start(res.data.result.countdown);
-	} else {
-		ElMessage.warning("订单支付已超时");
 	}
 };
 
-// 构建支付URL
-const handlePay = () => {
-	// 基础接口URL
-	const baseURL = "http://pcapi-xiaotuxian-front.itheima.net";
-	// 回调地址
-	const redirectUrl = encodeURIComponent(window.location.origin + "/pay-result");
-	// 根据支付方式构建支付URL
-	const payAPI = payStatus.value === 1 ? "/pay/aliPay" : "/pay/wxPay";
-	// 构建完整支付URL
-	payUrl.value = `${baseURL}${payAPI}?orderId=${orderInfo.value.id}&redirect=${redirectUrl}`;
-	// 在新窗口打开支付链接
-	window.open(payUrl.value, "_blank");
-};
-
-// 处理支付方式切换
-const changePayType = (type: 1 | 2) => {
-	payStatus.value = type;
-};
-
-// 返回购物车
-const goBackCart = () => {
-	router.push("/cart");
-};
-
-// 返回我的订单
-const goMyOrders = () => {
-	router.push("/member/order");
-};
-
 // 初始化时获取订单数据
-onMounted(() => {
-	getOrderInfo();
-});
+onMounted(() => getPayInfo());
+
+// 跳转支付地址
+const baseURL = "http://pcapi-xiaotuxian-front.itheima.net/";
+const backURL = window.location.origin + "/pay-result";
+const redirectUrl = encodeURIComponent(backURL);
+const payUrl = `${baseURL}pay/aliPay?orderId=${route.query.id}&redirect=${redirectUrl}`;
 </script>
 
 <template>
@@ -87,35 +53,30 @@ onMounted(() => {
 					<p>订单提交成功！请尽快完成支付。</p>
 					<p>
 						支付还剩 <span>{{ formatTime }}</span
-						>, 支付超时后订单将自动取消
+						>, 超时后将取消订单
 					</p>
 				</div>
 				<div class="amount">
 					<span>应付总额：</span>
-					<span>¥{{ orderInfo.payMoney?.toFixed(2) }}</span>
+					<span>¥{{ payInfo.payMoney?.toFixed(2) }}</span>
 				</div>
 			</div>
 			<!-- 付款方式 -->
 			<div class="pay-type">
-				<h3>支付方式</h3>
-				<div class="pay-way">
-					<p @click="changePayType(1)" :class="{ active: payStatus === 1 }">
-						<span>支付宝支付</span>
-					</p>
-					<p @click="changePayType(2)" :class="{ active: payStatus === 2 }">
-						<span>微信支付</span>
-					</p>
+				<p class="head">选择以下支付方式付款</p>
+				<div class="item">
+					<p>支付平台</p>
+					<a class="btn wx" href="javascript:;"></a>
+					<a class="btn alipay" :href="payUrl"></a>
 				</div>
-			</div>
-			<!-- 操作按钮 -->
-			<div class="pay-btn">
-				<el-button @click="goBackCart" type="default" size="large">返回购物车</el-button>
-				<el-button @click="handlePay" type="primary" size="large">立即支付</el-button>
-			</div>
-			<!-- 其他按钮 -->
-			<div class="pay-action">
-				<el-button @click="goMyOrders" type="primary" plain size="large">查看我的订单</el-button>
-				<el-button @click="$router.push('/')" type="default" size="large">继续逛逛</el-button>
+				<div class="item">
+					<p>支付方式</p>
+					<a class="btn" href="javascript:;">招商银行</a>
+					<a class="btn" href="javascript:;">工商银行</a>
+					<a class="btn" href="javascript:;">建设银行</a>
+					<a class="btn" href="javascript:;">农业银行</a>
+					<a class="btn" href="javascript:;">交通银行</a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -173,74 +134,43 @@ onMounted(() => {
 .pay-type {
 	margin-top: 20px;
 	background-color: #fff;
-	padding-bottom: 40px;
+	padding-bottom: 70px;
 
-	h3 {
-		font-weight: normal;
+	p {
+		line-height: 70px;
+		height: 70px;
+		padding-left: 30px;
 		font-size: 16px;
-		padding: 20px 80px 0;
-	}
 
-	.pay-way {
-		display: flex;
-		padding: 20px 80px;
-
-		p {
-			display: flex;
-			flex: 1;
-			height: 40px;
-			align-items: center;
-			border: 1px solid #e4e4e4;
-			text-align: center;
-			margin-right: 20px;
-			cursor: pointer;
-			transition: all 0.2s;
-
-			&.active,
-			&:hover {
-				border-color: $xtxColor;
-			}
-
-			&.active {
-				border-color: $xtxColor;
-				position: relative;
-
-				&::after {
-					content: "";
-					position: absolute;
-					right: 0;
-					bottom: 0;
-					width: 20px;
-					height: 20px;
-					background-color: $xtxColor;
-					background-image: url("https://yjy-oss-files.oss-cn-zhangjiakou.aliyuncs.com/tuxian/assets/images/selected.png");
-					background-size: contain;
-				}
-			}
-
-			span {
-				text-align: center;
-				margin: 0 auto;
-			}
+		&.head {
+			border-bottom: 1px solid #f5f5f5;
 		}
 	}
-}
 
-.pay-btn {
-	text-align: right;
-	padding: 10px 80px;
+	.btn {
+		width: 150px;
+		height: 50px;
+		border: 1px solid #e4e4e4;
+		text-align: center;
+		line-height: 48px;
+		margin-left: 30px;
+		color: #666666;
+		display: inline-block;
 
-	.el-button {
-		margin-left: 20px;
-	}
-}
+		&.active,
+		&:hover {
+			border-color: $xtxColor;
+		}
 
-.pay-action {
-	text-align: right;
-	padding: 10px 80px;
+		&.alipay {
+			background: url(https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/7b6b02396368c9314528c0bbd85a2e06.png) no-repeat
+				center / contain;
+		}
 
-	.el-button {
-		margin-left: 20px;
+		&.wx {
+			background: url(https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c66f98cff8649bd5ba722c2e8067c6ca.jpg) no-repeat
+				center / contain;
+		}
 	}
 }
 </style>
