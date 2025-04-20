@@ -4,6 +4,36 @@ import { ref, onMounted, watch } from "vue";
 import { useCountDown } from "~/composables/useCountDown";
 import { getOrderAPI } from "~/apis/order";
 
+// 定义接口返回值类型
+interface OrderResult {
+	result: {
+		id: string;
+		createTime: string;
+		payType: number;
+		orderState: number;
+		payLatestTime: string;
+		countdown: number;
+		payMoney: number;
+		skus: any[];
+		[key: string]: any;
+	};
+	code: string;
+	msg: string;
+}
+
+// 定义订单数据类型
+interface PayInfo {
+	id: string;
+	createTime: string;
+	payType: number;
+	orderState: number;
+	payLatestTime: string;
+	countdown: number;
+	payMoney: number;
+	skus: any[];
+	[key: string]: any;
+}
+
 // 组合式函数获取支付倒计时
 const { formatTime, start } = useCountDown();
 
@@ -12,7 +42,7 @@ const route = useRoute();
 const router = useRouter();
 
 // 订单数据
-const payInfo = ref({
+const payInfo = ref<PayInfo>({
 	id: "",
 	createTime: "",
 	payType: 1,
@@ -26,13 +56,14 @@ const payInfo = ref({
 // 获取订单数据
 const getPayInfo = async () => {
 	try {
-		const res = await getOrderAPI(route.query.id as string);
+		// 使用类型断言指定返回值类型
+		const res = (await getOrderAPI(route.query.id as string)) as unknown as OrderResult;
 		// 确保后端返回了有效数据
-		if (res.data && res.data.result) {
-			payInfo.value = res.data.result;
+		if (res && res.result) {
+			payInfo.value = res.result;
 			// 初始化倒计时
-			if (res.data.result.countdown > 0) {
-				start(res.data.result.countdown);
+			if (res.result.countdown > 0) {
+				start(res.result.countdown);
 			}
 		}
 	} catch (error) {
@@ -45,7 +76,7 @@ onMounted(() => getPayInfo());
 
 // 跳转支付地址
 const baseURL = "http://pcapi-xiaotuxian-front.itheima.net/";
-const backURL = window.location.origin + "/pay-result";
+const backURL = window.location.origin + "/paycallback";
 const redirectUrl = encodeURIComponent(backURL);
 const payUrl = `${baseURL}pay/aliPay?orderId=${route.query.id}&redirect=${redirectUrl}`;
 </script>
