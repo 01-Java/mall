@@ -13,16 +13,12 @@ import {
 export default defineConfig({
 	shortcuts: [
 		[
-			"btn",
-			"px-4 py-1 rounded inline-block bg-teal-600 text-white cursor-pointer hover:bg-teal-700 disabled:cursor-default disabled:bg-gray-600 disabled:opacity-50",
-		],
-		[
 			"icon-btn",
 			"inline-block cursor-pointer select-none opacity-75 transition duration-200 ease-in-out hover:opacity-100 hover:text-teal-600",
 		],
 	],
-	// 排除与项目冲突的选择器
-	blocklist: [".container"],
+	// 排除与项目冲突的选择器，添加.btn到排除列表
+	blocklist: [".container", ".btn"],
 	// 设置前缀预防冲突
 	preflights: [
 		{
