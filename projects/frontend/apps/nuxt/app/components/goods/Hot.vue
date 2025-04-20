@@ -93,16 +93,13 @@ onMounted(() => {
 		justify-content: center;
 		width: 100%;
 	}
-
-	.goods-item {
-		margin-bottom: 10px;
-	}
 }
 
 // 单独设置goods-item的样式 使其内容居中
 :deep(.goods-list) {
 	.goods-item {
 		width: 100%;
+		background: #fff;
 
 		img {
 			display: block;
