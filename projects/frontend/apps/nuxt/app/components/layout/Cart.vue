@@ -1,5 +1,11 @@
 <script setup lang="ts">
 const cartStore = useCartStore();
+const router = useRouter();
+
+// 跳转到购物车页面函数
+const goToCart = () => {
+	router.push("/cart");
+};
 </script>
 
 <template>
@@ -31,7 +37,7 @@ const cartStore = useCartStore();
 					<p>共 {{ cartStore.allCount }} 件商品</p>
 					<p>&yen; {{ cartStore.allPrice.toFixed(2) }}</p>
 				</div>
-				<NuxtLink to="/cart" class="btn">去购物车结算</NuxtLink>
+				<el-button size="large" type="primary" @click="goToCart" class="cart-btn">去购物车结算</el-button>
 			</div>
 		</div>
 	</div>
