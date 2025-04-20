@@ -3,6 +3,8 @@ import { useRoute, useRouter } from "vue-router";
 import { ref, onMounted, watch } from "vue";
 import { useCountDown } from "~/composables/useCountDown";
 import { getOrderAPI } from "~/apis/order";
+// 从#imports导入，这是Nuxt自动导入的API
+import { useRequestURL } from "#imports";
 
 // 定义接口返回值类型
 interface OrderResult {
@@ -74,9 +76,14 @@ const getPayInfo = async () => {
 // 初始化时获取订单数据
 onMounted(() => getPayInfo());
 
-// 跳转支付地址
+// 构建支付URL (避免服务端渲染时访问window)
 const baseURL = "http://pcapi-xiaotuxian-front.itheima.net/";
-const backURL = window.location.origin + "/paycallback";
+// 使用Nuxt的useRequestURL()获取当前URL信息，替代window.location
+const requestURL = useRequestURL();
+// 构建回调URL
+const protocol = requestURL.protocol === "https:" ? "https" : "http";
+const host = requestURL.host;
+const backURL = `${protocol}://${host}/paycallback`;
 const redirectUrl = encodeURIComponent(backURL);
 const payUrl = `${baseURL}pay/aliPay?orderId=${route.query.id}&redirect=${redirectUrl}`;
 </script>
