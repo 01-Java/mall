@@ -16,7 +16,7 @@
 		"preview:nuxt": "nuxt preview",
 		"generate": "nuxt generate",
 		"notuse-lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-		"t1": "node --import=tsx ./src/tests/simple-axios.test.ts",
+		"t1": "tsx ./src/tests/simple-axios.test.ts",
 		"t2": "tsx ./src/tests/simple-axios.test.ts",
 		"update-package": "pnpm dlx vp-update",
 		"rm:node_modules": "rimraf node_modules",
