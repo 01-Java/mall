@@ -20,8 +20,7 @@
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
 		"test:vitest": "vitest --ui --watch",
-		"rm:node_modules": "pnpm -r rm:node_modules && rimraf node_modules pnpm-lock.yaml",
-		"rm:node_modules-2": "rimraf node_modules pnpm-lock.yaml && rimraf */**/node_modules",
+		"clear:deps": "rimraf -g '**/{node_modules,package-lock.json,pnpm-lock.yaml}'",
 		"code-workspace:create": "tsx ./scripts/generate.code-workspace.ts --name=01星球-商城项目"
 	},
 	"dependencies": {
